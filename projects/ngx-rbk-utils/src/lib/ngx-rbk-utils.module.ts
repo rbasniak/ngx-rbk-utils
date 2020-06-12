@@ -1,12 +1,12 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, Injector } from '@angular/core';
 import { NgxRbkUtilsConfig } from './ngx-rbk-utils.config';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Store } from '@ngxs/store';
 import { TitleService } from './misc/title.service';
 import { MessageService } from 'primeng/api';
 import { DATABASE_REQUIRED_ACTIONS, DATABASE_STATES } from './state/database/database.state';
 import { FEATURE_STATES } from './state/features/features.state';
+import { GlobalInjector } from './misc/global.injector';
 
 @NgModule({
     imports: [
@@ -17,7 +17,8 @@ import { FEATURE_STATES } from './state/features/features.state';
     providers: [AuthService, TitleService, MessageService],
 })
 export class NgxRbkUtilsModule {
-    constructor(private store: Store) {
+    constructor(injector: Injector) {
+        GlobalInjector.Instance = injector;
     }
 
     public static forRoot(configuration: NgxRbkUtilsConfig): ModuleWithProviders<NgxRbkUtilsModule> {

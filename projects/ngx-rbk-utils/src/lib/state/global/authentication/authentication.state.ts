@@ -9,7 +9,8 @@ import { Navigate } from '@ngxs/router-plugin';
 import { LoginResponse, UserData } from '../../../auth/models';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 
-
+// If access token path or property name is changed, don't forget to update the
+// selectSnapshot to it on BaseApiService
 export interface AuthenticationStateModel {
     accessToken: string | null;
     refreshToken: string | null;

@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngxs/store';
+import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
 
 export class BaseApiService {
     constructor(protected store: Store) { }
@@ -31,7 +32,8 @@ export class BaseApiService {
         }
 
         if (finalParameters.authentication === true) {
-            // headers = headers.set('Authorization', 'Bearer ' + this.store.selectSnapshot(RbkInfrastructureConfig.tokenSelector));
+            // Não pode usar o selector do AuthenticationSelectors por causa de referencia cruzada
+            headers = headers.set('Authorization', 'Bearer ' + this.store.selectSnapshot(x => x.global.authentication.accessToken));
         }
 
         return { headers };
