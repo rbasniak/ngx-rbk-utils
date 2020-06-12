@@ -6,6 +6,7 @@ import { DATABASE_REQUIRED_ACTIONS } from '../../database/database.state';
 import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
+import { HttpErrorHandler } from '../../../error-handler/error.handler';
 
 export interface ApplicationStateModel {
     databaseStatesInitialized: boolean;
@@ -64,26 +65,31 @@ export class ApplicationState {
 
     // }
 
-    // @Action(ApplicationActions.HandleHttpErrorWithToast)
-    // public handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): void {
-    //     ctx.dispatch(new ApplicationActions.StopGlobalLoading());
+    @Action(ApplicationActions.HandleHttpErrorWithToast)
+    public handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): void {
+        ctx.dispatch(new ApplicationActions.StopGlobalLoading());
 
-    //     const error = HttpErrorHandler.handle(action.error);
+        const error = HttpErrorHandler.handle(action.error);
 
-    //     for (const message of error.messages) {
-    //         ctx.dispatch(new ApplicationActions.SendMessage({ severity: 'error', summary: message }));
-    //     }
-    // }
+        for (const message of error.messages) {
+            if (action.error.status >= 400 && action.error.status < 500 ) {
+                ctx.dispatch(new ToastActions.SendToastWarningMessage(message));
+            }
+            else {
+                ctx.dispatch(new ToastActions.SendToastErrorMessage(message));
+            }
+        }
+    }
 
-    // @Action(ApplicationActions.StartGlobalLoading)
-    // public startLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.StartGlobalLoading): void {
-    //     ctx.patchState({ isLoading: true });
-    // }
+    @Action(ApplicationActions.StartGlobalLoading)
+    public startLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.StartGlobalLoading): void {
+        ctx.patchState({ isLoading: true });
+    }
 
-    // @Action(ApplicationActions.StopGlobalLoading)
-    // public stopLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.StopGlobalLoading): void {
-    //     ctx.patchState({ isLoading: false });
-    // }
+    @Action(ApplicationActions.StopGlobalLoading)
+    public stopLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.StopGlobalLoading): void {
+        ctx.patchState({ isLoading: false });
+    }
 
     @Action(AuthenticationActions.Logout)
     public logout(ctx: StateContext<ApplicationStateModel>): void {

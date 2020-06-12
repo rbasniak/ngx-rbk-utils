@@ -25,13 +25,13 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     authentication: {
         login: {
             url: `https://dev.meuencartedigital.com.br/auth/login`,
-            useGlobalLoading: false,
             errorHandlingType: 'toast',
             responsePropertyName: 'token',
+            loadingBehavior: 'global',
         },
         refreshToken: {
             url: `https://dev.meuencartedigital.com.br/auth/refresh-token`,
-            useGlobalLoading: false,
+            loadingBehavior: 'none',
             errorHandlingType: 'toast',
             responsePropertyName: 'refreshToken',
         }
@@ -79,6 +79,16 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 AccountsManagerState,
             ]
         }
+    },
+    httpBehaviors: {
+        defaultParameters: {
+            compression: false,
+            authentication: true,
+            needToRefreshToken: true,
+            loadingBehavior: 'global',
+            errorHandlingType: 'toast'
+        },
+        loadingStartTimeout: 0
     },
     toastConfig: {
         severity: 'success',

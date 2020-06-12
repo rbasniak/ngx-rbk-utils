@@ -1,12 +1,15 @@
 import { NgModule, ModuleWithProviders, Injector } from '@angular/core';
 import { NgxRbkUtilsConfig } from './ngx-rbk-utils.config';
 import { AuthService } from './auth/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TitleService } from './misc/title.service';
 import { MessageService } from 'primeng/api';
 import { DATABASE_REQUIRED_ACTIONS, DATABASE_STATES } from './state/database/database.state';
 import { FEATURE_STATES } from './state/features/features.state';
 import { GlobalInjector } from './misc/global.injector';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { HttpErrorInterceptor } from './error-handler/error.interceptor';
+import { PendingInterceptorService } from './http/pending.interceptor';
 
 @NgModule({
     imports: [
@@ -14,11 +17,30 @@ import { GlobalInjector } from './misc/global.injector';
     ],
     exports: [],
     declarations: [],
-    providers: [AuthService, TitleService, MessageService],
+    providers: [
+        AuthService,
+        TitleService,
+        MessageService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: PendingInterceptorService,
+            multi: true
+        },
+    ],
 })
 export class NgxRbkUtilsModule {
     constructor(injector: Injector) {
-        GlobalInjector.Instance = injector;
+        GlobalInjector.instance = injector;
     }
 
     public static forRoot(configuration: NgxRbkUtilsConfig): ModuleWithProviders<NgxRbkUtilsModule> {

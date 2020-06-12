@@ -15,7 +15,6 @@
     ],
     "curly": [true, "ignore-same-line"],
     "one-line": [true,
-        "check-catch",
         "check-finally",
         "check-open-brace",
         "check-whitespace"
@@ -25,7 +24,7 @@
     "align": false,
     "max-line-length": [
       true,
-      160
+      180
     ],
     "no-empty-interface": false,
     "no-string-literal": false

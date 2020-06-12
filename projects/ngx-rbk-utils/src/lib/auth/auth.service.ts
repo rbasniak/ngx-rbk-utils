@@ -4,9 +4,9 @@ import { BaseApiService } from '../http/base-api.service';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
-import { of } from 'rxjs/internal/observable/of';
 import { LoginResponse } from './models';
 import { map } from 'rxjs/internal/operators/map';
+import { delay } from 'rxjs/internal/operators/delay';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseApiService {
@@ -17,9 +17,9 @@ export class AuthService extends BaseApiService {
     public login(username: string, password: string): Observable<LoginResponse> {
         return this.http.post<any>(this.rbkConfig.authentication.login.url, { username, password },
             this.generateDefaultHeaders({
-                loaderOverride: this.rbkConfig.authentication.login.useGlobalLoading,
+                loadingBehavior: this.rbkConfig.authentication.login.loadingBehavior,
                 authentication: false,
-                errorHandlerType: this.rbkConfig.authentication.login.errorHandlingType,
+                errorHandlingType: this.rbkConfig.authentication.login.errorHandlingType,
             })).pipe(
                 map(x => ({
                     accessToken: x[this.rbkConfig.authentication.login.responsePropertyName],
@@ -30,9 +30,9 @@ export class AuthService extends BaseApiService {
     public refreshToken(refreshToken: string): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(this.rbkConfig.authentication.refreshToken.url, { refreshToken },
             this.generateDefaultHeaders({
-                loaderOverride: this.rbkConfig.authentication.refreshToken.useGlobalLoading,
+                loadingBehavior: this.rbkConfig.authentication.refreshToken.loadingBehavior,
                 authentication: false,
-                errorHandlerType: this.rbkConfig.authentication.refreshToken.errorHandlingType,
+                errorHandlingType: this.rbkConfig.authentication.refreshToken.errorHandlingType,
             })).pipe(
                 map(x => ({
                     accessToken: x[this.rbkConfig.authentication.login.responsePropertyName],

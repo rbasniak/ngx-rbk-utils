@@ -1,3 +1,5 @@
+import { HttpBehaviorParameters } from './http/base-api.service';
+
 export class NgxRbkUtilsConfig {
     public applicationName: string;
     public state: {
@@ -14,17 +16,23 @@ export class NgxRbkUtilsConfig {
     public authentication: {
         login: {
             url: string,
-            useGlobalLoading: boolean,
+            loadingBehavior: 'global' | 'local' | 'none',
             errorHandlingType: 'toast' | 'dialog' | 'none',
-            responsePropertyName: string,
+            responsePropertyName: string, // this is used in the login and refresh token endpoint responses
         }
         refreshToken: {
             url: string,
-            useGlobalLoading: boolean,
+            loadingBehavior: 'global' | 'local' | 'none',
             errorHandlingType: 'toast' | 'dialog' | 'none',
-            responsePropertyName: string,
+            responsePropertyName: string, // this is used in the login and refresh token endpoint responses
         }
     };
+
+    public httpBehaviors: {
+        defaultParameters: HttpBehaviorParameters,
+        loadingStartTimeout: number
+    };
+
     public toastConfig: {
         severity: string,
         life: number,
