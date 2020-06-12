@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { populateDatabaseStates, populateDatabaseRequiredActions } from './state/database/database.utils';
 import { TitleService } from './misc/title.service';
 import { MessageService } from 'primeng/api';
+import { populateFeatureStates } from './state/features/features.state';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ export class NgxRbkUtilsModule {
 
     public static forRoot(configuration: NgxRbkUtilsConfig): ModuleWithProviders<NgxRbkUtilsModule> {
         populateDatabaseStates(configuration.state.database.states);
+        populateFeatureStates(configuration.state.feature.states);
         populateDatabaseRequiredActions(configuration.state.database.initializationRequiredActions);
 
         return {

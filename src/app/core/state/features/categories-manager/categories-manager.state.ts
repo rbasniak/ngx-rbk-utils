@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { CategoriesManagerActions } from './Categories-manager.actions';
+import { CategoriesManagerActions } from './categories-manager.actions';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 import { CategoryDetails } from 'src/app/core/models/categories';

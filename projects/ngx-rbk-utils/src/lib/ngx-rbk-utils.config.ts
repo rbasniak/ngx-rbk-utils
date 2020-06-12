@@ -5,6 +5,10 @@ export class NgxRbkUtilsConfig {
             states: any[],
             initializationRequiredActions: any[],
             clearFunction: () => {}
+        },
+        feature: {
+            states: any[],
+            clearFunction: () => {}
         }
     };
     public authentication: {

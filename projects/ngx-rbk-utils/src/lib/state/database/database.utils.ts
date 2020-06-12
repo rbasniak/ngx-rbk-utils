@@ -1,5 +1,5 @@
 import { DATABASE_REQUIRED_ACTIONS, DATABASE_STATES } from './database.state';
-import { clearArray } from '../../utils/utils';
+import { FEATURE_STATES } from '../features/features.state';
 
 export function populateDatabaseStates(databaseStates: any[]): void {
     // For some reason Angular passes 2x through all Decorators, so we set the array

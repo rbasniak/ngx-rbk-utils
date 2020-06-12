@@ -11,6 +11,10 @@ import { getInitialState as getTransactionsInitialState } from 'src/app/core/sta
 import { getInitialState as getCategoriesInitialState } from 'src/app/core/state/database/categories/categories.state';
 import { getInitialState as getAccountsInitialState } from 'src/app/core/state/database/accounts/accounts.state';
 import { getInitialState as getAccountTypesInitialState } from 'src/app/core/state/database/account-types/account-types.state';
+import { getInitialState as getAccountsManagerInitialState } from 'src/app/core/state/features/accounts-manager/accounts-manager.state';
+import { getInitialState as getCategoriesManagerInitialState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
+import { AccountsManagerState } from 'src/app/core/state/features/accounts-manager/accounts-manager.state';
+import { CategoriesManagerState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
 
 export const rbkConfig: NgxRbkUtilsConfig = {
     applicationName: 'DEMO',
@@ -34,8 +38,6 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     state: {
         database: {
-            // Last item is added first to the store, so keep this list
-            // in descending order to keep the state tree organized
             clearFunction: () => ({
                 transactions: getTransactionsInitialState(),
                 categories: getCategoriesInitialState(),
@@ -43,6 +45,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 accountTypes: getAccountsInitialState(),
 
             }),
+            // Last item is added first to the store, so keep this list
+            // in descending order to keep the state tree organized
             states: [
                 TrasactionDbState,
                 CategoriesDbState,
@@ -61,6 +65,18 @@ export const rbkConfig: NgxRbkUtilsConfig = {
 
                 TransactionsDbActions.LoadAll,
                 TransactionsDbActions.LoadAllSuccess,
+            ]
+        },
+        feature: {
+            clearFunction: () => ({
+                accountsManager: getAccountsManagerInitialState(),
+                categoriesManager: getCategoriesManagerInitialState(),
+            }),
+            // Last item is added first to the store, so keep this list
+            // in descending order to keep the state tree organized
+            states: [
+                CategoriesManagerState,
+                AccountsManagerState,
             ]
         }
     },
