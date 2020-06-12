@@ -1,0 +1,1 @@
+O modulo tem que ser importado antes do NgxStore

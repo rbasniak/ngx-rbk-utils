@@ -1,0 +1,15 @@
+{
+  "name": "ngx-rbk-utils",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "ngx-smz": "^0.0.23-alpha",
+    "@ngxs/store": "^3.6.2",
+    "@ngxs/router-plugin": "^3.6.2",
+    "@auth0/angular-jwt": "^4.2.0"
+  }
+}
