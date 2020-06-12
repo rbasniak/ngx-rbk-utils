@@ -13,9 +13,11 @@ export interface AccountsDbStateModel extends DatabaseStoreStateModel<AccountDet
 
 }
 
+export const getInitialState = () => getInitialDatabaseStoreState<AccountDetails>();
+
 @State<AccountsDbStateModel>({
     name: 'accounts',
-    defaults: getInitialDatabaseStoreState<AccountDetails>()
+    defaults: getInitialState()
 })
 @Injectable()
 export class AccountsDbState {

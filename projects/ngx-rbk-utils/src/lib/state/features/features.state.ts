@@ -5,12 +5,12 @@ import { FeaturesActions } from './features.actions';
 export let getFeaturesInitialState = () => ({
 });
 
-export const FEATURE_STATES = [];
+export const FEATURE_STATES: { state: any, initialValue: any }[] = [];
 
 @State({
     name: 'features',
     defaults: getFeaturesInitialState(),
-    children: FEATURE_STATES
+    children: FEATURE_STATES.map(x => x.state)
 })
 @Injectable()
 export class FeaturesState {

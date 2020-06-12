@@ -30,7 +30,7 @@ export class BoilerplateService {
 
         this.setNonInitializedStates();
 
-        // this.titleService.init();
+        this.titleService.init();
 
         this.subs1 = this.actions$.subscribe(dispatchData => {
             if (dispatchData.action.constructor.type === AuthenticationActions.LocalLoginSuccess.type ||

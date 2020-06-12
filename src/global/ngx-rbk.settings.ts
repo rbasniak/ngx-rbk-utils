@@ -7,6 +7,10 @@ import { TransactionsDbActions } from 'src/app/core/state/database/transactions/
 import { AccountTypesDbActions } from 'src/app/core/state/database/account-types/account-types.actions';
 import { TrasactionDbState } from 'src/app/core/state/database/transactions/transactions.state';
 import { AccountTypesDbState } from 'src/app/core/state/database/account-types/account-types.state';
+import { getInitialState as getTransactionsInitialState } from 'src/app/core/state/database/transactions/transactions.state';
+import { getInitialState as getCategoriesInitialState } from 'src/app/core/state/database/categories/categories.state';
+import { getInitialState as getAccountsInitialState } from 'src/app/core/state/database/accounts/accounts.state';
+import { getInitialState as getAccountTypesInitialState } from 'src/app/core/state/database/account-types/account-types.state';
 
 export const rbkConfig: NgxRbkUtilsConfig = {
     applicationName: 'DEMO',
@@ -28,28 +32,37 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             responsePropertyName: 'refreshToken',
         }
     },
-    store: {
-        // Last item is added first to the store, so keep this list
-        // in descending order to keep the state tree organized
-        databaseStates: [
-            TrasactionDbState,
-            CategoriesDbState,
-            AccountTypesDbState,
-            AccountsDbState,
-        ],
-        databaseInitializationRequiredActions: [
-            AccountsDbActions.LoadAll,
-            AccountsDbActions.LoadAllSuccess,
+    state: {
+        database: {
+            // Last item is added first to the store, so keep this list
+            // in descending order to keep the state tree organized
+            clearFunction: () => ({
+                transactions: getTransactionsInitialState(),
+                categories: getCategoriesInitialState(),
+                accounts: getAccountTypesInitialState(),
+                accountTypes: getAccountsInitialState(),
 
-            AccountTypesDbActions.LoadAll,
-            AccountTypesDbActions.LoadAllSuccess,
+            }),
+            states: [
+                TrasactionDbState,
+                CategoriesDbState,
+                AccountTypesDbState,
+                AccountsDbState,
+            ],
+            initializationRequiredActions: [
+                AccountsDbActions.LoadAll,
+                AccountsDbActions.LoadAllSuccess,
 
-            CategoriesDbActions.LoadAll,
-            CategoriesDbActions.LoadAllSuccess,
+                AccountTypesDbActions.LoadAll,
+                AccountTypesDbActions.LoadAllSuccess,
 
-            TransactionsDbActions.LoadAll,
-            TransactionsDbActions.LoadAllSuccess,
-        ]
+                CategoriesDbActions.LoadAll,
+                CategoriesDbActions.LoadAllSuccess,
+
+                TransactionsDbActions.LoadAll,
+                TransactionsDbActions.LoadAllSuccess,
+            ]
+        }
     },
     toastConfig: {
         severity: 'success',

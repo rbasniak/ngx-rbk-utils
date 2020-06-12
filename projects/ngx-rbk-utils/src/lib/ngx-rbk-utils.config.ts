@@ -1,8 +1,11 @@
 export class NgxRbkUtilsConfig {
     public applicationName: string;
-    public store: {
-        databaseStates: any[],
-        databaseInitializationRequiredActions: any[]
+    public state: {
+        database: {
+            states: any[],
+            initializationRequiredActions: any[],
+            clearFunction: () => {}
+        }
     };
     public authentication: {
         login: {

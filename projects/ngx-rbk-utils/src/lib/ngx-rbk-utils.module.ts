@@ -20,8 +20,8 @@ export class NgxRbkUtilsModule {
     }
 
     public static forRoot(configuration: NgxRbkUtilsConfig): ModuleWithProviders<NgxRbkUtilsModule> {
-        populateDatabaseStates(configuration.store.databaseStates);
-        populateDatabaseRequiredActions(configuration.store.databaseInitializationRequiredActions);
+        populateDatabaseStates(configuration.state.database.states);
+        populateDatabaseRequiredActions(configuration.state.database.initializationRequiredActions);
 
         return {
             ngModule: NgxRbkUtilsModule,

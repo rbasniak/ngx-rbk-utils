@@ -14,9 +14,11 @@ export interface AccountTypesDbStateModel extends DatabaseStoreStateModel<Simple
 
 }
 
+export const getInitialState = () => getInitialDatabaseStoreState<SimpleNamedEntity>();
+
 @State<AccountTypesDbStateModel>({
     name: 'accountTypes',
-    defaults: getInitialDatabaseStoreState<SimpleNamedEntity>()
+    defaults: getInitialState()
 })
 @Injectable()
 export class AccountTypesDbState {

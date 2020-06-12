@@ -11,9 +11,11 @@ export interface TransactionsDbStateModel extends DatabaseStoreStateModel<Transa
 
 }
 
+export const getInitialState = () => getInitialDatabaseStoreState<TransactionDetails>();
+
 @State<TransactionsDbStateModel>({
     name: 'transactions',
-    defaults: getInitialDatabaseStoreState<TransactionDetails>()
+    defaults: getInitialState()
 })
 @Injectable()
 export class TrasactionDbState {

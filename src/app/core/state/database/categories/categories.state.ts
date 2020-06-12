@@ -13,9 +13,11 @@ export interface CategoriesDbStateModel extends DatabaseStoreStateModel<Category
 
 }
 
+export const getInitialState = () => getInitialDatabaseStoreState<CategoryDetails>();
+
 @State<CategoriesDbStateModel>({
     name: 'categories',
-    defaults: getInitialDatabaseStoreState<CategoryDetails>()
+    defaults: getInitialState()
 })
 @Injectable()
 export class CategoriesDbState {
