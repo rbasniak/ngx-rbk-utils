@@ -27,7 +27,16 @@ export class AppComponent {
     this.actions$.pipe(
       ofActionDispatched(AuthenticationActions.RemoteLoginSuccess),
       take(1)).subscribe(x => {
-          this.store.dispatch(new ToastActions.SendToastSuccessMessage('Login realizado com sucesso'));
+          this.store.dispatch(new ToastActions.SendToastSuccessMessage('Remote login success'));
+        });
+  }
+
+  public localLoginSuccess(): void {
+    this.store.dispatch(new AuthenticationActions.LocalLogin());
+    this.actions$.pipe(
+      ofActionDispatched(AuthenticationActions.LocalLoginSuccess),
+      take(1)).subscribe(x => {
+          this.store.dispatch(new ToastActions.SendToastSuccessMessage('Local login success'));
         });
   }
 
