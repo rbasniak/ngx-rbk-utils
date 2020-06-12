@@ -12,6 +12,7 @@ import { AppStateModel } from '../state/app.state';
 import { filter } from 'rxjs/internal/operators/filter';
 import { Subscription } from 'rxjs';
 import { clearArray } from '../utils/utils';
+import { FeaturesActions } from '../state/features/features.actions';
 
 @Injectable({ providedIn: 'root' })
 export class BoilerplateService {
@@ -63,7 +64,7 @@ export class BoilerplateService {
             this.store.dispatch(new Navigate([this.rbkConfig.routes.login]));
 
             this.store.dispatch(new DatabaseActions.Clear()); // TODO: this is NOT clearing the state
-            // this.store.dispatch(new FeatureActions.Clear());
+            this.store.dispatch(new FeaturesActions.Clear());
 
             this.listenToDatabaseInitializationEvents = true;
 
