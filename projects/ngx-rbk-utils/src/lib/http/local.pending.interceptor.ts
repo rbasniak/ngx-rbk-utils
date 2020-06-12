@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
-import { LOADING_BEHAVIOR_HEADER } from './base-api.service';
+import { LOADING_BEHAVIOR_HEADER, LOCAL_LOADING_TAG_HEADER } from './base-api.service';
 import { ApplicationActions } from '../state/global/application/application.actions';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { map } from 'rxjs/internal/operators/map';
@@ -13,27 +13,20 @@ import { finalize } from 'rxjs/internal/operators/finalize';
 @Injectable({
     providedIn: 'root'
 })
-export class PendingInterceptorService implements HttpInterceptor {
-    private pendingRequests = 0;
-
+export class LocalPendingInterceptorService implements HttpInterceptor {
     constructor(private store: Store, private rbkConfig: NgxRbkUtilsConfig) {
     }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const loadingType = request.headers.get(LOADING_BEHAVIOR_HEADER);
+        const loadingTag = request.headers.get(LOCAL_LOADING_TAG_HEADER);
 
-        if (loadingType === 'global') {
-
-            this.pendingRequests++;
-
-            if (this.pendingRequests === 1) {
-                setTimeout(() => {
-                    // if after a timer there still are pending request ongoing, set the isLoading flag
-                    if (this.pendingRequests > 0) {
-                        this.store.dispatch(new ApplicationActions.StartGlobalLoading());
-                    }
-                }, this.rbkConfig.httpBehaviors.loadingStartTimeout);
+        if (loadingType === 'local') {
+            if (loadingTag == null) {
+                throw new Error(`When using the ${LOADING_BEHAVIOR_HEADER}=local you need to specify a value to the ${LOCAL_LOADING_TAG_HEADER}`);
             }
+
+            this.store.dispatch(new ApplicationActions.PushLocalLoading(loadingTag));
 
             return next.handle(request).pipe(
                 map(event => {
@@ -43,11 +36,7 @@ export class PendingInterceptorService implements HttpInterceptor {
                     return throwError(error);
                 }),
                 finalize(() => {
-                    this.pendingRequests--;
-
-                    if (this.pendingRequests === 0) {
-                        this.store.dispatch(new ApplicationActions.StopGlobalLoading());
-                    }
+                    this.store.dispatch(new ApplicationActions.PopLocalLoading(loadingTag));
                 })
             );
         }

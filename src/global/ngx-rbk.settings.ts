@@ -86,7 +86,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             authentication: true,
             needToRefreshToken: true,
             loadingBehavior: 'global',
-            errorHandlingType: 'toast'
+            errorHandlingType: 'toast',
+            localLoadingTag: null
         },
         loadingStartTimeout: 0
     },

@@ -10,16 +10,18 @@ import { HttpErrorHandler } from '../../../error-handler/error.handler';
 
 export interface ApplicationStateModel {
     databaseStatesInitialized: boolean;
-    isLoading: boolean;
+    globalIsLoading: boolean;
+    localIsLoading: string[];
     isNgRxInitializedOnClient: boolean;
 }
 
 // Initial application state, to be used ONLY when the application is starting
 export const getInitialApplicationState = (): ApplicationStateModel => {
     return {
-        isLoading: false,
+        globalIsLoading: false,
         isNgRxInitializedOnClient: false,
-        databaseStatesInitialized: false
+        databaseStatesInitialized: false,
+        localIsLoading: []
     };
 };
 
@@ -27,9 +29,10 @@ export const getInitialApplicationState = (): ApplicationStateModel => {
 // NGXS will be already initialized, and all non initialized stores will be reset.
 export const getCleanApplicationState = (): ApplicationStateModel => {
     return {
-        isLoading: false,
+        globalIsLoading: false,
         databaseStatesInitialized: false,
-        isNgRxInitializedOnClient: true
+        isNgRxInitializedOnClient: true,
+        localIsLoading: []
     };
 };
 
@@ -83,12 +86,27 @@ export class ApplicationState {
 
     @Action(ApplicationActions.StartGlobalLoading)
     public startLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.StartGlobalLoading): void {
-        ctx.patchState({ isLoading: true });
+        ctx.patchState({ globalIsLoading: true });
     }
 
     @Action(ApplicationActions.StopGlobalLoading)
     public stopLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.StopGlobalLoading): void {
-        ctx.patchState({ isLoading: false });
+        ctx.patchState({ globalIsLoading: false });
+    }
+
+    @Action(ApplicationActions.PushLocalLoading)
+    public pushLocalLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.PushLocalLoading): void {
+        if (ctx.getState().localIsLoading.findIndex(x => x.toLowerCase() !== action.tag) === -1) {
+            ctx.patchState({ localIsLoading: [action.tag, ...ctx.getState().localIsLoading ] });
+        }
+        else {
+            // TODO: throw error if the user tries to push the same tag again?
+        }
+    }
+
+    @Action(ApplicationActions.PopLocalLoading)
+    public popLocalLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.PopLocalLoading): void {
+        ctx.patchState({ localIsLoading: ctx.getState().localIsLoading.filter(x => x.toLowerCase() !== action.tag) });
     }
 
     @Action(AuthenticationActions.Logout)

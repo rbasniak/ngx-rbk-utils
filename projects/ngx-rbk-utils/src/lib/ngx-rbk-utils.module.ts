@@ -9,7 +9,8 @@ import { FEATURE_STATES } from './state/features/features.state';
 import { GlobalInjector } from './misc/global.injector';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { HttpErrorInterceptor } from './error-handler/error.interceptor';
-import { PendingInterceptorService } from './http/pending.interceptor';
+import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
+import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
 
 @NgModule({
     imports: [
@@ -33,7 +34,12 @@ import { PendingInterceptorService } from './http/pending.interceptor';
         },
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: PendingInterceptorService,
+            useClass: GlobalPendingInterceptorService,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LocalPendingInterceptorService,
             multi: true
         },
     ],

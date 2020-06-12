@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/global/authentication/authentication.selectors';
+import { PlaceholderJsonService } from './core/api/placeholder.service';
 
 @Component({
   selector: 'demo-root',
@@ -13,12 +14,15 @@ import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/gl
 })
 export class AppComponent {
   @Select(ApplicationSelectors.globalIsLoading) public globalIsLoading$: Observable<boolean>;
+  @Select(ApplicationSelectors.isWaitingRequest('req1')) public localLoadingForRequest1$: Observable<boolean>;
+  @Select(ApplicationSelectors.isWaitingRequest('req2')) public localLoadingForRequest2$: Observable<boolean>;
+  @Select(ApplicationSelectors.isWaitingRequest('req3')) public localLoadingForRequest3$: Observable<boolean>;
   @Select(ApplicationSelectors.isDatabaseStateInitialized) public databaseStoresOk$: Observable<boolean>;
   @Select(AuthenticationSelectors.isAuthenticated) public isAuthenticated$: Observable<boolean>;
   title = 'ngx-rbk-demo';
 
   constructor(private boilerplateService: BoilerplateService, private store: Store, private actions$: Actions,
-    private messageService: MessageService) {
+    private messageService: MessageService, private jsonPlaceholderService: PlaceholderJsonService) {
     this.boilerplateService.init();
   }
 
@@ -46,5 +50,17 @@ export class AppComponent {
 
   public logout(): void {
     this.store.dispatch(new AuthenticationActions.Logout());
+  }
+
+  public request1(): void {
+    this.jsonPlaceholderService.request1().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 1 handled with success')));
+  }
+
+  public request2(): void {
+    this.jsonPlaceholderService.request2().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 2 handled with success')));
+  }
+
+  public request3(): void {
+    this.jsonPlaceholderService.request3().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 3 handled with success')));
   }
 }

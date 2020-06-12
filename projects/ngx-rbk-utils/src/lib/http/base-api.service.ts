@@ -8,6 +8,7 @@ export const ERROR_HANDLING_TYPE_HEADER = 'Error-Handling-Type';
 export const REFRESH_TOKEN_BEHAVIOR_HEADER = 'Refresh-Token-Behavior';
 export const AUTHENTICATION_HEADER = 'Authorization';
 export const CONTENT_ENCODING_HEADER = 'Content-Encoding';
+export const LOCAL_LOADING_TAG_HEADER = 'Local-Loading-Tag';
 
 export class BaseApiService {
     constructor(protected store: Store) { }
@@ -34,6 +35,10 @@ export class BaseApiService {
             headers = headers.set(REFRESH_TOKEN_BEHAVIOR_HEADER, 'true');
         }
 
+        if (finalParameters.localLoadingTag != null) {
+            headers = headers.set(LOCAL_LOADING_TAG_HEADER, finalParameters.localLoadingTag);
+        }
+
         headers = headers.set(LOADING_BEHAVIOR_HEADER, finalParameters.loadingBehavior);
 
         headers = headers.set(ERROR_HANDLING_TYPE_HEADER, finalParameters.errorHandlingType);
@@ -48,4 +53,5 @@ export interface HttpBehaviorParameters {
     needToRefreshToken: boolean;
     loadingBehavior: 'global' | 'local' | 'none';
     errorHandlingType: 'toast' | 'dialog' | 'none';
+    localLoadingTag: string;
 }
