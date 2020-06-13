@@ -46,6 +46,11 @@ export class NgxRbkUtilsConfig {
         infoTitle: string,
     };
 
+    public dialogsConfig: {
+        errorDialogTitle: string,
+        warningDialogTitle: string
+    };
+
     public routes: {
         landing: string,
         login: string

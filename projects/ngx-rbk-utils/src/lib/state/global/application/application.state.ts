@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { HttpErrorHandler } from '../../../error-handler/error.handler';
+import { DynamicDialogsService } from 'ngx-smz';
 
 export interface ApplicationStateModel {
     databaseStatesInitialized: boolean;
@@ -42,35 +43,47 @@ export const getCleanApplicationState = (): ApplicationStateModel => {
 })
 @Injectable()
 export class ApplicationState {
-    // constructor(private dialogs: DynamicDialogsService) { }
-    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig) { }
+    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig, private dialogs: DynamicDialogsService) { }
 
-    // @Action(ApplicationActions.HandleHttpErrorWithDialog)
-    // public handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): void {
-    //     ctx.dispatch(new ApplicationActions.StopGlobalLoading());
+    @Action(ApplicationActions.HandleHttpErrorWithDialog)
+    public handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): void {
+        // ctx.dispatch(new ApplicationActions.StopGlobalLoading());
+        const error = HttpErrorHandler.handle(action.error);
 
-    //     const error = HttpErrorHandler.handle(action.error);
+        const confirm = {
+            validationRequired: false,
+            closeDialogAfterClicked: true,
+            confirmOnEnter: true,
+            isOverlayAction: false,
+            icon: '',
+            iconPos: '',
+            label: 'FECHAR',
+            onClick: () => { },
+            style: 'primary',
+            styleClass: '',
+            visible: true
+        };
 
-    //     const cancel: IDialogActionButton = {
-    //         validationRequired: false,
-    //         closeDialogAfterClicked: true,
-    //         isOverlayAction: false,
-    //         icon: '',
-    //         iconPos: '',
-    //         label: 'FECHAR',
-    //         onClick: () => { },
-    //         style: 'primary',
-    //         styleClass: '',
-    //         visible: true
-    //     };
-
-    //     this.dialogs.showMessage({ title: 'Mensagem do Servidor', messages: error.messages, closable: false, buttons: [cancel] });
-
-    // }
+        if (action.error.status >= 400 && action.error.status < 500 ) {
+            console.log('show warning dialog, ', error);
+            this.dialogs.showMessage({ title: this.rbkConfig.dialogsConfig.errorDialogTitle,
+                messages: error.messages,
+                closable: false,
+                buttons: [{...confirm, style: 'warning' }]
+            });
+        }
+        else {
+            this.dialogs.showMessage({ title: this.rbkConfig.dialogsConfig.warningDialogTitle,
+                messages: error.messages,
+                closable: false,
+                buttons: [{...confirm, style: 'danger' }]
+            });
+        }
+    }
 
     @Action(ApplicationActions.HandleHttpErrorWithToast)
     public handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): void {
-        ctx.dispatch(new ApplicationActions.StopGlobalLoading());
+        // ctx.dispatch(new ApplicationActions.StopGlobalLoading());
 
         const error = HttpErrorHandler.handle(action.error);
 

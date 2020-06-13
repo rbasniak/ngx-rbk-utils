@@ -25,7 +25,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     authentication: {
         login: {
             url: `https://dev.meuencartedigital.com.br/auth/login`,
-            errorHandlingType: 'toast',
+            errorHandlingType: 'dialog',
             responsePropertyName: 'token',
             loadingBehavior: 'global',
         },
@@ -112,5 +112,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         errorTitle: 'Error',
         warningTitle: 'Warning',
         infoTitle: 'Information',
+    },
+    dialogsConfig: {
+        errorDialogTitle: 'ERRO',
+        warningDialogTitle: 'ALERTA'
     }
 };

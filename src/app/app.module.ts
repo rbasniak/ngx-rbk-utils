@@ -10,6 +10,14 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SmzDialogsConfig, SmzDialogsModule } from 'ngx-smz';
+
+const smzDialogsConfig: SmzDialogsConfig = {
+  requiredByDefault: true,
+  requiredMessage: 'Campo Obrigatório.',
+  blockScroll: false,
+  baseZIndex: 1500
+};
 
 @NgModule({
   declarations: [
@@ -19,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    SmzDialogsModule.forRoot(smzDialogsConfig),
     NgxRbkUtilsModule.forRoot(rbkConfig),
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

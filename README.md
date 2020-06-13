@@ -10,3 +10,4 @@ Adicionar o TaoastModule e <p-toast>
 TODO: A aplicação tem que ser inicializada antes do NGXS
 TODO: Não pode disparar nenhuma action antes do NGXS ter sido inicializado na aplicação cliente
 
+explicar do token
