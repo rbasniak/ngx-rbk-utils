@@ -8,6 +8,7 @@ import { isEmpty } from '../../../utils/utils';
 import { Navigate } from '@ngxs/router-plugin';
 import { LoginResponse, UserData } from '../../../auth/models';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
+import { generateUserData } from './authentication.utils';
 
 // If access token path or property name is changed, don't forget to update the
 // selectSnapshot to it on BaseApiService
@@ -68,7 +69,7 @@ export class AuthenticationState {
         ctx.patchState({
             accessToken: action.accessToken,
             refreshToken: action.refreshToken,
-            userdata: {}
+            userdata: generateUserData(action.accessToken, this.rbkConfig)
         });
 
         ctx.dispatch(new AuthenticationActions.LoadUserData(action.accessToken));

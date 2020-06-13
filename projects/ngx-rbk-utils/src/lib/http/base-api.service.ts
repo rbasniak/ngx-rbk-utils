@@ -11,9 +11,11 @@ export const CONTENT_ENCODING_HEADER = 'Content-Encoding';
 export const LOCAL_LOADING_TAG_HEADER = 'Local-Loading-Tag';
 
 export class BaseApiService {
-    constructor(protected store: Store) { }
+    constructor() { }
 
     protected generateDefaultHeaders(parameters: Partial<HttpBehaviorParameters>): { headers: HttpHeaders } {
+        const store = GlobalInjector.instance.get(Store);
+
         let headers = new HttpHeaders();
 
         const config = GlobalInjector.instance.get(NgxRbkUtilsConfig);
@@ -28,7 +30,7 @@ export class BaseApiService {
 
         if (finalParameters.authentication === true) {
             // Não pode usar o selector do AuthenticationSelectors por causa de referencia cruzada
-            headers = headers.set(AUTHENTICATION_HEADER, 'Bearer ' + this.store.selectSnapshot(x => x.global.authentication.accessToken));
+            headers = headers.set(AUTHENTICATION_HEADER, 'Bearer ' + store.selectSnapshot(x => x.global.authentication.accessToken));
         }
 
         if (finalParameters.needToRefreshToken === true) {

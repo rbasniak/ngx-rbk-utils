@@ -7,8 +7,8 @@ import { AccountDetails, AccountCreation, AccountUpdate } from '../models/accoun
 
 @Injectable({providedIn: 'root'})
 export class AccountsService extends BaseApiService {
-    constructor(store: Store) {
-        super(store);
+    constructor() {
+        super();
     }
 
     static data = [

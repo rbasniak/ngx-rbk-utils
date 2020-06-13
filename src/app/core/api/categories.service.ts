@@ -9,8 +9,8 @@ import { of } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class CategoriesService extends BaseApiService {
-    constructor(store: Store) {
-        super(store);
+    constructor() {
+        super();
     }
 
     static data = [

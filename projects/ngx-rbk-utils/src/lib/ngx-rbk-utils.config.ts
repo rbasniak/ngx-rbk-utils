@@ -2,6 +2,7 @@ import { HttpBehaviorParameters } from './http/base-api.service';
 
 export class NgxRbkUtilsConfig {
     public applicationName: string;
+
     public state: {
         database: {
             states: any[],
@@ -13,21 +14,22 @@ export class NgxRbkUtilsConfig {
             clearFunction: () => {}
         }
     };
+
     public authentication: {
         login: {
             url: string,
             loadingBehavior: 'global' | 'local' | 'none',
             errorHandlingType: 'toast' | 'dialog' | 'none',
             responsePropertyName: string, // this is used in the login and refresh token endpoint responses
-        }
+        },
         refreshToken: {
             url: string,
             loadingBehavior: 'global' | 'local' | 'none',
             errorHandlingType: 'toast' | 'dialog' | 'none',
             responsePropertyName: string, // this is used in the login and refresh token endpoint responses
-        }
+        },
+        accessTokenClaims?: { claimName: string, propertyName: string, type: 'string' | 'array' } []
     };
-
     public httpBehaviors: {
         defaultParameters: HttpBehaviorParameters,
         loadingStartTimeout: number

@@ -12,7 +12,7 @@ export class TitleService {
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title,
         private breadcrumbService: BreadcrumbService, private config: NgxRbkUtilsConfig) {
-            this.APP_TITLE = config.applicationName + ' | ';
+            this.APP_TITLE = config.applicationName;
             this.SEPARATOR = ' > ';
         }
 
@@ -56,7 +56,7 @@ export class TitleService {
                         });
                 }
 
-                this.titleService.setTitle(`${this.APP_TITLE} ${pathString}`);
+                this.titleService.setTitle(`${this.APP_TITLE} | ${pathString}`);
 
                 this.breadcrumbService.setItems(data.title != null ? [{ label: data.title }] : []);
 

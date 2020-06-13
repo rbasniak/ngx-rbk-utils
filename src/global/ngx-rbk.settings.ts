@@ -34,7 +34,19 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             loadingBehavior: 'none',
             errorHandlingType: 'toast',
             responsePropertyName: 'refreshToken',
-        }
+        },
+        accessTokenClaims: [
+            { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
+            { claimName: 'positionId', propertyName: 'positionId', type: 'string' },
+            { claimName: 'positionName', propertyName: 'positionName', type: 'string' },
+            { claimName: 'shopId', propertyName: 'shopId', type: 'string' },
+            { claimName: 'shopName', propertyName: 'shopName', type: 'string' },
+            { claimName: 'employeeId', propertyName: 'employeeId', type: 'string' },
+            { claimName: 'employeeName', propertyName: 'employeeName', type: 'string' },
+            { claimName: 'roles', propertyName: 'roles', type: 'array' },
+            { claimName: 'documents', propertyName: 'documents', type: 'array' },
+            { claimName: 'queries', propertyName: 'queries', type: 'array' },
+        ]
     },
     state: {
         database: {

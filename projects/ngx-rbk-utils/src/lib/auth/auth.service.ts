@@ -10,8 +10,8 @@ import { delay } from 'rxjs/internal/operators/delay';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseApiService {
-    constructor(private http: HttpClient, store: Store, private rbkConfig: NgxRbkUtilsConfig) {
-        super(store);
+    constructor(private http: HttpClient, private rbkConfig: NgxRbkUtilsConfig) {
+        super();
     }
 
     public login(username: string, password: string): Observable<LoginResponse> {

@@ -8,8 +8,8 @@ import { Store } from '@ngxs/store';
 export class PlaceholderJsonService extends BaseApiService {
     private url = 'https://jsonplaceholder.typicode.com/todos';
 
-    constructor(private httpClient: HttpClient, store: Store) {
-        super(store);
+    constructor(private httpClient: HttpClient) {
+        super();
     }
 
     public request1(): Observable<any> {

@@ -8,8 +8,8 @@ import { TransactionDetails, TransactionUpdate, TransactionCreation } from '../m
 
 @Injectable({providedIn: 'root'})
 export class TransactionsService extends BaseApiService {
-    constructor(store: Store) {
-        super(store);
+    constructor() {
+        super();
     }
 
     static data = [

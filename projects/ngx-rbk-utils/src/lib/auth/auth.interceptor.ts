@@ -48,7 +48,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     const isFromRefreshTokenEndpoint = error.url === this.rbkConfig.authentication.refreshToken.url;
 
                     if (isFromRefreshTokenEndpoint) {
-                        console.error('Problem while trying to automatically refresh the token.');
+                        console.error('Problem while trying to automatically refresh the token, redirecting to login');
 
                         this.inflightAuthRequest = null;
                         this.store.dispatch(new AuthenticationActions.Logout());
@@ -61,6 +61,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         );
 
                         if (!this.inflightAuthRequest) {
+                            console.warn('Unknown error while trying to refresh then token, redirecting to login');
                             this.store.dispatch(new AuthenticationActions.Logout());
                             return throwError(error);
                         }

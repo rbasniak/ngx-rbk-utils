@@ -8,8 +8,8 @@ import { SimpleNamedEntity } from 'ngx-smz';
 
 @Injectable({providedIn: 'root'})
 export class AccountTypesService extends BaseApiService {
-    constructor(store: Store) {
-        super(store);
+    constructor() {
+        super();
     }
 
     static data = [
