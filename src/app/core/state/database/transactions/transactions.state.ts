@@ -18,7 +18,7 @@ export const getInitialState = () => getInitialDatabaseStoreState<TransactionDet
     defaults: getInitialState()
 })
 @Injectable()
-export class TrasactionDbState {
+export class TrasactionsDbState {
     constructor(private apiService: TransactionsService) { }
 
     @Action(TransactionsDbActions.LoadAll)

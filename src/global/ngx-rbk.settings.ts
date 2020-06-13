@@ -5,7 +5,7 @@ import { CategoriesDbActions } from 'src/app/core/state/database/categories/cate
 import { AccountsDbActions } from 'src/app/core/state/database/accounts/accounts.actions';
 import { TransactionsDbActions } from 'src/app/core/state/database/transactions/transactions.actions';
 import { AccountTypesDbActions } from 'src/app/core/state/database/account-types/account-types.actions';
-import { TrasactionDbState } from 'src/app/core/state/database/transactions/transactions.state';
+import { TrasactionsDbState } from 'src/app/core/state/database/transactions/transactions.state';
 import { AccountTypesDbState } from 'src/app/core/state/database/account-types/account-types.state';
 import { getInitialState as getTransactionsInitialState } from 'src/app/core/state/database/transactions/transactions.state';
 import { getInitialState as getCategoriesInitialState } from 'src/app/core/state/database/categories/categories.state';
@@ -19,8 +19,8 @@ import { CategoriesManagerState } from 'src/app/core/state/features/categories-m
 export const rbkConfig: NgxRbkUtilsConfig = {
     applicationName: 'DEMO',
     routes: {
-        landing: '/login',
-        login: '/login'
+        landing: '/',
+        login: '/'
     },
     authentication: {
         login: {
@@ -60,7 +60,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             // Last item is added first to the store, so keep this list
             // in descending order to keep the state tree organized
             states: [
-                TrasactionDbState,
+                TrasactionsDbState,
                 CategoriesDbState,
                 AccountTypesDbState,
                 AccountsDbState,

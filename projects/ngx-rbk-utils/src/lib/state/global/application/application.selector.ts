@@ -10,6 +10,7 @@ export class ApplicationSelectors {
 
     @Selector([ApplicationState])
     public static isDatabaseStateInitialized(state: ApplicationStateModel): boolean {
+        console.log('Selector isDatabaseStateInitialized: ', state);
         return state.databaseStatesInitialized;
     }
 

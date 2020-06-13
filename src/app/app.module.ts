@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SmzDialogsConfig, SmzDialogsModule } from 'ngx-smz';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 
 const smzDialogsConfig: SmzDialogsConfig = {
   requiredByDefault: true,
@@ -30,6 +31,7 @@ const smzDialogsConfig: SmzDialogsConfig = {
     SmzDialogsModule.forRoot(smzDialogsConfig),
     NgxRbkUtilsModule.forRoot(rbkConfig),
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
+    NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     ToastModule,
   ],

@@ -2,10 +2,13 @@
  * Public API Surface of ngx-rbk-utils
  */
 
+import { from } from 'rxjs';
+
 export * from './lib/ngx-rbk-utils.module';
 export * from './lib/ngx-rbk-utils.config';
 
 export * from './lib/utils/utils';
+export * from './lib/utils/state.utils';
 // export * from './lib/auth/auth.guard';
 // export * from './lib/auth/auth.handler';
 // export * from './lib/auth/auth.interceptor';

@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/global/authentication/authentication.selectors';
 import { PlaceholderJsonService } from './core/api/placeholder.service';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'demo-root',
@@ -62,5 +63,9 @@ export class AppComponent {
 
   public request3(): void {
     this.jsonPlaceholderService.request3().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 3 handled with success')));
+  }
+
+  public goToSecreRoute(): void {
+    this.store.dispatch(new Navigate(['/secret']));
   }
 }
