@@ -6,8 +6,8 @@ import { filter, take } from 'rxjs/operators';
 export namespace StateUtils {
     export function afterDatabaseStoreInitialized(store: Store): Observable<boolean> {
         return store.select(ApplicationSelectors.isDatabaseStateInitialized).pipe(
-            // filter(x => x === true),
-            // take(1)
+            filter(x => x === true),
+            take(1)
         );
     }
 }

@@ -1,12 +1,10 @@
 import { Injectable, Injector } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CanActivate } from '@angular/router';
-import { Navigate } from '@ngxs/router-plugin';
 import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
 import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
-import { GlobalInjector } from '../misc/global.injector';
 import { ToastActions } from '../state/global/application/application.actions.toast';
+import { LANDING_PAGE } from '../ngx-rbk-utils.module';
 
 @Injectable({ providedIn: 'root' })
 export class RbkAuthGuard implements CanActivate {
@@ -25,6 +23,7 @@ export class RbkAuthGuard implements CanActivate {
                 if (!isAuthenticated) {
                     console.log('Could not login locally using localstorage, redirecting user to landing page');
 
+                    console.log(LANDING_PAGE);
                     // TODO: setar o endereço da landing page
                     // this.store.dispatch(new Navigate([rbkConfig.routes.landing]));
 
