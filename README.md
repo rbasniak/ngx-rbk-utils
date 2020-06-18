@@ -11,3 +11,8 @@ TODO: A aplicação tem que ser inicializada antes do NGXS
 TODO: Não pode disparar nenhuma action antes do NGXS ter sido inicializado na aplicação cliente
 
 explicar do token
+
+Colcoar o smz-genral-dialog no appcomponent
+
+TODO: rever o auth guard para considerar os claims do usuário
+TODO: colocar redirecionamento apos o login na library

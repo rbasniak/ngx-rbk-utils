@@ -1,6 +1,6 @@
 {
   "name": "ngx-rbk-demo",
-  "version": "0.0.0",
+"version": "0.0.15-alpha",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +12,7 @@
     "build-lib": "ng build ngx-rbk-utils",
     "build-lib-prod": "ng build ngx-rbk-utils --prod",
     "build-lib-watch": "ng build ngx-rbk-utils --watch",
-    "npm-publish": "ng build ngx-rbk-utils --prod; cd projects/dist/ngx-rbk-utils; npm publish"
+    "publish": ".\\npm-auto-version.exe & ng build ngx-rbk-utils --prod & cd projects/dist/ngx-rbk-utils & npm publish"
   },
   "private": true,
   "dependencies": {

@@ -15,8 +15,10 @@ export class ApplicationSelectors {
 
     @Selector([ApplicationState])
     public static isWaitingRequest(tag: string): any {
-        return createSelector([ApplicationState], (state: AppStateModel) => {
+        const selector = createSelector([ApplicationState], (state: AppStateModel) => {
             return state.global.application.localIsLoading.findIndex(x => x.toLowerCase() === tag) !== -1;
         });
+
+        return selector;
     }
 }

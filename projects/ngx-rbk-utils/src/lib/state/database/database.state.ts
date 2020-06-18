@@ -7,11 +7,9 @@ export const DATABASE_STATES: any[] = [];
 
 export const DATABASE_REQUIRED_ACTIONS = [];
 
-export let getDatabaseInitialState = () => ({});
-
 @State({
     name: 'database',
-    defaults: getDatabaseInitialState(),
+    defaults: {},
     children: DATABASE_STATES
 })
 @Injectable()

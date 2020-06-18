@@ -10,15 +10,14 @@ export interface GlobalStateModel {
     application: ApplicationStateModel;
     authentication: AuthenticationStateModel;
 }
-
 export const getGlobalInitialState = (): GlobalStateModel => ({
-    application: getApplicationInitialState(),
-    authentication: getAuthenticationInitialState(),
+    application: null,
+    authentication: null,
 });
 
 @State<GlobalStateModel>({
     name: 'global',
-    defaults: getGlobalInitialState(),
+    defaults: null,
     children: [
         ApplicationState,
         AuthenticationState,

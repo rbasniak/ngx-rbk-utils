@@ -3,14 +3,11 @@ import { Injectable } from '@angular/core';
 import { FeaturesActions } from './features.actions';
 import { NgxRbkUtilsConfig } from '../../ngx-rbk-utils.config';
 
-export let getFeaturesInitialState = () => ({
-});
-
 export const FEATURE_STATES = [];
 
 @State({
     name: 'features',
-    defaults: getFeaturesInitialState(),
+    defaults: {},
     children: FEATURE_STATES
 })
 @Injectable()

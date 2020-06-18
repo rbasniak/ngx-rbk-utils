@@ -12,8 +12,6 @@ import { HttpErrorInterceptor } from './error-handler/error.interceptor';
 import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
 import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
 
-export let LANDING_PAGE = '/';
-
 @NgModule({
     imports: [
         HttpClientModule
@@ -65,8 +63,6 @@ export class NgxRbkUtilsModule {
         if (DATABASE_REQUIRED_ACTIONS.length === 0) {
             DATABASE_REQUIRED_ACTIONS.push(...configuration.state.database.initializationRequiredActions);
         }
-
-        LANDING_PAGE = configuration.routes.landing;
 
         return {
             ngModule: NgxRbkUtilsModule,

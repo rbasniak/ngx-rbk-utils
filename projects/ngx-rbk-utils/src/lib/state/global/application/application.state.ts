@@ -17,26 +17,24 @@ export interface ApplicationStateModel {
 }
 
 // Initial application state, to be used ONLY when the application is starting
-export const getInitialApplicationState = (): ApplicationStateModel => {
-    return {
+export const getInitialApplicationState = (): ApplicationStateModel => ({
         globalIsLoading: false,
         isNgRxInitializedOnClient: false,
         databaseStatesInitialized: false,
         localIsLoading: []
-    };
-};
+});
 
 // Application state for when the user cleared the state while the application is running,
 // NGXS will be already initialized, and all non initialized stores will be reset.
-export const getCleanApplicationState = (): ApplicationStateModel => {
-    return {
+export const getCleanApplicationState = (): ApplicationStateModel => ({
         globalIsLoading: false,
         databaseStatesInitialized: false,
         isNgRxInitializedOnClient: true,
         localIsLoading: []
-    };
-};
+});
 
+// Do not remove the @dynamic flag, it's not a comment, it an Angular flag!
+// @dynamic
 @State<ApplicationStateModel>({
     name: 'application',
     defaults: getInitialApplicationState()

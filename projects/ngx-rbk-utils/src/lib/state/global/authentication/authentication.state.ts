@@ -6,7 +6,7 @@ import { tap, take } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { isEmpty } from '../../../utils/utils';
 import { Navigate } from '@ngxs/router-plugin';
-import { LoginResponse, UserData } from '../../../auth/models';
+import { LoginResponse } from '../../../auth/models';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { generateUserData } from './authentication.utils';
 
@@ -15,7 +15,7 @@ import { generateUserData } from './authentication.utils';
 export interface AuthenticationStateModel {
     accessToken: string | null;
     refreshToken: string | null;
-    userdata: UserData;
+    userdata: any;
 }
 
 export const getAuthenticationInitialState = (): AuthenticationStateModel => ({
@@ -24,6 +24,8 @@ export const getAuthenticationInitialState = (): AuthenticationStateModel => ({
     userdata: null,
 });
 
+// Do not remove the @dynamic flag, it's not a comment, it an Angular flag!
+// @dynamic
 @State<AuthenticationStateModel>({
     name: 'authentication',
     defaults: getAuthenticationInitialState()

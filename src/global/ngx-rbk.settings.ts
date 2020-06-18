@@ -55,7 +55,6 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 categories: getCategoriesInitialState(),
                 accounts: getAccountTypesInitialState(),
                 accountTypes: getAccountsInitialState(),
-
             }),
             // Last item is added first to the store, so keep this list
             // in descending order to keep the state tree organized
