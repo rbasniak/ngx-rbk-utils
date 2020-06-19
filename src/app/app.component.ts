@@ -32,7 +32,7 @@ export class AppComponent {
     this.actions$.pipe(
       ofActionDispatched(AuthenticationActions.RemoteLoginSuccess),
       take(1)).subscribe(x => {
-          this.store.dispatch(new ToastActions.SendToastSuccessMessage('Remote login success'));
+          this.store.dispatch(new ToastActions.Success('Remote login success'));
         });
   }
 
@@ -41,7 +41,7 @@ export class AppComponent {
     this.actions$.pipe(
       ofActionDispatched(AuthenticationActions.LocalLoginSuccess),
       take(1)).subscribe(x => {
-          this.store.dispatch(new ToastActions.SendToastSuccessMessage('Local login success'));
+          this.store.dispatch(new ToastActions.Success('Local login success'));
         });
   }
 
@@ -54,15 +54,15 @@ export class AppComponent {
   }
 
   public request1(): void {
-    this.jsonPlaceholderService.request1().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 1 handled with success')));
+    this.jsonPlaceholderService.request1().subscribe(x => this.store.dispatch(new ToastActions.Success('Request 1 handled with success')));
   }
 
   public request2(): void {
-    this.jsonPlaceholderService.request2().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 2 handled with success')));
+    this.jsonPlaceholderService.request2().subscribe(x => this.store.dispatch(new ToastActions.Success('Request 2 handled with success')));
   }
 
   public request3(): void {
-    this.jsonPlaceholderService.request3().subscribe(x => this.store.dispatch(new ToastActions.SendToastSuccessMessage('Request 3 handled with success')));
+    this.jsonPlaceholderService.request3().subscribe(x => this.store.dispatch(new ToastActions.Success('Request 3 handled with success')));
   }
 
   public goToSecreRoute(): void {

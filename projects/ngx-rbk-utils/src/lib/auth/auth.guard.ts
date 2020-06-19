@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CanActivate } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
 import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
 import { ToastActions } from '../state/global/application/application.actions.toast';
@@ -8,9 +8,9 @@ import { Navigate } from '@ngxs/router-plugin';
 
 @Injectable({ providedIn: 'root' })
 export class RbkAuthGuard implements CanActivate {
-    constructor(private store: Store, private injector: Injector) { }
+    constructor(private store: Store) { }
 
-    public async canActivate(): Promise<boolean> {
+    public async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
 
         let isAuthenticated = this.store.selectSnapshot(AuthenticationSelectors.isAuthenticated);
 
@@ -28,16 +28,34 @@ export class RbkAuthGuard implements CanActivate {
                     // TODO: setar o endereço da landing page (colocar na store)
                     this.store.dispatch(new Navigate(['/login']));
 
-                    this.store.dispatch(new ToastActions.SendToastErrorMessage('Usuário não autenticado'));
+                    this.store.dispatch(new ToastActions.Error('Usuário não autenticado'));
 
                     return false;
                 }
+                else {
+                    return true;
+                }
             }
             catch (ex) {
-
+                return false;
             }
         }
+        else {
+            const allowedClaim = route.data['claim'] as string;
+            const canAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(allowedClaim));
 
-        return isAuthenticated;
+            if (allowedClaim == null || canAccess === true) {
+                return true;
+            }
+            else {
+
+                this.store.dispatch(new
+                    ToastActions.Warning('Você não possui autorização para acessar esta rota. Caso necessite acessa-la, entre em contato com seu Supervisor.'));
+
+                // this.store.dispatch(new Navigate([AppRoutes.NO_ACCESS_ERROR_PAGE]));
+
+                return false;
+            }
+        }
     }
 }

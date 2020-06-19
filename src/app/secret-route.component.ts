@@ -28,7 +28,7 @@ export class SecretRouteComponent implements OnInit {
                     this.store.selectSnapshot(AccountsDbSelectors.all).length > 0 &&
                     this.store.selectSnapshot(AccountTypesDbSelectors.all).length > 0) {
 
-                    this.store.dispatch(new ToastActions.SendToastInfoMessage('States are initialized! Go ahead and have fun'));
+                    this.store.dispatch(new ToastActions.Info('States are initialized! Go ahead and have fun'));
                 }
             })
         ).subscribe();

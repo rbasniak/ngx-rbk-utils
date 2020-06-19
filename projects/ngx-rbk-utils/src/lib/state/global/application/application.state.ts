@@ -87,10 +87,10 @@ export class ApplicationState {
 
         for (const message of error.messages) {
             if (action.error.status >= 400 && action.error.status < 500 ) {
-                ctx.dispatch(new ToastActions.SendToastWarningMessage(message));
+                ctx.dispatch(new ToastActions.Warning(message));
             }
             else {
-                ctx.dispatch(new ToastActions.SendToastErrorMessage(message));
+                ctx.dispatch(new ToastActions.Error(message));
             }
         }
     }
@@ -127,8 +127,8 @@ export class ApplicationState {
         });
     }
 
-    @Action(ToastActions.SendToastMessage)
-    public showToastMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.SendToastMessage): void {
+    @Action(ToastActions.Custom)
+    public showToastMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Custom): void {
         const message = {
             ...this.rbkConfig.toastConfig,
             ...action.message
@@ -137,8 +137,8 @@ export class ApplicationState {
         this.messageService.add(message);
     }
 
-    @Action(ToastActions.SendToastSuccessMessage)
-    public showToastSuccessMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.SendToastSuccessMessage): void {
+    @Action(ToastActions.Success)
+    public showToastSuccessMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Success): void {
         const message = {
             ...this.rbkConfig.toastConfig,
             severity: 'success',
@@ -149,8 +149,8 @@ export class ApplicationState {
         this.messageService.add(message);
     }
 
-    @Action(ToastActions.SendToastErrorMessage)
-    public showToastErrorMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.SendToastErrorMessage): void {
+    @Action(ToastActions.Error)
+    public showToastErrorMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Error): void {
         const message = {
             ...this.rbkConfig.toastConfig,
             severity: 'error',
@@ -161,8 +161,8 @@ export class ApplicationState {
         this.messageService.add(message);
     }
 
-    @Action(ToastActions.SendToastInfoMessage)
-    public showToastInfoMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.SendToastInfoMessage): void {
+    @Action(ToastActions.Info)
+    public showToastInfoMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Info): void {
         const message = {
             ...this.rbkConfig.toastConfig,
             severity: 'info',
@@ -173,8 +173,8 @@ export class ApplicationState {
         this.messageService.add(message);
     }
 
-    @Action(ToastActions.SendToastWarningMessage)
-    public showToastWarningMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.SendToastWarningMessage): void {
+    @Action(ToastActions.Warning)
+    public showToastWarningMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Warning): void {
         const message = {
             ...this.rbkConfig.toastConfig,
             severity: 'warn',

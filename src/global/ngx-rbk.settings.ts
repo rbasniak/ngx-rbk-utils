@@ -25,9 +25,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     authentication: {
         login: {
             url: `https://dev.meuencartedigital.com.br/auth/login`,
-            errorHandlingType: 'dialog',
+            errorHandlingType: 'toast',
             responsePropertyName: 'token',
-            loadingBehavior: 'global',
+            loadingBehavior: 'none',
         },
         refreshToken: {
             url: `https://dev.meuencartedigital.com.br/auth/refresh-token`,

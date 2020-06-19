@@ -1,6 +1,6 @@
 {
   "name": "ngx-rbk-utils",
-"version": "0.0.15-alpha",
+"version": "0.0.19-alpha",
   "dependencies": {
     "tslib": "^1.10.0"
   },
