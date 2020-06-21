@@ -12,8 +12,14 @@ export class AuthService extends BaseApiService {
         super();
     }
 
-    public login(username: string, password: string): Observable<LoginResponse> {
-        return this.http.post<any>(this.rbkConfig.authentication.login.url, { username, password },
+    public login(username: string, password: string, extraProperties: {} = null): Observable<LoginResponse> {
+        let data = { username, password };
+
+        if (extraProperties != null) {
+            data = { ...data, ...extraProperties };
+        }
+
+        return this.http.post<any>(this.rbkConfig.authentication.login.url, data,
             this.generateDefaultHeaders({
                 loadingBehavior: this.rbkConfig.authentication.login.loadingBehavior,
                 authentication: false,

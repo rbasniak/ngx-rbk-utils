@@ -54,7 +54,7 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.RemoteLogin)
     public remoteLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.RemoteLogin): Observable<LoginResponse> {
-        return this.authService.login(action.username, action.password).pipe(
+        return this.authService.login(action.username, action.password, action.extraProperties).pipe(
             tap((result: LoginResponse) => {
                 this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
             })
