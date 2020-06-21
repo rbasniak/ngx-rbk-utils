@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz';
+
 import { TransactionDetails } from 'src/app/core/models/transactions';
 
 const TAG = 'Transactions API';

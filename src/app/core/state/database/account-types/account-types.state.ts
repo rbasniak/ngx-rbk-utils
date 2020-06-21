@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CategoryDetails } from 'src/app/core/models/categories';
 import { State, Action, StateContext } from '@ngxs/store';
 import { DatabaseStoreStateModel, getInitialDatabaseStoreState } from 'ngx-rbk-utils';
 import { SimpleNamedEntity } from 'ngx-smz';
@@ -7,7 +6,6 @@ import { AccountTypesService } from 'src/app/core/api/account-types.service';
 import { AccountTypesDbActions } from './account-types.actions';
 import { AccountDetails } from 'src/app/core/models/accounts';
 import { Observable } from 'rxjs';
-import { TransactionDetails } from 'src/app/core/models/transactions';
 import { tap } from 'rxjs/operators';
 
 export interface AccountTypesDbStateModel extends DatabaseStoreStateModel<SimpleNamedEntity> {

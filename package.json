@@ -8,11 +8,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install-lib": "npm install projects/dist/ngx-rbk-utils",
-    "build-lib": "ng build ngx-rbk-utils",
-    "build-lib-prod": "ng build ngx-rbk-utils --prod",
-    "build-lib-watch": "ng build ngx-rbk-utils --watch",
-    "publish": ".\\npm-auto-version.exe & ng build ngx-rbk-utils --prod & cd projects/dist/ngx-rbk-utils & npm publish"
+    "install:lib": "npm install projects/dist/ngx-rbk-utils",
+    "build:lib": "ng build ngx-rbk-utils",
+    "build:lib:prod": "ng build ngx-rbk-utils --prod",
+    "build:lib:watch": "ng build ngx-rbk-utils --watch",
+    "publish": ".\\npm-auto-version.exe & ng build ngx-rbk-utils --prod & cd projects/dist/ngx-rbk-utils & npm publish",
+    "clean:install": "npm install -g typescript tslint tslint-etc",
+    "clean:imports": "tslint --config tslint-imports.json --fix --project ."
   },
   "private": true,
   "dependencies": {

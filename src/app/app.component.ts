@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
 import { BoilerplateService, AuthenticationActions, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
 import { take } from 'rxjs/operators';

@@ -1,17 +1,14 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CanActivate, ActivatedRouteSnapshot, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
 import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
 import { ToastActions } from '../state/global/application/application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
-import { filter } from 'rxjs/internal/operators/filter';
-import { map } from 'rxjs/internal/operators/map';
-import { mergeMap } from 'rxjs/internal/operators/mergeMap';
 
 @Injectable({ providedIn: 'root' })
 export class RbkAuthGuard implements CanActivate {
-    constructor(private store: Store, private router: Router, private activatedRoute: ActivatedRoute) { }
+    constructor(private store: Store) { }
 
     public async canActivate(snapshot: ActivatedRouteSnapshot): Promise<boolean> {
         const debug = true;

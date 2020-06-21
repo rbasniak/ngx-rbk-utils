@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { AuthenticationActions } from '../authentication/authentication.actions';
 import { ApplicationActions } from './application.actions';
-import { DATABASE_REQUIRED_ACTIONS } from '../../database/database.state';
 import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';

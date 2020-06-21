@@ -6,7 +6,6 @@ import { tap } from 'rxjs/internal/operators/tap';
 import { Observable } from 'rxjs/internal/Observable';
 import { ERROR_HANDLING_TYPE_HEADER } from '../http/base-api.service';
 import { ApplicationActions } from '../state/global/application/application.actions';
-import { ToastActions } from '../state/global/application/application.actions.toast';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

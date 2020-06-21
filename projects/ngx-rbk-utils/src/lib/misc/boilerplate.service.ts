@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofActionDispatched, Store } from '@ngxs/store';
-import { MessageService } from 'primeng/api';
 import { Navigate } from '@ngxs/router-plugin';
 import { TitleService } from './title.service';
 import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
@@ -8,10 +7,8 @@ import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { DATABASE_REQUIRED_ACTIONS } from '../state/database/database.state';
 import { ApplicationActions } from '../state/global/application/application.actions';
 import { DatabaseActions } from '../state/database/database.actions';
-import { AppStateModel } from '../state/app.state';
 import { filter } from 'rxjs/internal/operators/filter';
 import { Subscription } from 'rxjs';
-import { clearArray } from '../utils/utils';
 import { FeaturesActions } from '../state/features/features.actions';
 
 @Injectable({ providedIn: 'root' })

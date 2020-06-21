@@ -1,4 +1,4 @@
-import { Selector, createSelector } from '@ngxs/store';
+import { Selector } from '@ngxs/store';
 import { SimpleNamedEntity } from 'ngx-smz';
 import { AccountTypesDbStateModel, AccountTypesDbState } from './account-types.state';
 

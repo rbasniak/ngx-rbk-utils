@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BaseApiService } from 'ngx-rbk-utils';
-import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
 import { TransactionDetails, TransactionUpdate, TransactionCreation } from '../models/transactions';

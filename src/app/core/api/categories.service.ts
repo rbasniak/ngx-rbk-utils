@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BaseApiService } from 'ngx-rbk-utils';
-import { Store } from '@ngxs/store';
 import { CategoryDetails, CategoryCreation, CategoryUpdate } from '../models/categories';
 import { Observable } from 'rxjs/internal/Observable';
-import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
 
 @Injectable({providedIn: 'root'})

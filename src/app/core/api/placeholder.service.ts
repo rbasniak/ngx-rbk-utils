@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { BaseApiService } from 'ngx-rbk-utils';
-import { Store } from '@ngxs/store';
 
 @Injectable({providedIn: 'root'})
 export class PlaceholderJsonService extends BaseApiService {

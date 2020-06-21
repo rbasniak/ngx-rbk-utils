@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService } from 'ngx-rbk-utils';
-import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
 import { AccountDetails, AccountCreation, AccountUpdate } from '../models/accounts';

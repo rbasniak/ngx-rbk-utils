@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store, State, Action, StateContext } from '@ngxs/store';
 import { AuthenticationActions } from './authentication.actions';
 import { Observable } from 'rxjs/internal/Observable';
-import { tap, take } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { isEmpty } from '../../../utils/utils';
 import { Navigate } from '@ngxs/router-plugin';

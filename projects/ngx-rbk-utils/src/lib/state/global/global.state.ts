@@ -1,7 +1,7 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { getInitialApplicationState as getApplicationInitialState, ApplicationState } from './application/application.state';
-import { getAuthenticationInitialState, AuthenticationState } from './authentication/authentication.state';
+import { ApplicationState } from './application/application.state';
+import { AuthenticationState } from './authentication/authentication.state';
 import { ApplicationStateModel } from './application/application.state';
 import { GlobalActions } from './global.actions';
 import { AuthenticationStateModel } from './authentication/authentication.state';

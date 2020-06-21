@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseApiService } from '../http/base-api.service';
-import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { LoginResponse } from './models';
