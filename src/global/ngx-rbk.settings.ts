@@ -17,6 +17,7 @@ import { AccountsManagerState } from 'src/app/core/state/features/accounts-manag
 import { CategoriesManagerState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
 
 export const rbkConfig: NgxRbkUtilsConfig = {
+    debugMode: true,
     applicationName: 'DEMO',
     routes: {
         landing: '/',
@@ -37,15 +38,16 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         },
         accessTokenClaims: [
             { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
-            { claimName: 'positionId', propertyName: 'positionId', type: 'string' },
-            { claimName: 'positionName', propertyName: 'positionName', type: 'string' },
-            { claimName: 'shopId', propertyName: 'shopId', type: 'string' },
-            { claimName: 'shopName', propertyName: 'shopName', type: 'string' },
-            { claimName: 'employeeId', propertyName: 'employeeId', type: 'string' },
-            { claimName: 'employeeName', propertyName: 'employeeName', type: 'string' },
-            { claimName: 'roles', propertyName: 'roles', type: 'array' },
-            { claimName: 'documents', propertyName: 'documents', type: 'array' },
-            { claimName: 'queries', propertyName: 'queries', type: 'array' },
+            // { claimName: 'positionId', propertyName: 'positionId', type: 'string' },
+            // { claimName: 'positionName', propertyName: 'positionName', type: 'string' },
+            // { claimName: 'shopId', propertyName: 'shopId', type: 'string' },
+            // { claimName: 'shopName', propertyName: 'shopName', type: 'string' },
+            // { claimName: 'employeeId', propertyName: 'employeeId', type: 'string' },
+            // { claimName: 'employeeName', propertyName: 'employeeName', type: 'string' },
+            // { claimName: 'roles', propertyName: 'roles', type: 'array' },
+            // { claimName: 'documents', propertyName: 'documents', type: 'array' },
+            // { claimName: 'queries', propertyName: 'queries', type: 'array' },
+            { claimName: 'rol', propertyName: 'roles', type: 'array' },
         ]
     },
     state: {
@@ -107,10 +109,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         life: 3000,
         sticky: false,
         closable: true,
-        successTitle: 'Success',
-        errorTitle: 'Error',
-        warningTitle: 'Warning',
-        infoTitle: 'Information',
+        successTitle: 'SUCESSO',
+        errorTitle: 'ERRO',
+        warningTitle: 'AVISO',
+        infoTitle: 'INFORMAÇÃO',
     },
     dialogsConfig: {
         errorDialogTitle: 'ERRO',

@@ -53,6 +53,7 @@ export class BoilerplateService {
             }
 
             if (this.nonInitializedDatabaseStates.length === 0) {
+                console.log('Database stores initialized');
                 this.listenToDatabaseInitializationEvents = false;
                 this.store.dispatch(new ApplicationActions.DatabaseStatesInitialized());
             }
@@ -73,12 +74,13 @@ export class BoilerplateService {
 
     private loadDatabaseStoreData(): void {
         for (const actionType of DATABASE_REQUIRED_ACTIONS) {
-            if (!actionType.name.endsWith('Success')) {
+            const actionName: string = actionType.type;
+            if (actionName.toLowerCase().indexOf('success') === -1) {
+                console.log('Dispatching "', actionType.type, '"');
                 const instance = new actionType(null);
                 this.store.dispatch(instance);
             }
         }
-        console.groupEnd();
     }
 
     private killSubscriptions(): void {

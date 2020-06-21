@@ -28,7 +28,7 @@ export class AppComponent {
   }
 
   public remoteLoginSuccess(): void {
-    this.store.dispatch(new AuthenticationActions.RemoteLogin('free@gmail.com', 'Zemiko987'));
+    this.store.dispatch(new AuthenticationActions.RemoteLogin('designer', 'Zuzuga987'));
     this.actions$.pipe(
       ofActionDispatched(AuthenticationActions.RemoteLoginSuccess),
       take(1)).subscribe(x => {
@@ -65,7 +65,19 @@ export class AppComponent {
     this.jsonPlaceholderService.request3().subscribe(x => this.store.dispatch(new ToastActions.Success('Request 3 handled with success')));
   }
 
-  public goToSecreRoute(): void {
+  public goToSecretRoute(): void {
     this.store.dispatch(new Navigate(['/secret']));
+  }
+
+  public goToHomeRoute(): void {
+    this.store.dispatch(new Navigate(['/']));
+  }
+
+  public goToTopSecretRoute(): void {
+    this.store.dispatch(new Navigate(['/secret/top-secret']));
+  }
+
+  public goToLeakedRoute(): void {
+    this.store.dispatch(new Navigate(['/secret/leaked-secret']));
   }
 }

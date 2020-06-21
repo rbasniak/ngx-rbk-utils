@@ -12,6 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SmzDialogsConfig, SmzDialogsModule } from 'ngx-smz';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { SecretRouteComponent } from './secret-route.component';
+import { SuperSecretRouteComponent } from './super-secret-route.component';
 
 const smzDialogsConfig: SmzDialogsConfig = {
   requiredByDefault: true,
@@ -22,7 +24,9 @@ const smzDialogsConfig: SmzDialogsConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SecretRouteComponent,
+    SuperSecretRouteComponent,
   ],
   imports: [
     BrowserModule,

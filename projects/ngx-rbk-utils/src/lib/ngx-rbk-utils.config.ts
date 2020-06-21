@@ -1,6 +1,7 @@
 import { HttpBehaviorParameters } from './http/base-api.service';
 
 export class NgxRbkUtilsConfig {
+    public debugMode: boolean;
     public applicationName: string;
 
     public state: {

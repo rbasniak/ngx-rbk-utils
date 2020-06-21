@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { LoginResponse } from './models';
 import { map } from 'rxjs/internal/operators/map';
-import { delay } from 'rxjs/internal/operators/delay';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseApiService {
