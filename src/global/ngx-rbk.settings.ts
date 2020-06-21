@@ -20,7 +20,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     debugMode: true,
     applicationName: 'DEMO',
     routes: {
-        landing: '/',
+        authenticatedRoot: '/',
+        nonAuthenticatedRoot: '/',
         login: '/'
     },
     authentication: {

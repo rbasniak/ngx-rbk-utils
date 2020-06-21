@@ -219,3 +219,4 @@ TODO: falar da tipagem da store de database e feature
 
 TODO: titulos do toast nào estao certos de acordo com o config
 
+TODO: extra properties injected in login

@@ -1,5 +1,5 @@
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { ApplicationSelectors } from '../state/global/application/application.selector';
 import { filter, take } from 'rxjs/operators';
 

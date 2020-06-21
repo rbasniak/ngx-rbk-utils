@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, State, Action, StateContext } from '@ngxs/store';
 import { AuthenticationActions } from './authentication.actions';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { isEmpty } from '../../../utils/utils';
@@ -49,7 +49,7 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.LocalLoginFailure)
     public localLoginFailure(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLoginFailure): void {
-        ctx.dispatch(new Navigate([this.rbkConfig.routes.landing]));
+        ctx.dispatch(new Navigate([this.rbkConfig.routes.nonAuthenticatedRoot]));
     }
 
     @Action(AuthenticationActions.RemoteLogin)

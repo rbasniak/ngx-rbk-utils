@@ -3,7 +3,7 @@ import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
 import { BoilerplateService, AuthenticationActions, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
 import { take } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/global/authentication/authentication.selectors';
 import { PlaceholderJsonService } from './core/api/placeholder.service';
 import { Navigate } from '@ngxs/router-plugin';

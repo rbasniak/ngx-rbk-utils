@@ -64,6 +64,8 @@ export class RbkAuthGuard implements CanActivate {
                 ToastActions.Warning('Você não possui autorização para acessar esta rota.'));
         }
 
+        // TODO: criar authenticatedRoot, nonAuthenticathedRoot no lugar de landing no options
+
         if (debug) console.log('[RbkAuthGuard] Does the user can access this route? -> ', result);
         if (debug) console.groupEnd();
 

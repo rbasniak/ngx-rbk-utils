@@ -7,9 +7,9 @@ import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { DATABASE_REQUIRED_ACTIONS } from '../state/database/database.state';
 import { ApplicationActions } from '../state/global/application/application.actions';
 import { DatabaseActions } from '../state/database/database.actions';
-import { filter } from 'rxjs/internal/operators/filter';
 import { Subscription } from 'rxjs';
 import { FeaturesActions } from '../state/features/features.actions';
+import { filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BoilerplateService {

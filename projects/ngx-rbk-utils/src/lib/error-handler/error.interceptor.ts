@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { tap } from 'rxjs/internal/operators/tap';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { ERROR_HANDLING_TYPE_HEADER } from '../http/base-api.service';
 import { ApplicationActions } from '../state/global/application/application.actions';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

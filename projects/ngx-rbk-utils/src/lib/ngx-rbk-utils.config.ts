@@ -53,7 +53,8 @@ export class NgxRbkUtilsConfig {
     };
 
     public routes: {
-        landing: string,
+        authenticatedRoot: string,
+        nonAuthenticatedRoot: string,
         login: string
     };
 }

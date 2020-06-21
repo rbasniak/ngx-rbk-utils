@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs/internal/Observable';
 import { LOADING_BEHAVIOR_HEADER } from './base-api.service';
 import { ApplicationActions } from '../state/global/application/application.actions';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
-import { map } from 'rxjs/internal/operators/map';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { finalize } from 'rxjs/internal/operators/finalize';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError, finalize } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'

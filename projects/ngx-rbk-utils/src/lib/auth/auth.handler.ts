@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/internal/operators/map';
-import { catchError } from 'rxjs/internal/operators/catchError';
-import { of } from 'rxjs/internal/observable/of';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
 import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
 import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
-import { throwError } from 'rxjs';
+import { throwError, Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthHandler {
