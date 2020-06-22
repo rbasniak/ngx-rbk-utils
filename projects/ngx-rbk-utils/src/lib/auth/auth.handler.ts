@@ -37,7 +37,7 @@ export class AuthHandler {
             return of(null);
         }
 
-        return this.authService.refreshToken(refreshToken)
+        return this.authService.refreshToken(refreshToken, this.rbkConfig.authentication.refreshToken.extraProperties)
             .pipe(
                 map((response: any) => {
                     console.log('[AuthHandler:refreshToken] Access token successfully refreshed');

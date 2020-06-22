@@ -134,6 +134,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             errorHandlingType: 'toast',
             // How you want to handle the loading state on the store, possible values are 'global', 'local' and 'none'
             responsePropertyName: 'refreshToken',
+            // Optional extra properties you can pass to refresh token api for validation. ex: {username: 'name', applicationId:'appId'}
+            extraProperties: {[name: string]: string}
         },
         // Array of configuration objects for claims that need to be read from the access token. Please see the authorization section for more details
         accessTokenClaims: {claimName: string, propertyName: string, type: string} []

@@ -15,7 +15,7 @@ export namespace AuthenticationActions {
 
     export class RemoteLogin {
         public static readonly type = '[Auth API] Remote Login';
-        constructor(public username: string, public password: string, public extraProperties: {} = null) { }
+        constructor(public username: string, public password: string, public extraProperties: {[name: string]: string} = null) { }
     }
 
     export class RemoteLoginSuccess {

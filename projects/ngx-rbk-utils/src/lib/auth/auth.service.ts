@@ -12,7 +12,7 @@ export class AuthService extends BaseApiService {
         super();
     }
 
-    public login(username: string, password: string, extraProperties: {} = null): Observable<LoginResponse> {
+    public login(username: string, password: string, extraProperties: {[name: string]: string} = null): Observable<LoginResponse> {
         let data = { username, password };
 
         if (extraProperties != null) {
@@ -31,8 +31,12 @@ export class AuthService extends BaseApiService {
                 })));
     }
 
-    public refreshToken(refreshToken: string): Observable<LoginResponse> {
-        return this.http.post<LoginResponse>(this.rbkConfig.authentication.refreshToken.url, { refreshToken },
+    public refreshToken(refreshToken: string, extraProperties: {[name: string]: string} = null): Observable<LoginResponse> {
+        let data = { refreshToken };
+        if (extraProperties != null) {
+          data = { ...data, ...extraProperties };
+        }
+        return this.http.post<LoginResponse>(this.rbkConfig.authentication.refreshToken.url, data,
             this.generateDefaultHeaders({
                 loadingBehavior: this.rbkConfig.authentication.refreshToken.loadingBehavior,
                 authentication: false,
