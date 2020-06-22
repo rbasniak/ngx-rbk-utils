@@ -49,7 +49,8 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.LocalLoginFailure)
     public localLoginFailure(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLoginFailure): void {
-        ctx.dispatch(new Navigate([this.rbkConfig.routes.nonAuthenticatedRoot]));
+        // TODO: se nao der erro, retirar isso no futuro
+        // ctx.dispatch(new Navigate([this.rbkConfig.routes.nonAuthenticatedRoot]));
     }
 
     @Action(AuthenticationActions.RemoteLogin)
