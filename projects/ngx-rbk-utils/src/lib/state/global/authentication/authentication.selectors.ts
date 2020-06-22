@@ -46,6 +46,10 @@ export class AuthenticationSelectors {
     @Selector([AuthenticationState])
     public static hasClaimAccess(claim: string): any {
         const selector = createSelector([AuthenticationState], (state: AppStateModel) => {
+            if (state.global.authentication.userdata == null || state.global.authentication.userdata.roles == null) {
+                return false;
+            }
+
             return state.global.authentication.userdata.roles.includes(claim);
         });
 

@@ -67,40 +67,23 @@
     export interface AppStateModel extends RootStateModel
     {
         database: {
-            unsplash: UnsplashDbStateModel,
-            templates: TemplatesDbStateModel,
-            sellers: SellersDbStateModel,
-            rotation: RotationDbStateModel,
-            profile: ProfileDbStateModel,
-            plans: PlansDbStateModel,
-            magazines: MagazinesDbStateModel,
-            links: LinksDbStateModel,
-            images: ImagesDbStateModel,
-            categories: CategoriesDbStateModel,
-            blocks: BlocksDbStateModel,
-            activities: ActivitiesDbStateModel
+            state1: State1StateModel,
+            state2: State2DbStateModel,
+            state3: State3DbStateModel,
         },
 
         features: {
-            accountManager: ViewerManagerStateModel,
-            analytics: TemplatesManagerStateModel,
-            analyticsViewer: SellersManagerStateModel,
-            blocksManager: PlansManagerStateModel,
-            categoriesManager: MagazinesManagerStateModel,
-            galleryManager: LinksManagerStateModel,
-            linksManager: GalleryManagerStateModel,
-            magazinesManager: CategoriesManagerStateModel,
-            plansManager: BlocksManagerStateModel,
-            sellersManager: AnalyticsViewerStateModel,
-            templatesManager: AnalyticsStateModel,
-            viewerManager: AccountManagerStateModel,
+            feature1: Feature1StateModel,
+            feature2: Feature2StateModel,
         };
     }
-
-
     ```
 
-# Configuration file
+* Add `<p-toast>` and `<smz-general-dialog>` to your `app.component.html`
+
+
+
+# 2. Configuration file
 
 ```typescript
 import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
@@ -110,7 +93,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     applicationName: string,
     routes: {
         // Url path of the landing page of your application, this will be  used to redirect the user when he tries to access a protected route and is not authenticated. Ex.: '/'
-        landing: string,
+        nonAuthenticatedRoute: string,
+        // Url path of the authenticated root page of your application, this will be  used to redirect the user when he tries to access a protected route, is  authenticated but does not have access to it. Ex.: '/editor'
+        authenticatedRoute: string,
         // Url path of the login page of your application, this will be used to redirect the user if the library fails to refresh the JWT access token. Ex.: '/login'
         login: string
     },
@@ -189,36 +174,44 @@ export const rbkConfig: NgxRbkUtilsConfig = {
 ```
 
 
+# 3. Features
+## Actions
+// TODO: descrever as actions disponíveis (não esquecer login redirect, e extraProperties no login)
 
+## Database state auto initialization
+// TODO: explicar sobre o nome as actions
+// TODO: explicar sobre o StateUtils
 
+## Authentication and authorization
+### Route authentication guard
+// TODO: explicar como funciona o guard e como são lidas as roles
 
+### rbkCanAccess pipe
+// TODO: explicar
 
+### rbkClaimGuard directive
+// TODO: explicar
 
+## Global error handling
+// TODO: explicar como as requisicoes tem que vir da API, dialog vs toast, etc
 
+## Loading flag
 
+### Global
+    // TODO: explicar
 
+### Local
+    // TODO: explicar
 
+## Http request behaviors
+// TODO: Falar so BaseApiService e suas configurações
 
-# ngx-rbk-utils
-Angular infrastructure services for NGXS stores, global error handling, global loader, and more.
+## Title service
+// TODO: explicar
 
-Actions de load database tem que ter Success
+## Breadcrum service
+// TODO: explicar
 
-disparar this.store.dispatch(new ApplicationActions.NgRxInitialized()); no construtor do app module
+## Utility functions
+// TODO: listar e explicar
 
-Adicionar o TaoastModule e <p-toast>
-
-TODO: A aplicação tem que ser inicializada antes do NGXS
-TODO: Não pode disparar nenhuma action antes do NGXS ter sido inicializado na aplicação cliente
-
-explicar do token
-
-Colcoar o smz-genral-dialog no appcomponent
-
-TODO: rever o auth guard para considerar os claims do usuário
-TODO: colocar redirecionamento apos o login na library
-TODO: falar da tipagem da store de database e feature
-
-TODO: titulos do toast nào estao certos de acordo com o config
-
-TODO: extra properties injected in login

@@ -29,6 +29,7 @@ export class AppComponent {
 
   public remoteLoginSuccess(): void {
     this.store.dispatch(new AuthenticationActions.RemoteLogin('designer', 'Zuzuga987', { extraData1: 'Data1', extraData2: 435, extraData3: true }));
+
     this.actions$.pipe(
       ofActionDispatched(AuthenticationActions.RemoteLoginSuccess),
       take(1)).subscribe(x => {
@@ -80,4 +81,6 @@ export class AppComponent {
   public goToLeakedRoute(): void {
     this.store.dispatch(new Navigate(['/secret/leaked-secret']));
   }
+
+
 }
