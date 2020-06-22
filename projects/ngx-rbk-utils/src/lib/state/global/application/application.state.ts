@@ -106,7 +106,7 @@ export class ApplicationState {
 
     @Action(ApplicationActions.PushLocalLoading)
     public pushLocalLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.PushLocalLoading): void {
-        if (ctx.getState().localIsLoading.findIndex(x => x.toLowerCase() !== action.tag) === -1) {
+        if (ctx.getState().localIsLoading.findIndex(x => x.toLowerCase() !== action.tag.toLowerCase()) === -1) {
             ctx.patchState({ localIsLoading: [action.tag, ...ctx.getState().localIsLoading ] });
         }
         else {
@@ -116,7 +116,7 @@ export class ApplicationState {
 
     @Action(ApplicationActions.PopLocalLoading)
     public popLocalLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.PopLocalLoading): void {
-        ctx.patchState({ localIsLoading: ctx.getState().localIsLoading.filter(x => x.toLowerCase() !== action.tag) });
+        ctx.patchState({ localIsLoading: ctx.getState().localIsLoading.filter(x => x.toLowerCase() !== action.tag.toLowerCase()) });
     }
 
     @Action(AuthenticationActions.Logout)
