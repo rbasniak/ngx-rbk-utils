@@ -40,7 +40,7 @@ export class BoilerplateService {
                 }
             }
 
-            if (dispatchData.action.constructor.type === AuthenticationActions.RemoteLoginSuccess) {
+            if (dispatchData.action.constructor.type === AuthenticationActions.RemoteLoginSuccess.type) {
                 this.store.dispatch(new Navigate([this.rbkConfig.routes.authenticatedRoot]));
             }
         });
