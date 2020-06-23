@@ -44,6 +44,7 @@ export class CustomError {
 }
 
 export class HttpErrorHandler {
+    // TODO: Fazer throw error no login por exemplo e ver porque está entrando nos ifs do status
     public static handle(response: any): CustomError {
         if (response instanceof HttpErrorResponse) {
             if (response.status === 400) {

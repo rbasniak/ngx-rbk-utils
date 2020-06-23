@@ -1,5 +1,5 @@
+import { Message } from 'primeng/api';
 
-import { Message } from 'primeng/api/message';
 
 export namespace ToastActions {
     export class Custom {

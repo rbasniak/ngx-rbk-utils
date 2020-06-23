@@ -5,7 +5,7 @@ export namespace AuthenticationActions {
 
     export class LocalLoginSuccess {
         public static readonly type = '[Auth] Local Login Success';
-        constructor(public accessToken: string, public refreshToken: string) { }
+        constructor() { }
     }
 
     export class LocalLoginFailure {
@@ -25,10 +25,5 @@ export namespace AuthenticationActions {
 
     export class Logout {
         public static readonly type = '[Auth] Logout';
-    }
-
-    export class LoadUserData {
-        public static readonly type = '[Auth] Load User Data';
-        constructor(accessToken: string) {}
     }
 }

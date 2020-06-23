@@ -15,14 +15,18 @@ export class AuthInterceptor implements HttpInterceptor {
     private inflightAuthRequest: Observable<string> = null;
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (this.rbkConfig.debugMode) console.log(`[AuthInterceptor: ${req.url}] Intercepting request for `, req);
+
         if (req.headers.get(AUTHENTICATION_HEADER) == null ||
             req.headers.get(REFRESH_TOKEN_BEHAVIOR_HEADER) == null) {
+            if (this.rbkConfig.debugMode) console.log(`[AuthInterceptor: ${req.url}] This request does not need refresh token`);
             return next.handle(req);
         }
 
         const authService = this.injector.get(AuthHandler);
 
         if (!this.inflightAuthRequest) {
+            if (this.rbkConfig.debugMode) console.log(`[AuthInterceptor: ${req.url}] inflight request does not exit, creating one`);
             this.inflightAuthRequest = authService.getToken().pipe(
                 share()
             );

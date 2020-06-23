@@ -189,8 +189,6 @@ export class ApplicationState {
         ctx.patchState({
             isNgRxInitializedOnClient: true
         });
-
-        ctx.dispatch(new AuthenticationActions.LocalLogin());
     }
 
     @Action(ApplicationActions.DatabaseStatesInitialized)

@@ -40,23 +40,20 @@ export class AuthHandler {
         return this.authService.refreshToken(refreshToken, this.rbkConfig.authentication.refreshToken.extraProperties)
             .pipe(
                 map((response: any) => {
-                    console.log('[AuthHandler:refreshToken] Access token successfully refreshed');
+                    console.log('[AuthHandler:refreshToken] Access token successfully refreshed ', response);
 
-                    const newAccessToken = response[this.rbkConfig.authentication.login.responsePropertyName];
-
-                    if (newAccessToken == null) {
+                    if (response.accessToken == null) {
                         // tslint:disable-next-line:max-line-length
-                        console.log(`[AuthHandler:refreshToken] Could not read the ${this.rbkConfig.authentication.login.responsePropertyName} property form the refresh token response`);
                         if (this.rbkConfig.debugMode) console.groupEnd();
-                        throw new Error();
+                        throwError('Could not read refresh token response');
                     }
 
                     console.log('[AuthHandler:refreshToken] Dispatching RemoteLoginSuccess to update the state and localStorage');
                     if (this.rbkConfig.debugMode) console.groupEnd();
 
-                    this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(newAccessToken, refreshToken));
+                    this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(response.accessToken, response.refreshToken));
 
-                    return response.token;
+                    return response.accessToken;
                 }),
                 catchError(error => {
                     console.log('[AuthHandler:refreshToken] Could not refresh the access token due to API error', error);

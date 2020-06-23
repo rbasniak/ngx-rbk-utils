@@ -2,6 +2,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 
 export function generateUserData(token: string, config: NgxRbkUtilsConfig): any {
+    console.log(`Starting decoding token`);
     // tslint:disable-next-line:max-line-length
     // token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdXBlcnZpc29yLmx1aXoiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3VwZXJ2aXNvci5sdWl6IiwiaWF0IjoxNTkyNTIyMjQ4LCJwb3NpdGlvbklkIjoiMSIsInBvc2l0aW9uTmFtZSI6IlN1cGVydmlzb3IiLCJzaG9wSWQiOiIiLCJzaG9wTmFtZSI6IlNlbSBsb2phIGFzc29jaWFkYSIsImVtcGxveWVlSWQiOiJnNHl5ODJ3dWpqMmUzbHVuYmRtcGthdnh6aiIsImVtcGxveWVlTmFtZSI6Ikx1aXogQ2xhdWRpbyBkZSBTb3V6YSBDb2VsaG8iLCJuYmYiOjE1OTI1MjIyNDgsImV4cCI6MTU5MjU3NjI0OCwiaXNzIjoidmFyZWpvZmFjaWwudGsiLCJhdWQiOiJodHRwczovL3ZhcmVqb2ZhY2lsLnRrLyJ9.SbBH7so4ZGduzmrc0Fo_PetGURCOB5qX3zNL2Chs3io';
     const jwtDecoder = new JwtHelperService();
@@ -50,5 +51,6 @@ export function generateUserData(token: string, config: NgxRbkUtilsConfig): any 
         user.roles = [];
     }
 
+    console.log(`Finished decoding token`);
     return user;
 }

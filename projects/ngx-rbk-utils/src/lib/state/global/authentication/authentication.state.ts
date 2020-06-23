@@ -36,6 +36,7 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.LocalLogin)
     public localLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLogin): void {
+        if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling LocalLogin`);
         const accessToken = localStorage.getItem('access_token');
         const refreshToken = localStorage.getItem('refresh_token');
 
@@ -43,7 +44,13 @@ export class AuthenticationState {
             ctx.dispatch(new AuthenticationActions.LocalLoginFailure());
         }
         else {
-            ctx.dispatch(new AuthenticationActions.LocalLoginSuccess(accessToken, refreshToken));
+            ctx.patchState({
+                accessToken,
+                refreshToken,
+                userdata: generateUserData(accessToken, this.rbkConfig)
+            });
+
+            ctx.dispatch(new AuthenticationActions.LocalLoginSuccess());
         }
     }
 
@@ -62,10 +69,9 @@ export class AuthenticationState {
         );
     }
 
-    @Action([AuthenticationActions.RemoteLoginSuccess, AuthenticationActions.LocalLoginSuccess])
-    public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>,
-        action: AuthenticationActions.RemoteLoginSuccess | AuthenticationActions.LocalLoginSuccess): void {
-
+    @Action(AuthenticationActions.RemoteLoginSuccess)
+    public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.RemoteLoginSuccess): void {
+        if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess`);
         localStorage.setItem('access_token', action.accessToken);
         localStorage.setItem('refresh_token', action.refreshToken);
 
@@ -74,8 +80,11 @@ export class AuthenticationState {
             refreshToken: action.refreshToken,
             userdata: generateUserData(action.accessToken, this.rbkConfig)
         });
+    }
 
-        ctx.dispatch(new AuthenticationActions.LoadUserData(action.accessToken));
+    @Action(AuthenticationActions.LocalLoginSuccess)
+    public localLoginSuccess(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLoginSuccess): void {
+        if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling LocalLoginSuccess`);
     }
 
     @Action(AuthenticationActions.Logout)
