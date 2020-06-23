@@ -80,6 +80,7 @@
     ```
 
 * Add `<p-toast>` and `<smz-general-dialog>` to your `app.component.html`
+* Add `Issue that you dont import MessageService from PrimeNg`
 
 
 
