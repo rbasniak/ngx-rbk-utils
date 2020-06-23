@@ -51,7 +51,7 @@ export class AuthHandler {
                     console.log('[AuthHandler:refreshToken] Dispatching RemoteLoginSuccess to update the state and localStorage');
                     if (this.rbkConfig.debugMode) console.groupEnd();
 
-                    this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(response.accessToken, response.refreshToken));
+                    this.store.dispatch(new AuthenticationActions.RefreshTokenSuccess(response.accessToken, response.refreshToken));
 
                     return response.accessToken;
                 }),

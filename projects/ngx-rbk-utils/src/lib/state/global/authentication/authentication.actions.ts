@@ -23,6 +23,12 @@ export namespace AuthenticationActions {
         constructor(public accessToken: string, public refreshToken: string) { }
     }
 
+
+    export class RefreshTokenSuccess {
+        public static readonly type = '[Auth API] Refresh Token Success';
+        constructor(public accessToken: string, public refreshToken: string) { }
+    }
+
     export class Logout {
         public static readonly type = '[Auth] Logout';
     }

@@ -69,9 +69,11 @@ export class AuthenticationState {
         );
     }
 
-    @Action(AuthenticationActions.RemoteLoginSuccess)
-    public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.RemoteLoginSuccess): void {
-        if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess`);
+    @Action([AuthenticationActions.RemoteLoginSuccess, AuthenticationActions.RefreshTokenSuccess])
+    public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>,
+        action: AuthenticationActions.RemoteLoginSuccess | AuthenticationActions.RefreshTokenSuccess): void {
+
+            if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess/RefreshTokenSuccess`);
         localStorage.setItem('access_token', action.accessToken);
         localStorage.setItem('refresh_token', action.refreshToken);
 
