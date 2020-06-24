@@ -7,6 +7,7 @@ import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { HttpErrorHandler } from '../../../error-handler/error.handler';
 import { DynamicDialogsService } from 'ngx-smz';
+import { Navigate } from '@ngxs/router-plugin';
 
 export interface ApplicationStateModel {
     databaseStatesInitialized: boolean;
@@ -43,9 +44,9 @@ export class ApplicationState {
     constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig, private dialogs: DynamicDialogsService) { }
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
-    public handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): void {
+    public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
         // ctx.dispatch(new ApplicationActions.StopGlobalLoading());
-        const error = HttpErrorHandler.handle(action.error);
+        const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
 
         const confirm = {
             validationRequired: false,
@@ -76,13 +77,17 @@ export class ApplicationState {
                 buttons: [{...confirm, style: 'danger' }]
             });
         }
+
+        if (error.redirectTo != null) {
+          ctx.dispatch(new Navigate([error.redirectTo]));
+        }
     }
 
     @Action(ApplicationActions.HandleHttpErrorWithToast)
-    public handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): void {
+    public async handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): Promise<void> {
         // ctx.dispatch(new ApplicationActions.StopGlobalLoading());
 
-        const error = HttpErrorHandler.handle(action.error);
+        const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
 
         for (const message of error.messages) {
             if (action.error.status >= 400 && action.error.status < 500 ) {
@@ -91,6 +96,10 @@ export class ApplicationState {
             else {
                 ctx.dispatch(new ToastActions.Error(message));
             }
+        }
+
+        if (error.redirectTo != null) {
+          ctx.dispatch(new Navigate([error.redirectTo]));
         }
     }
 

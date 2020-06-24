@@ -81,8 +81,12 @@
 
 * Add `<p-toast>` and `<smz-general-dialog>` to your `app.component.html`
 * Add `Issue that you dont import MessageService from PrimeNg`
-
-
+* In the constructor of your error page, clear the local storage with :
+```typescript
+constructor() {
+  localStorage.clear();
+}
+```
 
 # 2. Configuration file
 
@@ -98,7 +102,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         // Url path of the authenticated root page of your application, this will be  used to redirect the user when he tries to access a protected route, is  authenticated but does not have access to it. Ex.: '/editor'
         authenticatedRoute: string,
         // Url path of the login page of your application, this will be used to redirect the user if the library fails to refresh the JWT access token. Ex.: '/login'
-        login: string
+        login: string,
+        // Url path of the error page of your application this will be used to redirect the user if a request fail with the following status:
+        // 500, 0 or unmapped status. Ex.: '/error
+        error: string
     },
     authentication: {
         login: {

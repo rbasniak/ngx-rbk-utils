@@ -56,6 +56,7 @@ export class NgxRbkUtilsConfig {
     public routes: {
         authenticatedRoot: string,
         nonAuthenticatedRoot: string,
-        login: string
+        login: string,
+        error: string
     };
 }
