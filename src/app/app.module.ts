@@ -14,6 +14,7 @@ import { SmzDialogsConfig, SmzDialogsModule } from 'ngx-smz';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { SecretRouteComponent } from './secret-route.component';
 import { SuperSecretRouteComponent } from './super-secret-route.component';
+import { NgxRbkUtilsConfig } from 'projects/ngx-rbk-utils/src/public-api';
 
 const smzDialogsConfig: SmzDialogsConfig = {
   requiredByDefault: true,
@@ -39,7 +40,8 @@ const smzDialogsConfig: SmzDialogsConfig = {
     NgxsReduxDevtoolsPluginModule.forRoot(),
     ToastModule,
   ],
-  providers: [],
+  providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {

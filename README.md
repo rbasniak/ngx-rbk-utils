@@ -47,6 +47,12 @@
     }
     }
     ```
+* Stil in `AppModule`, define the following as provider:
+
+  ```typescript
+    providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig }
+  ```
+  Obs: This is required for injection of NgxRbkUtilsConfig into auth.guard
 
 * In your `AppComponent` inject the `BoilerplateService` and call the `.init()` method.
 

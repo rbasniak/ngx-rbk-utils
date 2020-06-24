@@ -22,7 +22,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     routes: {
         authenticatedRoot: '/secret',
         nonAuthenticatedRoot: '/',
-        login: '/'
+        login: '/login',
+        error: '/'
     },
     authentication: {
         login: {
