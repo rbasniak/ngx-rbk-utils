@@ -100,9 +100,8 @@ export class BoilerplateService {
     }
 
     private setNonInitializedStates(): void {
-        if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Setting state flag to \'Not Initialized\'');
+        if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Setting database state flag to \'Not Initialized\'');
         this.areDatabaseLoadActionsDispatched = false;
         this.nonInitializedDatabaseStates = DATABASE_REQUIRED_ACTIONS.map(x => x.type);
-        if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Non initialized states: ', this.nonInitializedDatabaseStates);
     }
 }

@@ -59,7 +59,7 @@ export class AuthHandler {
                     console.log('[AuthHandler:refreshToken] Could not refresh the access token due to API error', error);
                     if (this.rbkConfig.debugMode) console.groupEnd();
                     this.store.dispatch(new AuthenticationActions.Logout());
-                    return throwError('A API de autenticação se encontra inoperante no momento.');
+                    return throwError('Não foi possível revalidar suas credenciais, redirecionando para a tela de login.');
                 })
             );
     }
