@@ -40,7 +40,21 @@ export function generateUserData(token: string, config: NgxRbkUtilsConfig): any 
             }
         }
 
-        user[key.propertyName] = finalValue;
+        if (finalValue != null) {
+            user[key.propertyName] = finalValue;
+        }
+        else {
+            if (key.type === 'array') {
+                user[key.propertyName] = [];
+            }
+            else if (key.type === 'string') {
+                user[key.propertyName] = '';
+            }
+            else {
+                throw new Error('Unsupported type: ' + key.type + ', please update the library');
+            }
+        }
+
     }
 
     if (user.username === undefined) {

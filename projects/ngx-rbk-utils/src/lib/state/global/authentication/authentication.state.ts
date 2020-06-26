@@ -13,15 +13,15 @@ import { generateUserData } from './authentication.utils';
 // If access token path or property name is changed, don't forget to update the
 // selectSnapshot to it on BaseApiService
 export interface AuthenticationStateModel {
-    accessToken: string | null;
-    refreshToken: string | null;
     userdata: any;
+    refreshToken: string | null;
+    accessToken: string | null;
 }
 
 export const getAuthenticationInitialState = (): AuthenticationStateModel => ({
-    accessToken: null,
-    refreshToken: null,
     userdata: null,
+    refreshToken: null,
+    accessToken: null,
 });
 
 // Do not remove the @dynamic flag, it's not a comment, it an Angular flag!

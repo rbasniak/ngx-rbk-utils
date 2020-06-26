@@ -11,7 +11,7 @@
 
         `npm install ngx-rbk-utils`
 
-* Import the `NgxRbkUtilsModule` in your `AppModule` and pass the `buildState()` function in the `NgxsModule.forRoot()` method. Also import the `ToastModule` from `primeng`
+* Import the `NgxRbkUtilsModule` in your `AppModule` and pass the `buildState()` function in the `NgxsModule.forRoot()` method. Also import the `ToastModule` from `primeng`. Also add a provider for `NgxRbkUtilsConfig`
 
    > IMPORTANT: you must import the module BEFORE all other `ngxs` modules
 
@@ -30,7 +30,7 @@
       NgxsReduxDevtoolsPluginModule.forRoot(),
       ...
     ],
-    providers: [],
+    providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig }],
     bootstrap: []
     })
     export class AppModule {
@@ -86,8 +86,10 @@
     ```
 
 * Add `<p-toast>` and `<smz-general-dialog>` to your `app.component.html`
-* Add `Issue that you dont import MessageService from PrimeNg`
-* In the constructor of your error page, clear the local storage with :
+
+* Make sure you don't import `MessageService` from `primeng` in any of modules/components or the `ToastActions` from the library will not work
+
+* In the constructor of your error page, clear the local storage with:
 ```typescript
 constructor() {
   localStorage.clear();
