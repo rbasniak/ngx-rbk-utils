@@ -8,7 +8,8 @@ export * from './lib/ngx-rbk-utils.module';
 export * from './lib/ngx-rbk-utils.config';
 
 export * from './lib/utils/utils';
-export * from './lib/utils/state.utils';
+export * from './lib/utils/state/state.utils';
+export * from './lib/utils/state/state.guard';
 
 export * from './lib/auth/auth.guard';
 export * from './lib/auth/auth.handler';

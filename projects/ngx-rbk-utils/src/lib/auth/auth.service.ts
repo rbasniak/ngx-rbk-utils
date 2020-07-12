@@ -24,6 +24,7 @@ export class AuthService extends BaseApiService {
                 loadingBehavior: this.rbkConfig.authentication.login.loadingBehavior,
                 authentication: false,
                 errorHandlingType: this.rbkConfig.authentication.login.errorHandlingType,
+                localLoadingTag: this.rbkConfig.authentication.login.loadingBehavior === 'local' ? 'login' : null
             })).pipe(
                 map(x => ({
                     accessToken: x[this.rbkConfig.authentication.login.responsePropertyName],
@@ -41,6 +42,7 @@ export class AuthService extends BaseApiService {
                 loadingBehavior: this.rbkConfig.authentication.refreshToken.loadingBehavior,
                 authentication: false,
                 errorHandlingType: this.rbkConfig.authentication.refreshToken.errorHandlingType,
+                localLoadingTag: this.rbkConfig.authentication.refreshToken.loadingBehavior === 'local' ? 'refresh-token' : null
             })).pipe(
                 map(x => ({
                     accessToken: x[this.rbkConfig.authentication.login.responsePropertyName],

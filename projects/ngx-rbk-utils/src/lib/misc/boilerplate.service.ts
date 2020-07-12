@@ -24,7 +24,7 @@ export class BoilerplateService {
     constructor(private titleService: TitleService, private store: Store, private rbkConfig: NgxRbkUtilsConfig, private actions$: Actions) { }
 
     public init(): void {
-        if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Initializing Service');
+        // if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Initializing Service');
         this.killSubscriptions();
 
         this.setNonInitializedStates();
@@ -35,13 +35,13 @@ export class BoilerplateService {
             if (dispatchData.action.constructor.type === AuthenticationActions.LocalLoginSuccess.type ||
                 dispatchData.action.constructor.type === AuthenticationActions.RemoteLoginSuccess.type) {
                 if (!this.areDatabaseLoadActionsDispatched) {
-                    if (this.rbkConfig.debugMode) console.log(`[Boilerplate Service] Received "${dispatchData.action.constructor.type}" and states are not initialized`);
+                    // if (this.rbkConfig.debugMode) console.log(`[Boilerplate Service] Received "${dispatchData.action.constructor.type}" and states are not initialized`);
                     this.areDatabaseLoadActionsDispatched = true;
 
                     this.loadDatabaseStoreData();
                 }
                 else {
-                    if (this.rbkConfig.debugMode) console.log(`[Boilerplate Service] Received "${dispatchData.action.constructor.type}" and states are already initialized`);
+                    // if (this.rbkConfig.debugMode) console.log(`[Boilerplate Service] Received "${dispatchData.action.constructor.type}" and states are already initialized`);
                 }
             }
 
@@ -59,7 +59,7 @@ export class BoilerplateService {
             }
 
             if (this.nonInitializedDatabaseStates.length === 0) {
-                console.log('Database stores initialized');
+                // console.log('Database stores initialized');
                 this.listenToDatabaseInitializationEvents = false;
                 this.store.dispatch(new ApplicationActions.DatabaseStatesInitialized());
             }
@@ -84,7 +84,7 @@ export class BoilerplateService {
         for (const actionType of DATABASE_REQUIRED_ACTIONS) {
             const actionName: string = actionType.type;
             if (actionName.toLowerCase().indexOf('success') === -1) {
-                console.log('[Boilerplate Service]  Dispatching "' + actionType.type + '"');
+                // console.log('[Boilerplate Service]  Dispatching "' + actionType.type + '"');
                 const instance = new actionType(null);
                 this.store.dispatch(instance);
             }

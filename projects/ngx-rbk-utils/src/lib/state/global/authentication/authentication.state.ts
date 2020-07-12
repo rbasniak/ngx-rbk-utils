@@ -45,9 +45,9 @@ export class AuthenticationState {
         }
         else {
             ctx.patchState({
-                accessToken,
+                userdata: generateUserData(accessToken, this.rbkConfig),
                 refreshToken,
-                userdata: generateUserData(accessToken, this.rbkConfig)
+                accessToken,
             });
 
             ctx.dispatch(new AuthenticationActions.LocalLoginSuccess());
@@ -56,8 +56,6 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.LocalLoginFailure)
     public localLoginFailure(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLoginFailure): void {
-        // TODO: se nao der erro, retirar isso no futuro
-        // ctx.dispatch(new Navigate([this.rbkConfig.routes.nonAuthenticatedRoot]));
     }
 
     @Action(AuthenticationActions.RemoteLogin)
@@ -78,9 +76,9 @@ export class AuthenticationState {
         localStorage.setItem('refresh_token', action.refreshToken);
 
         ctx.patchState({
-            accessToken: action.accessToken,
+            userdata: generateUserData(action.accessToken, this.rbkConfig),
             refreshToken: action.refreshToken,
-            userdata: generateUserData(action.accessToken, this.rbkConfig)
+            accessToken: action.accessToken,
         });
     }
 
@@ -95,9 +93,9 @@ export class AuthenticationState {
         localStorage.removeItem('refresh_token');
 
         ctx.setState({
-            accessToken: null,
+            userdata: null,
             refreshToken: null,
-            userdata: null
+            accessToken: null,
         });
     }
 }

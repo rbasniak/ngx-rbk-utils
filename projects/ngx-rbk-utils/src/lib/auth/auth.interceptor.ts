@@ -84,6 +84,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     );
                 }
                 else {
+                    this.inflightAuthRequest = null;
                     throw (error);
                 }
             })
