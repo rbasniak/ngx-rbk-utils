@@ -37,7 +37,14 @@ export class AuthHandler {
             return of(null);
         }
 
-        return this.authService.refreshToken(refreshToken, this.rbkConfig.authentication.refreshToken.extraProperties)
+        let extraProperties = this.rbkConfig.authentication.refreshToken.extraProperties;
+        const domain = (this.store.selectSnapshot(AuthenticationSelectors.userdata) as any).domain ;
+
+        if (domain != null && domain !== '') {
+          extraProperties = { ...extraProperties, domain };
+        }
+
+        return this.authService.refreshToken(refreshToken, extraProperties)
             .pipe(
                 map((response: any) => {
                     console.log('[AuthHandler:refreshToken] Access token successfully refreshed ', response);
