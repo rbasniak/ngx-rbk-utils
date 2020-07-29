@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 import { ApplicationSelectors } from '../../state/global/application/application.selector';
 
 @Injectable({ providedIn: 'root' })
-export class DatabaseStateGuard implements CanActivate
+export class RbkDatabaseStateGuard implements CanActivate
 {
     constructor(private store: Store) { }
 
