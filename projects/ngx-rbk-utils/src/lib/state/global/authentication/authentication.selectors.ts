@@ -33,8 +33,9 @@ export class AuthenticationSelectors {
         const selector = createSelector([AuthenticationState], (state: AppStateModel) => {
             let hasAccess = true;
             const roles: string[] = state.global.authentication.userdata.roles;
+            const domain = state.global.authentication.userdata.domain;
             for (const checkedClaim of claims) {
-                hasAccess = hasAccess && roles.includes(checkedClaim);
+                hasAccess = hasAccess && (roles.includes(checkedClaim) || roles.includes(`${domain}|${checkedClaim}`));
             }
 
             return hasAccess;
@@ -50,7 +51,14 @@ export class AuthenticationSelectors {
                 return false;
             }
 
-            return state.global.authentication.userdata.roles.includes(claim);
+            let hasAccess = state.global.authentication.userdata.roles.includes(claim);
+
+            if (!hasAccess) {
+              const domain = state.global.authentication.userdata.domain;
+              hasAccess = state.global.authentication.userdata.roles.includes(`${domain}|${claim}`);
+            }
+
+            return hasAccess;
         });
 
         return selector;

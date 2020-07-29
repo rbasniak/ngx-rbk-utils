@@ -42,6 +42,11 @@ export class RbkAuthGuard implements CanActivate {
 
                 const allowedClaim = routeData.claim as string;
                 hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(allowedClaim));
+
+                const domain = (this.store.selectSnapshot(AuthenticationSelectors.userdata) as any).domain ;
+                if (!hasAccess && domain != null && domain !== '') {
+                  hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(`${domain}|${allowedClaim}`));
+                }
             }
             else {
                 if (this.config.debugMode) console.log('[RbkAuthGuard] The selected route does not need special claims');
@@ -58,13 +63,9 @@ export class RbkAuthGuard implements CanActivate {
         if (!isAuthenticated) {
           if (this.config.debugMode) console.log('[RbkAuthGuard] Could not login locally using localstorage, redirecting user to landing page');
 
-          // TODO: setar o endereço da landing page (colocar na store)
           this.store.dispatch(new Navigate([this.config.routes.nonAuthenticatedRoot]));
           this.store.dispatch(new ToastActions.Error('Usuário não autenticado, redirecionando para ' + this.config.routes.nonAuthenticatedRoot));
         }
-
-
-        // TODO: criar authenticatedRoot, nonAuthenticathedRoot no lugar de landing no options
 
         if (this.config.debugMode) console.log('[RbkAuthGuard] Does the user can access this route? -> ', hasAccess);
         if (this.config.debugMode) console.groupEnd();

@@ -65,6 +65,8 @@ export function generateUserData(token: string, config: NgxRbkUtilsConfig): any 
         user.roles = [];
     }
 
+    user.domain = data['Domain'];
+
     // console.log(`Finished decoding token`);
     return user;
 }
