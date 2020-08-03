@@ -47,7 +47,8 @@ export class AuthHandler {
         return this.authService.refreshToken(refreshToken, extraProperties)
             .pipe(
                 map((response: any) => {
-                    console.log('[AuthHandler:refreshToken] Access token successfully refreshed ', response);
+
+                    if (this.rbkConfig.debugMode) console.log('[AuthHandler:refreshToken] Access token successfully refreshed ', response);
 
                     if (response.accessToken == null) {
                         // tslint:disable-next-line:max-line-length
@@ -55,7 +56,7 @@ export class AuthHandler {
                         throwError('Could not read refresh token response');
                     }
 
-                    console.log('[AuthHandler:refreshToken] Dispatching RemoteLoginSuccess to update the state and localStorage');
+                    if (this.rbkConfig.debugMode) console.log('[AuthHandler:refreshToken] Dispatching RemoteLoginSuccess to update the state and localStorage');
                     if (this.rbkConfig.debugMode) console.groupEnd();
 
                     this.store.dispatch(new AuthenticationActions.RefreshTokenSuccess(response.accessToken, response.refreshToken));
@@ -63,7 +64,7 @@ export class AuthHandler {
                     return response.accessToken;
                 }),
                 catchError(error => {
-                    console.log('[AuthHandler:refreshToken] Could not refresh the access token due to API error', error);
+                    if (this.rbkConfig.debugMode) console.log('[AuthHandler:refreshToken] Could not refresh the access token due to API error', error);
                     if (this.rbkConfig.debugMode) console.groupEnd();
                     this.store.dispatch(new AuthenticationActions.Logout());
                     return throwError('Não foi possível revalidar suas credenciais, redirecionando para a tela de login.');

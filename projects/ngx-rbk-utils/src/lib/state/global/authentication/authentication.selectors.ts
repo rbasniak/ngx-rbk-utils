@@ -54,8 +54,8 @@ export class AuthenticationSelectors {
             let hasAccess = state.global.authentication.userdata.roles.includes(claim);
 
             if (!hasAccess) {
-              const domain = state.global.authentication.userdata.domain;
-              hasAccess = state.global.authentication.userdata.roles.includes(`${domain}|${claim}`);
+                const domain = state.global.authentication.userdata.domain;
+                hasAccess = state.global.authentication.userdata.roles.includes(`${domain}|${claim}`);
             }
 
             return hasAccess;
