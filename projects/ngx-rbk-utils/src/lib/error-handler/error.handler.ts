@@ -44,7 +44,7 @@ export class HttpErrorHandler {
 
             let response = httpResponse;
             if (this.isBlobError(response)) {
-              response = await this.parseBlob(response);
+                response = await this.parseBlob(response);
             }
 
             if (response.status === 400) {
