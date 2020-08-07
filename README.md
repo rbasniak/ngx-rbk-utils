@@ -462,7 +462,7 @@ The `BreadcrumService` is already injected by the library.
 
 The following example shows the input of the function the what the output would be.
 
-    ```typescript
+```typescript
     // Use (result will be of type 'MyType')
     const result = flattenObject<MyType>(input);
 
@@ -490,4 +490,4 @@ The following example shows the input of the function the what the output would 
         order: 19,
         parentId: '3'
     }
-    ```
+```
