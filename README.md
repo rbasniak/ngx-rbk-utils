@@ -335,19 +335,19 @@ The checks made by the guard are the following:
 
 * if the route needs any special claim, it should be passed to the router like this:
 
-```typescript
-const routes: Routes = [
-  {
-    path: 'authenticated-route',
-    component: AuthenticatedRouteComponent,
-    canActivate: [ RbkAuthGuard ],
-    data: { title: 'My Route', breadcrumb: 'My Route', claim: 'CAN_ACCESS_MY_AUTHENTICATED_ROUTE' },
-    children: [
-      ...
-    ]
-  },
-];
-```
+    ```typescript
+    const routes: Routes = [
+    {
+        path: 'authenticated-route',
+        component: AuthenticatedRouteComponent,
+        canActivate: [ RbkAuthGuard ],
+        data: { title: 'My Route', breadcrumb: 'My Route', claim: 'CAN_ACCESS_MY_AUTHENTICATED_ROUTE' },
+        children: [
+        ...
+        ]
+    },
+    ];
+    ```
 * when the route needs any special claim, the guard will search for that claim in the user data, if the user is authenticated and he has the needed claim the access is allowed.
 
 * when the route needs any special claim and the guard doesn't find that claim directly in the user data, it will try to find a claim in the format `{{domain}}|{{claim}}`. The domain is read from the `domain` property in the user data. If you need to use this domain feature, you need to set it in the `accessTokenClaims` property in the config file.
@@ -375,25 +375,119 @@ export class MyComponent {
 ---
 
 ## Global error handling
-// TODO: explicar como as requisicoes tem que vir da API, dialog vs toast, etc
+All http errors are automatically handled by the library through interceptors. This behavior is set in the config file by the `httpBehaviors` property and can be overrided individually for each request, like this:
+
+```typescript
+return this.http.post(url, body,
+    this.generateDefaultHeaders({
+        errorHandlingType: 'toast',
+    }));
+```
+
+There are three possible values: `toast`, `dialog` and `none`.
 
 ## Loading flag
 
-### Global
-    // TODO: explicar
+The library offers three ways of handling in progress http requests:
 
-### Local
-    // TODO: explicar
+* GLOBAL: when am http request is started, the loading flag in the store is set. If another request is started before the previous is finished, the flag will remain set. Only when the last request is finished the flag will be set to false. This flag can be observed using the `ApplicationSelectors.globalIsLoading` selector.
+
+* LOCAL: with this option an individual flag is set for each request and they can be observed using the `ApplicationSelectors.isWaitingRequest` selector, passing the `id` used in the http request. The following sample shows how to use this option for a give request:
+
+```typescript
+return this.http.post(url, body,
+    this.generateDefaultHeaders({
+        loadingBehavior: 'local',
+        localLoadingTag: 'my-request-id'
+    }));
+```
+
+* NONE: none of the store loading flags will be set.
+
+You can set the default values for all http requests in the `httpBehaviors` property of the config file. But this value can be individually overriden on each request like in the examples above.
 
 ## Http request behaviors
-// TODO: Falar so BaseApiService e suas configurações
+To fully use all the features of the library, all the http services must inherit from the `BaseApiService`. This way all requests will use the default values set in the config file, but if any value needs to be overriden it should be done using the `generateDefaultHeaders` method of te base class. The following sample shows how to do this:
+
+```typescript
+return this.http.post(url, body,
+    this.generateDefaultHeaders({
+        errorHandlingType: 'dialog',
+        loadingBehavior: 'local',
+        localLoadingTag: 'my-request-id',
+        compression: true,
+        authentication: true,
+        needToRefreshToken: true
+    }));
+```
+
+> Note that there is no need to set all values, only the ones that are actually needed.
+
 
 ## Title service
-// TODO: explicar
+This service is used to set the title that will be displayed in the browser tab. The title needs to be set in the route, and if it's not set the service will try to infere it from the route name. The following example show how the title is set in the route.
+
+```typescript
+    {
+        path: 'my-route',
+        component: MyComponent,
+        data: { title: 'My Title' },
+    }
+```
+The example above will set the tab title to `XX > My Title`, in which the `XX` is the value of the `applicationName` property in the config file.
+
+The `TitleService` is already injected by the library.
 
 ## Breadcrum service
-// TODO: explicar
+
+This service constructs a breadcrum object to be used in the application breadcrum (really!). It's used the same way as the `TitleService` and it uses the same property of the route.
+
+The `BreadcrumService` is already injected by the library.
 
 ## Utility functions
-// TODO: listar e explicar
 
+* `replaceArrayItem:`: replaces an item in a given array by other with the same `id`. The items must have an `id`. It's used to help with state updates.
+
+* `isWithinTime:`: verifies if the data of a specific database store is still valid given the maximum age in minutes.
+
+* `orderArrayByProperty:`: sort an array of objects by a given property.
+
+* `deepClone:`: make a deep clone of a javascript object (only serializable properties are supported)
+
+* `isEmpty:`: checks wheter a string is `null`, `undefined` or `''`.
+
+* `clearArray:`: removes all elements of an array.
+
+* `flattenObject:`: when dialog data is returned by the `ngx-smz` dialogs, it may have many properties of type `SimpleNamedEntity`, and this data is usually used to be send to an API, which probably needs a property `employeeId` of type `string` instead of a property `employee` of type `{ id: string, name: string}`. This function does this kind of transformation in the object, it finds all object propertyes that have an `id` property and converts it to `{{propertyName}}id`. It also has a generic type to cast the data to the specified type.
+
+The following example shows the input of the function the what the output would be.
+
+    ```typescript
+    // Use (result will be of type 'MyType')
+    const result = flattenObject<MyType>(input);
+
+    // input
+    {
+        id: '2',
+        color: '#4d3a8f',
+        category: {
+            id: '9',
+            name: 'My category',
+            icon: 'fa fas-home'
+        },
+        order: 19,
+        parent: {
+            id: '3',
+            name: 'My parent'
+        }
+    }
+
+    // output
+    {
+        id: '2',
+        color: '#4d3a8f',
+        categoryId: '9',
+        order: 19,
+        parentId: '3'
+    }
+    ```
