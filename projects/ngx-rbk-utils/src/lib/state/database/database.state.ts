@@ -21,4 +21,11 @@ export class DatabaseState {
             ...this.rbkConfig.state.database.clearFunction()
         });
     }
+
+    @Action(DatabaseActions.Restore)
+    public restore(ctx: StateContext<any>): void {
+        ctx.patchState({
+            ...ctx.getState()
+        });
+    }
 }

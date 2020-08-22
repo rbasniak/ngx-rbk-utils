@@ -21,4 +21,11 @@ export class FeaturesState {
             }
         );
     }
+
+    @Action(FeaturesActions.Restore)
+    public restore(ctx: StateContext<any>): void {
+        ctx.patchState({
+            ...ctx.getState()
+        });
+    }
 }

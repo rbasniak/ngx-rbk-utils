@@ -51,3 +51,7 @@ export * from './lib/state/global/application/application.state';
 export * from './lib/state/global/authentication/authentication.actions';
 export * from './lib/state/global/authentication/authentication.selectors';
 export * from './lib/state/global/authentication/authentication.state';
+
+export * from './lib/ui/input-clear-extension.directive';
+export * from './lib/ui/table-clear-extension.directive';
+export * from './lib/ui/table-clear-extions.module';

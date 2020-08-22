@@ -9,6 +9,7 @@ export const REFRESH_TOKEN_BEHAVIOR_HEADER = 'Refresh-Token-Behavior';
 export const AUTHENTICATION_HEADER = 'Authorization';
 export const CONTENT_ENCODING_HEADER = 'Content-Encoding';
 export const LOCAL_LOADING_TAG_HEADER = 'Local-Loading-Tag';
+export const RESTORE_STATE_ON_ERROR_HEADER = 'Restore-State-On-Error';
 
 export class BaseApiService {
     constructor() { }
@@ -26,6 +27,10 @@ export class BaseApiService {
 
         if (finalParameters.compression === true) {
             headers = headers.set(CONTENT_ENCODING_HEADER, 'gzip');
+        }
+
+        if (finalParameters.restoreStateOnError === true) {
+            headers = headers.set(RESTORE_STATE_ON_ERROR_HEADER, 'true');
         }
 
         if (finalParameters.authentication === true) {
@@ -56,4 +61,5 @@ export interface HttpBehaviorParameters {
     loadingBehavior: 'global' | 'local' | 'none';
     errorHandlingType: 'toast' | 'dialog' | 'none';
     localLoadingTag: string;
+    restoreStateOnError: boolean;
 }

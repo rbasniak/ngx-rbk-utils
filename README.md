@@ -165,7 +165,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             needToRefreshToken: true,
             loadingBehavior: 'global',
             errorHandlingType: 'toast',
-            localLoadingTag: null
+            localLoadingTag: null,
+            restoreStateOnError: true
         },
         // Timeout to wait to fire the application loader after a http request is sent
         loadingStartTimeout: 0
@@ -200,17 +201,25 @@ The library uses many internal `NGXS` actions and exposes a series of them to th
 
 #### DatabaseActions
 
-* `Clear`: cleans the `DatabaseStore`, using the callbacks specified in the config file.
+* `Clear`: cleans the `DatabaseStore`, using the callbacks specified in the config file (this action is automatically called when the `ApplicationActions.Logout` action is dispatched).
 
-> This actions is automatically called when the `ApplicationActions.Logout` action is dispatched
+* `Restore`: re-emits the entire database store, in its current state, to force UI updates. This action can be manually dispatched but it's automatically dispatched everytime an http request returns a code different than 200. This behavior can be overrided for each individual request using the `restoreStateOnError` property in the `httpBehaviors` section of the config file.
 
 ---
 
 #### FeatureActions
 
-* `Clear`: cleans the `FeatureStore`, using the callbacks specified in the config file.
+* `Clear`: cleans the `FeatureStore`, using the callbacks specified in the config file. (this action is automatically called when the `ApplicationActions.Logout` action is dispatched).
 
-> This actions is automatically called when the `ApplicationActions.Logout` action is dispatched
+* `Restore`: re-emits the entire features store, in its current state, to force UI updates. This action can be manually dispatched but it's automatically dispatched everytime an http request returns a code different than 200. This behavior can be overrided for each individual request using the `restoreStateOnError` property in the `httpBehaviors` section of the config file.
+
+---
+
+#### GlobalActions
+
+* `Clear`: cleans the `GlobalStore`, using the default data (this action is automatically called when the `ApplicationActions.Logout` action is dispatched).
+
+* `Restore`: re-emits the entire global store, in its current state, to force UI updates. This action can be manually dispatched but it's automatically dispatched everytime an http request returns a code different than 200. This behavior can be overrided for each individual request using the `restoreStateOnError` property in the `httpBehaviors` section of the config file.
 
 ---
 
@@ -386,6 +395,8 @@ return this.http.post(url, body,
 
 There are three possible values: `toast`, `dialog` and `none`.
 
+Every time request returns an error, all the states are emmited again, in their current state, force UI refresh. This behavior can be overrided for each individual request using the `restoreStateOnError` property in the `httpBehaviors` section of the config file.
+
 ## Loading flag
 
 The library offers three ways of handling in progress http requests:
@@ -443,6 +454,34 @@ The `TitleService` is already injected by the library.
 This service constructs a breadcrum object to be used in the application breadcrum (really!). It's used the same way as the `TitleService` and it uses the same property of the route.
 
 The `BreadcrumService` is already injected by the library.
+
+## UI utilities
+
+* `rbkTableClearExtension`: this directive is used to help with the cleaning of filters in `Table` and `TreeTable` components. It extends them by appending the `clear` methods to them. It must be used in the table and every filter input that needs to be cleared must use the `rbkInputClearExtension` directive. Below is a sample of how it should be used.
+
+```html
+<p-treeTable #dt [tableClearExtension]="dt" ...>
+    <ng-template pTemplate="colgroup">
+        ...
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            ...
+        </tr>
+
+        <tr>
+            <th><input #input1 [inputClearExtension]="{ table: dt, component: input1 }" pInputText type="text" (input)="dt.filter($event.target.value, 'productHtml', 'contains')"></th>
+
+            <th><p-multiSelect #input2 [inputClearExtension]="{ table: dt, component: input2 }" (onChange)="dt.filter($event.value, 'details.warehouse.id', 'simplenamed')" appendTo="body"></p-multiSelect></th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        ...
+    </ng-template>
+</p-treeTable>
+```
 
 ## Utility functions
 
