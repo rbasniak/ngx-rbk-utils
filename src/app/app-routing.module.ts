@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SecretRouteComponent } from './secret-route.component';
 import { RbkAuthGuard } from 'projects/ngx-rbk-utils/src/lib/auth/auth.guard';
 import { SuperSecretRouteComponent } from './super-secret-route.component';
+import { RbkDatabaseStateGuard } from 'projects/ngx-rbk-utils/src/public-api';
 
 
 const routes: Routes = [
@@ -10,19 +11,19 @@ const routes: Routes = [
     path: 'secret',
     component: SecretRouteComponent,
     canActivate: [ RbkAuthGuard ],
-    data: { title: 'Secret', breadcrumb: 'Secret', claim: 'CAN_EDIT_TEMPLATE' },
+    data: { title: 'Secret', breadcrumb: 'Secret' },
     children: [
       {
         path: 'top-secret',
-        canActivate: [ RbkAuthGuard ],
+        canActivate: [ RbkAuthGuard, RbkDatabaseStateGuard ],
         component: SuperSecretRouteComponent,
-        data: { title: 'Top Secret', breadcrumb: 'Top Secret', claim: 'CAN_EDIT_BLOCK_XXXX' },
+        data: { title: 'Top Secret', breadcrumb: 'Top Secret', requiredStates: ['accounts', 'transactions'] },
       },
       {
         path: 'leaked-secret',
-        canActivate: [ RbkAuthGuard ],
+        canActivate: [ RbkAuthGuard, RbkDatabaseStateGuard ],
         component: SuperSecretRouteComponent,
-        data: { title: 'Leaked Secret', breadcrumb: 'Leaked Secret', claim: 'CAN_EDIT_BLOCK' },
+        data: { title: 'Leaked Secret', breadcrumb: 'Leaked Secret', requiredStates: ['accounts', 'categories'] },
       }
     ]
   },

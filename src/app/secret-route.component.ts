@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StateUtils } from 'ngx-rbk-utils';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Store } from '@ngxs/store';
@@ -18,19 +17,16 @@ import { AccountTypesDbSelectors } from './core/state/database/account-types/acc
 @UntilDestroy()
 export class SecretRouteComponent implements OnInit {
     constructor(private route: ActivatedRoute, private store: Store) {
-        StateUtils.afterDatabaseStoreInitialized(store).pipe(
-            tap(() => {
-                // if for demonstration purposes only, in practice, this observable will only emit
-                // when the stores are completely initialized
-                if (this.store.selectSnapshot(CategoriesDbSelectors.all).length > 0 &&
-                    this.store.selectSnapshot(TransactionsDbSelectors.all).length > 0 &&
-                    this.store.selectSnapshot(AccountsDbSelectors.all).length > 0 &&
-                    this.store.selectSnapshot(AccountTypesDbSelectors.all).length > 0) {
+        // if for demonstration purposes only, in practice, this observable will only emit
+        // when the stores are completely initialized
+        if (this.store.selectSnapshot(CategoriesDbSelectors.all).length > 0 &&
+            this.store.selectSnapshot(TransactionsDbSelectors.all).length > 0 &&
+            this.store.selectSnapshot(AccountsDbSelectors.all).length > 0 &&
+            this.store.selectSnapshot(AccountTypesDbSelectors.all).length > 0) {
 
-                    this.store.dispatch(new ToastActions.Info('States are initialized! Go ahead and have fun'));
-                }
-            })
-        ).subscribe();
+            this.store.dispatch(new ToastActions.Info('States are initialized! Go ahead and have fun'));
+
+        }
     }
 
     ngOnInit() { }

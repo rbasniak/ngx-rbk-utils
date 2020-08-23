@@ -27,7 +27,7 @@
       ...
       NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),  // call the buildState()
       NgxsRouterPluginModule.forRoot(),
-      NgxsReduxDevtoolsPluginModule.forRoot(),
+      NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production}),
       ...
     ],
     providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig }],
@@ -142,20 +142,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         accessTokenClaims: {claimName: string, propertyName: string, type: string} []
     },
     state: {
-        database: {
-            // Function that will be called when logout occurs to reset the database store
-            clearFunction: () => ({}),
-            // Array of states to be injected in the `database` part of the state
-            states: [],
-            // Array of actions to be fired in the application initialization to populate the `database` part of the state
-            initializationRequiredActions: []
-        },
-        feature: {
-            // Function that will be called when logout occurs to reset the features store
-            clearFunction: () => ({}),
-            // Array of states to be injected in the `features` part of the state
-            states: []
-        }
+        // Setup for the database part of the state
+        database: {[name: string]: DatabaseStateParameters},
+        // Setup for the feature part of the state
+        feature: {[name: string]: DatabaseStateParameters}
     },
     httpBehaviors: {
         // Default parameters to be used in all HTTP requests on services that inherit from BaseApiService
@@ -259,8 +249,6 @@ The library uses many internal `NGXS` actions and exposes a series of them to th
 
 * `NgRxInitialized`: this actions is dispatched to flag when `NGXS` is initialized in the client application.
 
-* `DatabaseStatesInitialized`: this action is dispatched when all actions in the `initializationRequiredActions` property are dispatched.
-
 * `PushLocalLoading`: this action is dispatched when an http request is started with the loading behavior flag set to `toast`
 
 * `PopLocalLoading`: this action is dispatched when an http request with the loading behavior flag set to `toast` is finished
@@ -305,33 +293,89 @@ The library automatically creates the `global` piece of the store containing app
 
 ## Database state auto initialization
 
-One of the main features of this library is to easy the burden of loading shared store (called as database stores here) and knowing if their data is already loaded.
+One of the main features of this library is to easy the burden of loading shared states (called as database states here) and knowing if their data is already loaded.
 
-In the concept of database stores all data that should be readibly available to the application and shared between components should be loaded at application initialization.
+In the concept of database stores all data that should be readibly available to the application and shared between components should be loaded before component initialization.
 
 This way all this loading is centralized in a single part of the code and you don't have to manually fire their load actions in multiple parts of the code.
 
-This approach works very well and make the user experience very fluid since most data is already in the memory. This is specially true for data that is used to populate dropdowns.
+This approach works very well and make the perfect balance between performance and resources. Only the states needed for a given component will be loaded and only if they are not ready.
 
-The biggest problem with this approach is when the users enters your application using a route that needs this data to render something. If this happens, Angular will load the component before the data arrive from the backend and you're using `selectSnapshot` instead of `select` from NGXS.
+One of the greatest features of `NGXS` is also the one that can gives more headaches in some scenarios, the `selectSnapshot` function. When the users enters your application using a route that needs certain data to render something, Angular will load the component before the data arrive from the backend and you're using `selectSnapshot` instead of `select` from NGXS.
 
-In many cases the `select` is an overkill since it returns an `Observable` and it's a lot easier to work directly with the results of a variable. This is specially true for the contents of dropdown or lists. For this reason we prefer to use the `selectSnapshot` feature of NGXS, but this gets the state of the store in the moment it was called and it's never updated again. So we need to be sure to call it only we are sure that the data is loaded in the store.
+The obvious solution is to use the `select` function. But in many cases the `select` is an overkill since it returns an `Observable` and it's a lot easier to work directly with the results of a variable. This is specially true for the contents of dropdown or lists. For this reason we prefer to use the `selectSnapshot` feature of NGXS, but this gets the value of the state in the moment it was called and it's never updated again. So we need to be sure to call it only we are sure that the data is loaded in the store.
 
-To solve this problem the library exposes a helper method called `afterDatabaseStoreInitialized` that returns an `Observable<boolean>` so the component can know when to start using the data from the store or the application can use a route guard called `RbkDatabaseStateGuard` that will allow Angular to navigate to that route only when the database store is populated.
+To solve this problem the library exposes a route guard called `RbkDatabaseGuard`. You specify the states that are needed for a given route and it makes this data to be ready before letting Angular load the component.
 
-We prefer the route approach, because you don't have to bother with anything in your component, when Angular reaches it you can be 100% sure that all database stores are ready.
-
-If the route guard approach doesn't work in your case, the following sample shows how to use it:
+The following code show how the setup is made in the route:
 
 ```typescript
-constructor(private route: ActivatedRoute, private store: Store) {
-    StateUtils.afterDatabaseStoreInitialized(store).pipe(
-        tap(() => {
-            // You can use .selectSnapshot now
-        })
-    ).subscribe();
+{
+    path: 'my-route',
+    canActivate: [ RbkAuthGuard, RbkDatabaseStateGuard ],
+    component: MyComponent,
+    data: { title: 'Title', breadcrumb: 'Title', requiredStates: ['accounts', 'categories'] },
 }
 ```
+
+As can be seen, the `RbkDatabaseStateGuard` is being used in the `canActivate` property of the route and the required states for the route are specified in the array of the `requiredStates` property of the `data` property.
+
+The values used in the `requiredStates` property must match the names of the states in the configuration file.
+
+> Rembember that if any of the required states needs authentication, the `RbkAuthGuard` guard must be specified before the `RbkDatabaseStateGuard` guard.
+
+There is also the `DatabaseSelectors.areStatesInitialized` selector that lets you manually check if some states are initialized or not. It receives an array of strings representing the states you want to check.
+
+With the route approach you don't have to bother with anything in your component, when Angular reaches it you can be 100% sure that all required states are ready.
+
+### States Setup
+
+For this feature to work properly the states must be set in the configuration file like this:
+
+```typescript
+state: {
+    database: {
+        transactions: {                                  // <- State name (same name used in the state class in the @State() decorator)
+            state: TrasactionsDbState,                   // <- State class
+            loadAction: TransactionsDbActions.LoadAll,   // <- Action used to load the state
+            clearFunction: getTransactionsInitialState,  // <- Function to restore this state to it's initial value
+            cacheTimeout: 5                              // <- Cache timeout (in minutes)
+        },
+        categories: {
+            state: CategoriesDbState,
+            loadAction: CategoriesDbActions.LoadAll,
+            clearFunction: getCategoriesInitialState,
+            cacheTimeout: 1
+        },
+        accounts: {
+            state: AccountsDbState,
+            loadAction: AccountsDbActions.LoadAll,
+            clearFunction: getAccountTypesInitialState,
+            cacheTimeout: 1
+        },
+        accountTypes: {
+            state: AccountTypesDbState,
+            loadAction: AccountTypesDbActions.LoadAll,
+            clearFunction: getAccountsInitialState,
+            cacheTimeout: 1
+        },
+    },
+
+    // The feature state configuration only requires the state and clear function property
+    feature: {
+        categoriesManager: {
+            state: CategoriesManagerState,
+            clearFunction: getCategoriesManagerInitialState
+        },
+        accountsManager: {
+            state: AccountsManagerState,
+            clearFunction: getAccountsManagerInitialState
+        },
+    }
+},
+```
+> `IMPORTANT:` this feature will only work if the states used as requirements for the routes have a `lastUpdated` property that is initialized with `null` and set with the current time when it's first populated.
+
 ---
 
 ## Authentication and authorization

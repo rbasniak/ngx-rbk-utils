@@ -16,10 +16,13 @@ export class FeaturesState {
 
     @Action(FeaturesActions.Clear)
     public clear(ctx: StateContext<any>): void {
-        ctx.patchState({
-                ...this.rbkConfig.state.feature.clearFunction()
-            }
-        );
+        const newState = {};
+
+        for (const stateConfig of Object.keys(this.rbkConfig.state.feature)) {
+            newState[stateConfig] = this.rbkConfig.state.feature[stateConfig].clearFunction();
+        }
+
+        ctx.patchState(newState);
     }
 
     @Action(FeaturesActions.Restore)

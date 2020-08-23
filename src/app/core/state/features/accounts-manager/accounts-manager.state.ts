@@ -23,27 +23,27 @@ export class AccountsManagerState {
     constructor(private apiService: AccountsService) { }
 
 
-    @Action(AccountsManagerActions.Create)
-    public create(ctx: StateContext<AccountsManagerStateModel>, action: AccountsManagerActions.Create): Observable<AccountDetails> {
-        return this.apiService.create(action.data).pipe(
-            tap((result: AccountDetails) =>
-                ctx.dispatch(new AccountsManagerActions.CreateSuccess(result)))
-        );
-    }
+    // @Action(AccountsManagerActions.Create)
+    // public create(ctx: StateContext<AccountsManagerStateModel>, action: AccountsManagerActions.Create): Observable<AccountDetails> {
+    //     return this.apiService.create(action.data).pipe(
+    //         tap((result: AccountDetails) =>
+    //             ctx.dispatch(new AccountsManagerActions.CreateSuccess(result)))
+    //     );
+    // }
 
-    @Action(AccountsManagerActions.Update)
-    public update(ctx: StateContext<AccountsManagerStateModel>, action: AccountsManagerActions.Update): Observable<AccountDetails> {
-        return this.apiService.update(action.data).pipe(
-            tap((result: AccountDetails) =>
-                ctx.dispatch(new AccountsManagerActions.UpdateSuccess(result)))
-        );
-    }
+    // @Action(AccountsManagerActions.Update)
+    // public update(ctx: StateContext<AccountsManagerStateModel>, action: AccountsManagerActions.Update): Observable<AccountDetails> {
+    //     return this.apiService.update(action.data).pipe(
+    //         tap((result: AccountDetails) =>
+    //             ctx.dispatch(new AccountsManagerActions.UpdateSuccess(result)))
+    //     );
+    // }
 
-    @Action(AccountsManagerActions.Delete)
-    public delete(ctx: StateContext<AccountsManagerStateModel>, action: AccountsManagerActions.Delete): Observable<void> {
-        return this.apiService.delete(action.id).pipe(
-            tap(() =>
-                ctx.dispatch(new AccountsManagerActions.DeleteSuccess(action.id)))
-        );
-    }
+    // @Action(AccountsManagerActions.Delete)
+    // public delete(ctx: StateContext<AccountsManagerStateModel>, action: AccountsManagerActions.Delete): Observable<void> {
+    //     return this.apiService.delete(action.id).pipe(
+    //         tap(() =>
+    //             ctx.dispatch(new AccountsManagerActions.DeleteSuccess(action.id)))
+    //     );
+    // }
 }

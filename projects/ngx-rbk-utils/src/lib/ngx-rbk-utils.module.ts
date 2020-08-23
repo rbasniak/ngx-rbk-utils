@@ -53,15 +53,41 @@ export class NgxRbkUtilsModule {
         // For some reason Angular passes 2x through all Decorators, so we set the arrays
         // only when they're empty
         if (FEATURE_STATES.length === 0) {
-            FEATURE_STATES.push(...configuration.state.feature.states);
+            const states = [];
+            for (const stateName of Object.keys(configuration.state.feature)) {
+                states.push(configuration.state.feature[stateName].state);
+
+                if ((configuration.state.feature[stateName].loadAction != null ||
+                        configuration.state.feature[stateName].loadAction != null)) {
+                    throw new Error(`Invalid state configuration for ` + stateName);
+                }
+            }
+            FEATURE_STATES.push(...states);
         }
 
         if (DATABASE_STATES.length === 0) {
-            DATABASE_STATES.push(...configuration.state.database.states);
-        }
+            const states = [];
+            const requiredActions = [];
+            for (const stateName of Object.keys(configuration.state.database)) {
+                states.push(configuration.state.database[stateName].state);
 
-        if (DATABASE_REQUIRED_ACTIONS.length === 0) {
-            DATABASE_REQUIRED_ACTIONS.push(...configuration.state.database.initializationRequiredActions);
+                if ((configuration.state.database[stateName].loadAction != null &&
+                        configuration.state.database[stateName].loadAction == null) ||
+                    (configuration.state.database[stateName].loadAction == null &&
+                        configuration.state.database[stateName].loadAction != null)) {
+                    throw new Error(`Invalid state configuration for ` + stateName);
+                }
+
+                if (configuration.state.database[stateName].loadAction != null) {
+                    requiredActions.push(configuration.state.database[stateName].loadAction);
+                    requiredActions.push(configuration.state.database[stateName].successAction);
+                }
+            }
+            DATABASE_STATES.push(...states);
+
+            if (requiredActions.length > 0) {
+                DATABASE_REQUIRED_ACTIONS.push(...requiredActions);
+            }
         }
 
         return {

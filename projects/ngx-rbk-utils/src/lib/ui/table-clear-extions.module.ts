@@ -11,4 +11,4 @@ import { InputClearExtensionDirective } from './input-clear-extension.directive'
     exports: [TableClearExtensionDirective, InputClearExtensionDirective],
 })
 
-export class TableFilterClearDirectivesModule { }
+export class RbkTableFilterClearDirectivesModule { }

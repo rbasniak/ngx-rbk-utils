@@ -10,7 +10,6 @@ import { DynamicDialogsService } from 'ngx-smz';
 import { Navigate } from '@ngxs/router-plugin';
 
 export interface ApplicationStateModel {
-    databaseStatesInitialized: boolean;
     globalIsLoading: boolean;
     localIsLoading: string[];
     isNgRxInitializedOnClient: boolean;
@@ -20,7 +19,6 @@ export interface ApplicationStateModel {
 export const getInitialApplicationState = (): ApplicationStateModel => ({
         globalIsLoading: false,
         isNgRxInitializedOnClient: false,
-        databaseStatesInitialized: false,
         localIsLoading: []
 });
 
@@ -28,7 +26,6 @@ export const getInitialApplicationState = (): ApplicationStateModel => ({
 // NGXS will be already initialized, and all non initialized stores will be reset.
 export const getCleanApplicationState = (): ApplicationStateModel => ({
         globalIsLoading: false,
-        databaseStatesInitialized: false,
         isNgRxInitializedOnClient: true,
         localIsLoading: []
 });
@@ -63,7 +60,6 @@ export class ApplicationState {
         };
 
         if (action.error.status >= 400 && action.error.status < 500 ) {
-            console.log('show warning dialog, ', error);
             this.dialogs.showMessage({ title: this.rbkConfig.dialogsConfig.errorDialogTitle,
                 messages: error.messages,
                 closable: false,
@@ -197,13 +193,6 @@ export class ApplicationState {
     public setRequiredDatabaseActions(ctx: StateContext<ApplicationStateModel>): void {
         ctx.patchState({
             isNgRxInitializedOnClient: true
-        });
-    }
-
-    @Action(ApplicationActions.DatabaseStatesInitialized)
-    public loadAllSuccess$(ctx: StateContext<ApplicationStateModel>): void {
-        ctx.patchState({
-            databaseStatesInitialized: true,
         });
     }
 }

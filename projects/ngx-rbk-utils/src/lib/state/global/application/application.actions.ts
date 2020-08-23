@@ -26,10 +26,6 @@ export namespace ApplicationActions {
         constructor() {}
     }
 
-    export class DatabaseStatesInitialized {
-        public static readonly type = '[Application] Database States Initialized';
-    }
-
     export class PushLocalLoading {
         public static readonly type = '[Application] Push Local Loading Tag';
         constructor(public tag: string) {}

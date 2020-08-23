@@ -13,7 +13,7 @@ export class RbkAuthGuard implements CanActivate {
     }
 
     public async canActivate(snapshot: ActivatedRouteSnapshot): Promise<boolean> {
-        if (this.config.debugMode) console.groupCollapsed(`Activating route /${snapshot.routeConfig.path}`);
+        if (this.config.debugMode) console.groupCollapsed(`RbkAuthGuard on route /${snapshot.routeConfig.path}`);
 
         let isAuthenticated = this.store.selectSnapshot(AuthenticationSelectors.isAuthenticated);
 
@@ -43,9 +43,9 @@ export class RbkAuthGuard implements CanActivate {
                 const allowedClaim = routeData.claim as string;
                 hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(allowedClaim));
 
-                const domain = (this.store.selectSnapshot(AuthenticationSelectors.userdata) as any).domain ;
+                const domain = (this.store.selectSnapshot(AuthenticationSelectors.userdata) as any).domain;
                 if (!hasAccess && domain != null && domain !== '') {
-                  hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(`${domain}|${allowedClaim}`));
+                    hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(`${domain}|${allowedClaim}`));
                 }
             }
             else {
@@ -61,10 +61,10 @@ export class RbkAuthGuard implements CanActivate {
         }
 
         if (!isAuthenticated) {
-          if (this.config.debugMode) console.log('[RbkAuthGuard] Could not login locally using localstorage, redirecting user to landing page');
+            if (this.config.debugMode) console.log('[RbkAuthGuard] Could not login locally using localstorage, redirecting user to landing page');
 
-          this.store.dispatch(new Navigate([this.config.routes.nonAuthenticatedRoot]));
-          this.store.dispatch(new ToastActions.Error('Usuário não autenticado, redirecionando para ' + this.config.routes.nonAuthenticatedRoot));
+            this.store.dispatch(new Navigate([this.config.routes.nonAuthenticatedRoot]));
+            this.store.dispatch(new ToastActions.Error('Usuário não autenticado, redirecionando para ' + this.config.routes.nonAuthenticatedRoot));
         }
 
         if (this.config.debugMode) console.log('[RbkAuthGuard] Does the user can access this route? -> ', hasAccess);

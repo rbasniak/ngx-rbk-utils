@@ -8,7 +8,6 @@ export * from './lib/ngx-rbk-utils.module';
 export * from './lib/ngx-rbk-utils.config';
 
 export * from './lib/utils/utils';
-export * from './lib/utils/state/state.utils';
 export * from './lib/utils/state/state.guard';
 
 export * from './lib/auth/auth.guard';
@@ -34,6 +33,7 @@ export * from './lib/state/app.state';
 export * from './lib/state/app.utils';
 
 export * from './lib/state/database/database.actions';
+export * from './lib/state/database/database.selectors';
 export * from './lib/state/database/database.state';
 export * from './lib/state/database/database.interfaces';
 

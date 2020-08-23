@@ -17,12 +17,12 @@ import { AccountsManagerState } from 'src/app/core/state/features/accounts-manag
 import { CategoriesManagerState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
 
 export const rbkConfig: NgxRbkUtilsConfig = {
-    debugMode: true,
+    debugMode: false,
     applicationName: 'DEMO',
     routes: {
         authenticatedRoot: '/secret',
         nonAuthenticatedRoot: '/',
-        login: '/login',
+        login: '/',
         error: '/'
     },
     authentication: {
@@ -54,45 +54,41 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     state: {
         database: {
-            clearFunction: () => ({
-                transactions: getTransactionsInitialState(),
-                categories: getCategoriesInitialState(),
-                accounts: getAccountTypesInitialState(),
-                accountTypes: getAccountsInitialState(),
-            }),
-            // Last item is added first to the store, so keep this list
-            // in descending order to keep the state tree organized
-            states: [
-                TrasactionsDbState,
-                CategoriesDbState,
-                AccountTypesDbState,
-                AccountsDbState,
-            ],
-            initializationRequiredActions: [
-                AccountsDbActions.LoadAll,
-                AccountsDbActions.LoadAllSuccess,
-
-                AccountTypesDbActions.LoadAll,
-                AccountTypesDbActions.LoadAllSuccess,
-
-                CategoriesDbActions.LoadAll,
-                CategoriesDbActions.LoadAllSuccess,
-
-                TransactionsDbActions.LoadAll,
-                TransactionsDbActions.LoadAllSuccess,
-            ]
+            transactions: {
+                state: TrasactionsDbState,
+                loadAction: TransactionsDbActions.LoadAll,
+                clearFunction: getTransactionsInitialState,
+                cacheTimeout: 5
+            },
+            categories: {
+                state: CategoriesDbState,
+                loadAction: CategoriesDbActions.LoadAll,
+                clearFunction: getCategoriesInitialState,
+                cacheTimeout: 1
+            },
+            accounts: {
+                state: AccountsDbState,
+                loadAction: AccountsDbActions.LoadAll,
+                clearFunction: getAccountTypesInitialState,
+                cacheTimeout: 1
+            },
+            accountTypes: {
+                state: AccountTypesDbState,
+                loadAction: AccountTypesDbActions.LoadAll,
+                clearFunction: getAccountsInitialState,
+                cacheTimeout: 1
+            },
         },
+
         feature: {
-            clearFunction: () => ({
-                accountsManager: getAccountsManagerInitialState(),
-                categoriesManager: getCategoriesManagerInitialState(),
-            }),
-            // Last item is added first to the store, so keep this list
-            // in descending order to keep the state tree organized
-            states: [
-                CategoriesManagerState,
-                AccountsManagerState,
-            ]
+            categoriesManager: {
+                state: CategoriesManagerState,
+                clearFunction: getCategoriesManagerInitialState
+            },
+            accountsManager: {
+                state: AccountsManagerState,
+                clearFunction: getAccountsManagerInitialState
+            },
         }
     },
     httpBehaviors: {
@@ -102,7 +98,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             needToRefreshToken: true,
             loadingBehavior: 'global',
             errorHandlingType: 'toast',
-            localLoadingTag: null
+            localLoadingTag: null,
+            restoreStateOnError: true
         },
         loadingStartTimeout: 0
     },

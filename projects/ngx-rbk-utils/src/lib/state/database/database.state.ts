@@ -15,11 +15,16 @@ export const DATABASE_REQUIRED_ACTIONS = [];
 @Injectable()
 export class DatabaseState {
     constructor(private rbkConfig: NgxRbkUtilsConfig) { }
+
     @Action(DatabaseActions.Clear)
     public clear(ctx: StateContext<any>): void {
-        ctx.patchState({
-            ...this.rbkConfig.state.database.clearFunction()
-        });
+        const newState = {};
+
+        for (const stateConfig of Object.keys(this.rbkConfig.state.database)) {
+            newState[stateConfig] = this.rbkConfig.state.database[stateConfig].clearFunction();
+        }
+
+        ctx.patchState(newState);
     }
 
     @Action(DatabaseActions.Restore)

@@ -37,7 +37,7 @@ const smzDialogsConfig: SmzDialogsConfig = {
     NgxRbkUtilsModule.forRoot(rbkConfig),
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production}),
     ToastModule,
   ],
   providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig },
