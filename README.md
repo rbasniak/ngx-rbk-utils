@@ -104,6 +104,7 @@ import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 export const rbkConfig: NgxRbkUtilsConfig = {
     // Application name, will be shown in the browser's tab name
     applicationName: string,
+    useTitleService?: boolean, // Flag to indicate wheter the TitleService should be initialized or not.
     routes: {
         // Url path of the landing page of your application, this will be  used to redirect the user when he tries to access a protected route and is not authenticated. Ex.: '/'
         nonAuthenticatedRoute: string,

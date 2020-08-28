@@ -23,7 +23,9 @@ export class BoilerplateService {
         // if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Initializing Service');
         this.killSubscriptions();
 
-        this.titleService.init();
+        if (this.rbkConfig.useTitleService === true) {
+            this.titleService.init();
+        }
 
         this.subs1 = this.actions$.subscribe(dispatchData => {
             if (dispatchData.action.constructor.type === AuthenticationActions.RemoteLoginSuccess.type) {
