@@ -10,6 +10,7 @@ import { DatabaseActions } from '../state/database/database.actions';
 import { Subscription } from 'rxjs';
 import { FeaturesActions } from '../state/features/features.actions';
 import { filter } from 'rxjs/operators';
+import { GlobalActions } from 'ngx-rbk-utils';
 
 @Injectable({ providedIn: 'root' })
 export class BoilerplateService {
@@ -38,6 +39,7 @@ export class BoilerplateService {
 
             this.store.dispatch(new DatabaseActions.Clear());
             this.store.dispatch(new FeaturesActions.Clear());
+            this.store.dispatch(new GlobalActions.Clear());
         });
 
         this.store.dispatch(new AuthenticationActions.LocalLogin());
