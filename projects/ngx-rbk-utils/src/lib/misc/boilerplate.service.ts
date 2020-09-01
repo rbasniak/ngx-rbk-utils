@@ -10,7 +10,7 @@ import { DatabaseActions } from '../state/database/database.actions';
 import { Subscription } from 'rxjs';
 import { FeaturesActions } from '../state/features/features.actions';
 import { filter } from 'rxjs/operators';
-import { GlobalActions } from 'ngx-rbk-utils';
+import { GlobalActions } from '../state/global/global.actions';
 
 @Injectable({ providedIn: 'root' })
 export class BoilerplateService {
