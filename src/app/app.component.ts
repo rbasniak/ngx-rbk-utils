@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
-import { BoilerplateService, AuthenticationActions, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
+import { BoilerplateService, AuthenticationActions, fixDates, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
 import { take } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/global/authentication/authentication.selectors';
 import { PlaceholderJsonService } from './core/api/placeholder.service';
 import { Navigate } from '@ngxs/router-plugin';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'demo-root',
@@ -18,13 +19,15 @@ export class AppComponent {
   @Select(ApplicationSelectors.isWaitingRequest('req1')) public localLoadingForRequest1$: Observable<boolean>;
   @Select(ApplicationSelectors.isWaitingRequest('req2')) public localLoadingForRequest2$: Observable<boolean>;
   @Select(ApplicationSelectors.isWaitingRequest('req3')) public localLoadingForRequest3$: Observable<boolean>;
-  @Select(ApplicationSelectors.isDatabaseStateInitialized) public databaseStoresOk$: Observable<boolean>;
   @Select(AuthenticationSelectors.isAuthenticated) public isAuthenticated$: Observable<boolean>;
   title = 'ngx-rbk-demo';
+  data: any;
 
   constructor(private boilerplateService: BoilerplateService, private store: Store, private actions$: Actions,
-    private messageService: MessageService, private jsonPlaceholderService: PlaceholderJsonService) {
+    private messageService: MessageService, private jsonPlaceholderService: PlaceholderJsonService, private http: HttpClient) {
     this.boilerplateService.init();
+
+    this.http.get('assets/data.json').subscribe(x => this.data = x);
   }
 
   public remoteLoginSuccess(): void {
@@ -80,6 +83,52 @@ export class AppComponent {
 
   public goToLeakedRoute(): void {
     this.store.dispatch(new Navigate(['/secret/leaked-secret']));
+  }
+
+  public fixDatesTest(): void {
+    const date = new Date(2019, 9, 1);
+    this.data = {
+      name: 'name',
+      age: 16,
+      isSingle: true,
+      date: date.toUTCString(),
+      child: {
+        dateCreated: date.toLocaleString(),
+        grandchild: [
+          {
+            name: 'name 1',
+            modifiedDate: date.toUTCString(),
+            deletionDate: 377526933,
+          },
+          {
+            name: 'name 2',
+            modifiedDate: date.toUTCString(),
+            deletionDate: 377526933000,
+          },
+          {
+            name: 'name 3',
+            modifiedDate: date.toUTCString(),
+            deletionDate: 377526933,
+          }
+        ]
+      }
+    };
+
+    fixDates(this.data);
+
+    // const test = [
+    //   { name: 'A' },
+    //   { name: 'B' },
+    //   { name: 'D' },
+    //   { name: 'F' },
+    // ];
+
+    // for (const key of Object.keys(test)) {
+    //   console.log(key);
+    //   console.log(test[key]);
+    // }
+
+    console.log(this.data);
   }
 
 

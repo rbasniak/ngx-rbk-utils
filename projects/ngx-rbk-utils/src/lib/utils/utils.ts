@@ -73,3 +73,31 @@ export function flattenObject<T>(data: any): T {
     return result as T;
 }
 
+export function fixDates(data: {[key: string]: any}) {
+    if (data != null) {
+        for (const key of Object.keys(data)) {
+            if (typeof data[key] === 'string') {
+                if (key.startsWith('date') || key.endsWith('Date')) {
+                    const originalDate = data[key];
+                    const epochDate = Date.parse(data[key]);
+                    data[key] = new Date(epochDate);
+                    console.log('Found a string date (' + key + '): ' + originalDate, data[key]);
+                }
+            }
+            else if (typeof data[key] === 'number') {
+                if (key.startsWith('date') || key.endsWith('Date')) {
+                    console.log('Found an epoch date: ' + data[key]);
+                    if (data[key] > 99999999999) { // timestamp miliseconds
+                        data[key] = new Date(data[key]);
+                    }
+                    else { // timestamp seconds
+                        data[key] = new Date(data[key] * 1000);
+                    }
+                }
+            }
+            else if (typeof data[key] === 'object') {
+                fixDates(data[key]);
+            }
+        }
+    }
+}

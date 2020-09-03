@@ -58,7 +58,6 @@
   <p>Local IsLoading = {{localLoadingForRequest2$ | async}}</p>
   <p>Local IsLoading = {{localLoadingForRequest3$ | async}}</p>
   <p>-</p>
-  <p>Database Stores Ok = {{databaseStoresOk$ | async}}</p>
   <p>User Authenticated = {{isAuthenticated$ | async}}</p>
 
   <!-- Next Steps -->
@@ -141,6 +140,14 @@
         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
 
       <span>Leaked Secret Route</span>
+    </div>
+
+
+    <div class="buttons card card-small" (click)="fixDatesTest()">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
+
+      <span>Fix Date</span>
     </div>
 
     <!-- <div *rbkClaimGuard="'CAN_EDIT_BLOCK'" class="buttons card card-small">
