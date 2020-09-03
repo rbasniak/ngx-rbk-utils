@@ -73,7 +73,7 @@ export function flattenObject<T>(data: any): T {
     return result as T;
 }
 
-export function fixDates(data: {[key: string]: any}) {
+export function fixDateProperties(data: { [key: string]: any }) {
     if (data != null) {
         for (const key of Object.keys(data)) {
             if (typeof data[key] === 'string') {
@@ -81,12 +81,10 @@ export function fixDates(data: {[key: string]: any}) {
                     const originalDate = data[key];
                     const epochDate = Date.parse(data[key]);
                     data[key] = new Date(epochDate);
-                    console.log('Found a string date (' + key + '): ' + originalDate, data[key]);
                 }
             }
             else if (typeof data[key] === 'number') {
                 if (key.startsWith('date') || key.endsWith('Date')) {
-                    console.log('Found an epoch date: ' + data[key]);
                     if (data[key] > 99999999999) { // timestamp miliseconds
                         data[key] = new Date(data[key]);
                     }
@@ -96,7 +94,7 @@ export function fixDates(data: {[key: string]: any}) {
                 }
             }
             else if (typeof data[key] === 'object') {
-                fixDates(data[key]);
+                fixDateProperties(data[key]);
             }
         }
     }

@@ -576,4 +576,8 @@ The following example shows the input of the function the what the output would 
     }
 ```
 
-* `fixDates:`: converts any date property stored as string or number to a Date object. The property name must starts with `date` or ends with `Date`. The operation is done in the same object passed to the function as a parameter. If the date is stored as epoch it can be either in seconds or miliseconds.
+* `fixDateProperties:`: converts any date property stored as string or number to a Date object. The property name must starts with `date` or ends with `Date`. The operation is done in the same object passed to the function as a parameter. If the date is stored as epoch it can be either in seconds or miliseconds.
+
+##  RXJS custom operators
+
+* `fixDates`: this operator do the same as the `fixDateProperties`, but wrapped in a more convenient way for objects coming from an http request.

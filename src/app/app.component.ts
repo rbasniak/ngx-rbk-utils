@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
-import { BoilerplateService, AuthenticationActions, fixDates, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
-import { take } from 'rxjs/operators';
+import { BoilerplateService, AuthenticationActions, fixDates, fixDateProperties, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
+import { take, tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/global/authentication/authentication.selectors';
@@ -27,7 +27,9 @@ export class AppComponent {
     private messageService: MessageService, private jsonPlaceholderService: PlaceholderJsonService, private http: HttpClient) {
     this.boilerplateService.init();
 
-    this.http.get('assets/data.json').subscribe(x => this.data = x);
+    this.http.get('assets/data.json').pipe(
+      fixDates(),
+    ).subscribe(x => this.data = x);
   }
 
   public remoteLoginSuccess(): void {
@@ -87,34 +89,34 @@ export class AppComponent {
 
   public fixDatesTest(): void {
     const date = new Date(2019, 9, 1);
-    this.data = {
-      name: 'name',
-      age: 16,
-      isSingle: true,
-      date: date.toUTCString(),
-      child: {
-        dateCreated: date.toLocaleString(),
-        grandchild: [
-          {
-            name: 'name 1',
-            modifiedDate: date.toUTCString(),
-            deletionDate: 377526933,
-          },
-          {
-            name: 'name 2',
-            modifiedDate: date.toUTCString(),
-            deletionDate: 377526933000,
-          },
-          {
-            name: 'name 3',
-            modifiedDate: date.toUTCString(),
-            deletionDate: 377526933,
-          }
-        ]
-      }
-    };
+    // this.data = {
+    //   name: 'name',
+    //   age: 16,
+    //   isSingle: true,
+    //   date: date.toUTCString(),
+    //   child: {
+    //     dateCreated: date.toLocaleString(),
+    //     grandchild: [
+    //       {
+    //         name: 'name 1',
+    //         modifiedDate: date.toUTCString(),
+    //         deletionDate: 377526933,
+    //       },
+    //       {
+    //         name: 'name 2',
+    //         modifiedDate: date.toUTCString(),
+    //         deletionDate: 377526933000,
+    //       },
+    //       {
+    //         name: 'name 3',
+    //         modifiedDate: date.toUTCString(),
+    //         deletionDate: 377526933,
+    //       }
+    //     ]
+    //   }
+    // };
 
-    fixDates(this.data);
+    fixDateProperties(this.data);
 
     // const test = [
     //   { name: 'A' },
