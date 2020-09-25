@@ -30,6 +30,8 @@ export class AppComponent {
     this.http.get('assets/data.json').pipe(
       fixDates(),
     ).subscribe(x => this.data = x);
+
+    console.log(this.data);
   }
 
   public remoteLoginSuccess(): void {

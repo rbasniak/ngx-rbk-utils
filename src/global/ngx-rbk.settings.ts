@@ -101,7 +101,6 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             localLoadingTag: null,
             restoreStateOnError: true
         },
-        loadingStartTimeout: 0
     },
     toastConfig: {
         severity: 'success',

@@ -158,9 +158,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             errorHandlingType: 'toast',
             localLoadingTag: null,
             restoreStateOnError: true
-        },
-        // Timeout to wait to fire the application loader after a http request is sent
-        loadingStartTimeout: 0
+        }
     },
     // Default contiguration for the PrimeNG Toast
     toastConfig: {

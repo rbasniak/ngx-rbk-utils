@@ -64,7 +64,7 @@ export class RbkAuthGuard implements CanActivate {
             if (this.config.debugMode) console.log('[RbkAuthGuard] Could not login locally using localstorage, redirecting user to landing page');
 
             this.store.dispatch(new Navigate([this.config.routes.nonAuthenticatedRoot]));
-            this.store.dispatch(new ToastActions.Error('Usuário não autenticado, redirecionando para ' + this.config.routes.nonAuthenticatedRoot));
+            // this.store.dispatch(new ToastActions.Error('Usuário não autenticado, redirecionando para ' + this.config.routes.nonAuthenticatedRoot));
         }
 
         if (this.config.debugMode) console.log('[RbkAuthGuard] Does the user can access this route? -> ', hasAccess);

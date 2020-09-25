@@ -1,6 +1,6 @@
 {
   "name": "ngx-rbk-demo",
-"version": "1.0.15-beta",
+"version": "1.0.22-beta",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

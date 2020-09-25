@@ -24,22 +24,22 @@ import { LocalPendingInterceptorService } from './http/local.pending.interceptor
         MessageService,
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HttpErrorInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
             useClass: GlobalPendingInterceptorService,
             multi: true
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LocalPendingInterceptorService,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
             multi: true
         },
     ],

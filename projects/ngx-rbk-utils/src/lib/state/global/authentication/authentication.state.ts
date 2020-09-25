@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { isEmpty } from '../../../utils/utils';
-import { Navigate } from '@ngxs/router-plugin';
 import { LoginResponse } from '../../../auth/models';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { generateUserData } from './authentication.utils';
+import { GlobalActions } from '../global.actions';
+import { FeaturesActions } from '../../features/features.actions';
+import { DatabaseActions } from '../../database/database.actions';
 
 // If access token path or property name is changed, don't forget to update the
 // selectSnapshot to it on BaseApiService
@@ -70,8 +72,7 @@ export class AuthenticationState {
     @Action([AuthenticationActions.RemoteLoginSuccess, AuthenticationActions.RefreshTokenSuccess])
     public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>,
         action: AuthenticationActions.RemoteLoginSuccess | AuthenticationActions.RefreshTokenSuccess): void {
-
-            if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess/RefreshTokenSuccess`);
+        if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess/RefreshTokenSuccess`);
         localStorage.setItem('access_token', action.accessToken);
         localStorage.setItem('refresh_token', action.refreshToken);
 
@@ -92,10 +93,8 @@ export class AuthenticationState {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
 
-        ctx.setState({
-            userdata: null,
-            refreshToken: null,
-            accessToken: null,
-        });
+        ctx.dispatch(new GlobalActions.Restore());
+        ctx.dispatch(new DatabaseActions.Restore());
+        ctx.dispatch(new FeaturesActions.Restore());
     }
 }

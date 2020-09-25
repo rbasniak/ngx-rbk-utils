@@ -26,7 +26,6 @@ export class NgxRbkUtilsConfig {
     };
     public httpBehaviors: {
         defaultParameters: HttpBehaviorParameters,
-        loadingStartTimeout: number
     };
     public toastConfig: {
         severity: string,
