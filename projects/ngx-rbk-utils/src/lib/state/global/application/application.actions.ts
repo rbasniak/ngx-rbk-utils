@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { LogInfo } from './application.state';
 
 export namespace ApplicationActions {
     export class HandleHttpErrorWithDialog {
@@ -34,6 +35,16 @@ export namespace ApplicationActions {
     export class PopLocalLoading {
         public static readonly type = '[Application] Pop Local Loading Tag';
         constructor(public tag: string) {}
+    }
+
+    export class SetLogInfo {
+        public static readonly type = '[Application] Set Log Information';
+        constructor(public info: LogInfo) {}
+    }
+
+    export class SetApplicatinArea {
+        public static readonly type = '[Application] Set application Area';
+        constructor(public area: string) {}
     }
 }
 

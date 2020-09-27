@@ -5,7 +5,7 @@ import { ApplicationActions } from './application.actions';
 import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
-import { HttpErrorHandler } from '../../../error-handler/error.handler';
+import { HttpErrorHandler } from '../../../error-handler/http-error.handler';
 import { DynamicDialogsService } from 'ngx-smz';
 import { Navigate } from '@ngxs/router-plugin';
 
@@ -13,13 +13,25 @@ export interface ApplicationStateModel {
     globalIsLoading: boolean;
     localIsLoading: string[];
     isNgRxInitializedOnClient: boolean;
+    logInfo: LogInfo;
+}
+
+export interface LogInfo {
+    applicationArea: string;
+    applicationLayer: string;
+    applicationVersion: string;
 }
 
 // Initial application state, to be used ONLY when the application is starting
 export const getInitialApplicationState = (): ApplicationStateModel => ({
         globalIsLoading: false,
         isNgRxInitializedOnClient: false,
-        localIsLoading: []
+        localIsLoading: [],
+        logInfo: {
+            applicationArea: '',
+            applicationLayer: '',
+            applicationVersion: ''
+        }
 });
 
 // Application state for when the user cleared the state while the application is running,
@@ -27,7 +39,12 @@ export const getInitialApplicationState = (): ApplicationStateModel => ({
 export const getCleanApplicationState = (): ApplicationStateModel => ({
         globalIsLoading: false,
         isNgRxInitializedOnClient: true,
-        localIsLoading: []
+        localIsLoading: [],
+        logInfo: {
+            applicationArea: '',
+            applicationLayer: '',
+            applicationVersion: ''
+        }
 });
 
 // Do not remove the @dynamic flag, it's not a comment, it an Angular flag!
@@ -193,6 +210,20 @@ export class ApplicationState {
     public setRequiredDatabaseActions(ctx: StateContext<ApplicationStateModel>): void {
         ctx.patchState({
             isNgRxInitializedOnClient: true
+        });
+    }
+
+    @Action(ApplicationActions.SetLogInfo)
+    public setLogInfo(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetLogInfo): void {
+        ctx.patchState({
+            logInfo: action.info
+        });
+    }
+
+    @Action(ApplicationActions.SetApplicatinArea)
+    public setArea(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetApplicatinArea): void {
+        ctx.patchState({
+            logInfo: {...ctx.getState().logInfo, applicationArea: action.area}
         });
     }
 }

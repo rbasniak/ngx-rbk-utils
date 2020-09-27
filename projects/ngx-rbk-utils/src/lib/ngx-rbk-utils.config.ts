@@ -4,6 +4,10 @@ export class NgxRbkUtilsConfig {
     public debugMode: boolean;
     public applicationName: string;
     public useTitleService?: boolean;
+    public diagnostics: {
+        url: string;
+
+    };
     public state: {
         database: {[name: string]: DatabaseStateParameters},
         feature: {[name: string]: DatabaseStateParameters}

@@ -8,6 +8,7 @@ import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/gl
 import { PlaceholderJsonService } from './core/api/placeholder.service';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpClient } from '@angular/common/http';
+import { ApplicationActions } from 'projects/ngx-rbk-utils/src/public-api';
 
 @Component({
   selector: 'demo-root',
@@ -31,7 +32,7 @@ export class AppComponent {
       fixDates(),
     ).subscribe(x => this.data = x);
 
-    console.log(this.data);
+    this.store.dispatch(new ApplicationActions.SetApplicatinArea('Home'));
   }
 
   public remoteLoginSuccess(): void {
@@ -133,6 +134,10 @@ export class AppComponent {
     // }
 
     console.log(this.data);
+  }
+
+  throw(): void {
+    throw new Error('WTF JS?!');
   }
 
 

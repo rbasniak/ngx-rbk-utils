@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, Injector } from '@angular/core';
+import { NgModule, ModuleWithProviders, Injector, ErrorHandler } from '@angular/core';
 import { NgxRbkUtilsConfig } from './ngx-rbk-utils.config';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -8,9 +8,10 @@ import { DATABASE_REQUIRED_ACTIONS, DATABASE_STATES } from './state/database/dat
 import { FEATURE_STATES } from './state/features/features.state';
 import { GlobalInjector } from './misc/global.injector';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { HttpErrorInterceptor } from './error-handler/error.interceptor';
+import { HttpErrorInterceptor } from './error-handler/http-error.interceptor';
 import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
 import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
+import { GlobalErrorHandler } from './error-handler/global-error.interceptor';
 
 @NgModule({
     imports: [
@@ -22,6 +23,10 @@ import { LocalPendingInterceptorService } from './http/local.pending.interceptor
         AuthService,
         TitleService,
         MessageService,
+        {
+            provide: ErrorHandler,
+            useClass: GlobalErrorHandler
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: GlobalPendingInterceptorService,

@@ -1,5 +1,5 @@
 import { Selector, createSelector } from '@ngxs/store';
-import { ApplicationState, ApplicationStateModel } from './application.state';
+import { ApplicationState, ApplicationStateModel, LogInfo } from './application.state';
 import { AppStateModel } from '../../app.state';
 
 export class ApplicationSelectors {
@@ -15,5 +15,10 @@ export class ApplicationSelectors {
         });
 
         return selector;
+    }
+
+    @Selector([ApplicationState])
+    public static logInfo(state: ApplicationStateModel): LogInfo {
+        return state.logInfo;
     }
 }

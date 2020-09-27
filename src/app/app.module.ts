@@ -3,7 +3,6 @@ import { NgModule, TemplateRef } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxRbkUtilsModule, buildState, ApplicationActions } from 'ngx-rbk-utils';
 import { rbkConfig } from 'src/global/ngx-rbk.settings';
 import { NgxsModule, Store } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -14,7 +13,7 @@ import { SmzDialogsConfig, SmzDialogsModule } from 'ngx-smz';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { SecretRouteComponent } from './secret-route.component';
 import { SuperSecretRouteComponent } from './super-secret-route.component';
-import { NgxRbkUtilsConfig } from 'projects/ngx-rbk-utils/src/public-api';
+import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-rbk-utils';
 
 const smzDialogsConfig: SmzDialogsConfig = {
   requiredByDefault: true,
@@ -47,5 +46,10 @@ const smzDialogsConfig: SmzDialogsConfig = {
 export class AppModule {
   constructor(private store: Store) {
     this.store.dispatch(new ApplicationActions.NgRxInitialized());
+    this.store.dispatch(new ApplicationActions.SetLogInfo({
+      applicationArea: '',
+      applicationLayer: 'Angular Client',
+      applicationVersion: '15.33.245'
+    }));
   }
 }

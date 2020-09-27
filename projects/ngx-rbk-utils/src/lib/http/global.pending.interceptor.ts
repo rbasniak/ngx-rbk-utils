@@ -26,7 +26,6 @@ export class GlobalPendingInterceptorService implements HttpInterceptor {
             if (this.pendingRequests === 1) {
                 // if after a timer there still are pending request ongoing, set the isLoading flag
                 if (this.pendingRequests > 0) {
-                    console.log('Disparou a action de StartLoading');
                     this.store.dispatch(new ApplicationActions.StartGlobalLoading());
                 }
             }
@@ -43,7 +42,6 @@ export class GlobalPendingInterceptorService implements HttpInterceptor {
 
                     if (this.pendingRequests === 0) {
                         setTimeout(() => {
-                            console.log('Disparou a action de StopLoading');
                             this.store.dispatch(new ApplicationActions.StopGlobalLoading());
                         }, 0);
 

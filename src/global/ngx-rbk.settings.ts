@@ -19,6 +19,9 @@ import { CategoriesManagerState } from 'src/app/core/state/features/categories-m
 export const rbkConfig: NgxRbkUtilsConfig = {
     debugMode: false,
     applicationName: 'DEMO',
+    diagnostics: {
+        url: `https://localhost:44339/api/diagnostics`,
+    },
     routes: {
         authenticatedRoot: '/secret',
         nonAuthenticatedRoot: '/',
