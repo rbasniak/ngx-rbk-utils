@@ -39,8 +39,7 @@ const smzDialogsConfig: SmzDialogsConfig = {
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production}),
     ToastModule,
   ],
-  providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig },
-],
+  providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig } ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

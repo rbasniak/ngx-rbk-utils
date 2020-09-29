@@ -139,6 +139,8 @@ export class AppComponent {
   throw(): void {
     throw new Error('WTF JS?!');
   }
-
+  goToDialogs(): void {
+    this.store.dispatch(new Navigate(['/dialogs']));
+  }
 
 }

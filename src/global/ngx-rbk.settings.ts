@@ -7,6 +7,7 @@ import { TransactionsDbActions } from 'src/app/core/state/database/transactions/
 import { AccountTypesDbActions } from 'src/app/core/state/database/account-types/account-types.actions';
 import { TrasactionsDbState } from 'src/app/core/state/database/transactions/transactions.state';
 import { AccountTypesDbState } from 'src/app/core/state/database/account-types/account-types.state';
+import { getInitialState as getUiDefinitionsInitialState } from 'src/app/core/state/database/ui-definitions/ui-definitions.state';
 import { getInitialState as getTransactionsInitialState } from 'src/app/core/state/database/transactions/transactions.state';
 import { getInitialState as getCategoriesInitialState } from 'src/app/core/state/database/categories/categories.state';
 import { getInitialState as getAccountsInitialState } from 'src/app/core/state/database/accounts/accounts.state';
@@ -15,12 +16,15 @@ import { getInitialState as getAccountsManagerInitialState } from 'src/app/core/
 import { getInitialState as getCategoriesManagerInitialState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
 import { AccountsManagerState } from 'src/app/core/state/features/accounts-manager/accounts-manager.state';
 import { CategoriesManagerState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
+import { UiDefinitionsDbState } from 'src/app/core/state/database/ui-definitions/ui-definitions.state';
+import { UiDefinitionsDbActions } from 'src/app/core/state/database/ui-definitions/ui-definitions.actions';
 
 export const rbkConfig: NgxRbkUtilsConfig = {
     debugMode: false,
     applicationName: 'DEMO',
     diagnostics: {
-        url: `https://localhost:44339/api/diagnostics`,
+        // url: `https://localhost:44339/api/diagnostics`,
+        url: null,
     },
     routes: {
         authenticatedRoot: '/secret',
@@ -57,6 +61,12 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     state: {
         database: {
+            uiDefinitions: {
+                state: UiDefinitionsDbState,
+                loadAction: UiDefinitionsDbActions.LoadAll,
+                clearFunction: getUiDefinitionsInitialState,
+                cacheTimeout: 999
+            },
             transactions: {
                 state: TrasactionsDbState,
                 loadAction: TransactionsDbActions.LoadAll,

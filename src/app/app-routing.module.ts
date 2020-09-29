@@ -4,6 +4,7 @@ import { SecretRouteComponent } from './secret-route.component';
 import { RbkAuthGuard } from 'projects/ngx-rbk-utils/src/lib/auth/auth.guard';
 import { SuperSecretRouteComponent } from './super-secret-route.component';
 import { RbkDatabaseStateGuard } from 'projects/ngx-rbk-utils/src/public-api';
+import { DialogsComponent } from './dialogs.component';
 
 
 const routes: Routes = [
@@ -24,9 +25,15 @@ const routes: Routes = [
         canActivate: [ RbkAuthGuard, RbkDatabaseStateGuard ],
         component: SuperSecretRouteComponent,
         data: { title: 'Leaked Secret', breadcrumb: 'Leaked Secret', requiredStates: ['accounts', 'categories'] },
-      }
-    ]
+      },
+    ],
   },
+  {
+    path: 'dialogs',
+    component: DialogsComponent,
+    canActivate: [ RbkDatabaseStateGuard ],
+    data: { title: 'Dialogs', requiredStates: ['uiDefinitions'] },
+  }
 ];
 
 @NgModule({
