@@ -7,8 +7,8 @@ import { TransactionsDbActions } from 'src/app/core/state/database/transactions/
 import { AccountTypesDbActions } from 'src/app/core/state/database/account-types/account-types.actions';
 import { TrasactionsDbState } from 'src/app/core/state/database/transactions/transactions.state';
 import { AccountTypesDbState } from 'src/app/core/state/database/account-types/account-types.state';
-import { getInitialState as getUiDefinitionsInitialState } from 'src/app/core/state/database/ui-definitions/ui-definitions.state';
 import { getInitialState as getTransactionsInitialState } from 'src/app/core/state/database/transactions/transactions.state';
+import { getInitialState as getuiDefinitionsInitialState } from 'src/app/core/state/database/ui-definitions/ui-definitions.state';
 import { getInitialState as getCategoriesInitialState } from 'src/app/core/state/database/categories/categories.state';
 import { getInitialState as getAccountsInitialState } from 'src/app/core/state/database/accounts/accounts.state';
 import { getInitialState as getAccountTypesInitialState } from 'src/app/core/state/database/account-types/account-types.state';
@@ -22,15 +22,14 @@ import { UiDefinitionsDbActions } from 'src/app/core/state/database/ui-definitio
 export const rbkConfig: NgxRbkUtilsConfig = {
     debugMode: false,
     applicationName: 'DEMO',
-    diagnostics: {
-        // url: `https://localhost:44339/api/diagnostics`,
-        url: null,
-    },
     routes: {
         authenticatedRoot: '/secret',
         nonAuthenticatedRoot: '/',
         login: '/',
         error: '/'
+    },
+    diagnostics: {
+        url: null
     },
     authentication: {
         login: {
@@ -64,7 +63,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             uiDefinitions: {
                 state: UiDefinitionsDbState,
                 loadAction: UiDefinitionsDbActions.LoadAll,
-                clearFunction: getUiDefinitionsInitialState,
+                clearFunction: getuiDefinitionsInitialState,
                 cacheTimeout: 999
             },
             transactions: {

@@ -6,7 +6,6 @@ export class NgxRbkUtilsConfig {
     public useTitleService?: boolean;
     public diagnostics: {
         url: string;
-
     };
     public state: {
         database: {[name: string]: DatabaseStateParameters},

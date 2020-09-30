@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
-import { BoilerplateService, AuthenticationActions, fixDates, fixDateProperties, ToastActions, ApplicationSelectors } from 'ngx-rbk-utils';
+import { BoilerplateService, AuthenticationActions, fixDates, fixDateProperties, ToastActions, ApplicationSelectors, ApplicationActions } from 'ngx-rbk-utils';
 import { take, tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { AuthenticationSelectors } from 'projects/ngx-rbk-utils/src/lib/state/gl
 import { PlaceholderJsonService } from './core/api/placeholder.service';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpClient } from '@angular/common/http';
-import { ApplicationActions } from 'projects/ngx-rbk-utils/src/public-api';
 
 @Component({
   selector: 'demo-root',
@@ -139,8 +138,8 @@ export class AppComponent {
   throw(): void {
     throw new Error('WTF JS?!');
   }
+
   goToDialogs(): void {
     this.store.dispatch(new Navigate(['/dialogs']));
   }
-
 }

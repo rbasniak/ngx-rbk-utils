@@ -8,10 +8,10 @@ import { DATABASE_REQUIRED_ACTIONS, DATABASE_STATES } from './state/database/dat
 import { FEATURE_STATES } from './state/features/features.state';
 import { GlobalInjector } from './misc/global.injector';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { HttpErrorInterceptor } from './error-handler/http-error.interceptor';
+import { HttpErrorInterceptor } from './error-handler/error.interceptor';
 import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
 import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
-import { GlobalErrorHandler } from './error-handler/global-error.interceptor';
+import { GlobalErrorHandler } from './error-handler/globar-error-interceptor';
 
 @NgModule({
     imports: [

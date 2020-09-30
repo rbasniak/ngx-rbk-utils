@@ -25,14 +25,14 @@ const routes: Routes = [
         canActivate: [ RbkAuthGuard, RbkDatabaseStateGuard ],
         component: SuperSecretRouteComponent,
         data: { title: 'Leaked Secret', breadcrumb: 'Leaked Secret', requiredStates: ['accounts', 'categories'] },
-      },
-    ],
+      }
+    ]
   },
   {
     path: 'dialogs',
     component: DialogsComponent,
     canActivate: [ RbkDatabaseStateGuard ],
-    data: { title: 'Dialogs', requiredStates: ['uiDefinitions'] },
+    data: { title: 'Leaked Secret', breadcrumb: 'Leaked Secret', requiredStates: ['uiDefinitions'] },
   }
 ];
 

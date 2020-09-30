@@ -5,9 +5,9 @@ import { ApplicationActions } from './application.actions';
 import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
-import { HttpErrorHandler } from '../../../error-handler/http-error.handler';
 import { DynamicDialogsService } from 'ngx-smz';
 import { Navigate } from '@ngxs/router-plugin';
+import { HttpErrorHandler } from '../../../error-handler/error.handler';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;

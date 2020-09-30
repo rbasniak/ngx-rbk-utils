@@ -19,7 +19,7 @@ export * from './lib/auth/guards/access-control.module';
 export * from './lib/auth/auth.service';
 export * from './lib/auth/models';
 
-export * from './lib/error-handler/http-error.handler';
+export * from './lib/error-handler/error.handler';
 // export * from './lib/error-handler/error.interceptor';
 
 export * from './lib/http/base-api.service';
