@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { DatabaseStoreStateModel, getInitialDatabaseStoreState } from 'ngx-rbk-utils';
-import { SimpleNamedEntity } from 'ngx-smz';
 import { AccountTypesService } from 'src/app/core/api/account-types.service';
 import { AccountTypesDbActions } from './account-types.actions';
 import { AccountDetails } from 'src/app/core/models/accounts';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 
 export interface AccountTypesDbStateModel extends DatabaseStoreStateModel<SimpleNamedEntity> {
 

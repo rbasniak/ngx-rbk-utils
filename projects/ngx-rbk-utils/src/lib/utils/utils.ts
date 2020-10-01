@@ -1,3 +1,5 @@
+import { FormGroupConfig } from '../ui/dialogs-input-conversion';
+
 /*
     Replaces an item in an array by its id property
 */
@@ -78,24 +80,43 @@ export function fixDateProperties(data: { [key: string]: any }) {
         for (const key of Object.keys(data)) {
             if (typeof data[key] === 'string') {
                 if (key.startsWith('date') || key.endsWith('Date')) {
-                    const originalDate = data[key];
-                    const epochDate = Date.parse(data[key]);
-                    data[key] = new Date(epochDate);
+                    data[key] = fixStringDate(data[key]);
                 }
             }
             else if (typeof data[key] === 'number') {
                 if (key.startsWith('date') || key.endsWith('Date')) {
-                    if (data[key] > 99999999999) { // timestamp miliseconds
-                        data[key] = new Date(data[key]);
-                    }
-                    else { // timestamp seconds
-                        data[key] = new Date(data[key] * 1000);
-                    }
+                    data[key] = fixEpochDate(data[key]);
                 }
             }
             else if (typeof data[key] === 'object') {
                 fixDateProperties(data[key]);
             }
         }
+    }
+}
+
+function fixStringDate(originalDate: string): Date {
+    const epochDate = Date.parse(originalDate);
+    return new Date(epochDate);
+}
+
+function fixEpochDate(epochData: number): Date {
+    if (epochData > 99999999999) { // timestamp miliseconds
+        return new Date(epochData);
+    }
+    else { // timestamp seconds
+        return new Date(epochData * 1000);
+    }
+}
+
+export function fixDate(date: FormGroupConfig): Date {
+    if (typeof date === 'string') {
+        return fixStringDate(date);
+    }
+    else if (typeof date === 'number') {
+        return fixEpochDate(date);
+    }
+    else {
+        throw new Error('fixDate(): unsuported date format.');
     }
 }

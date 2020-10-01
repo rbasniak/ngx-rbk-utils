@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz';
+import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 
 const TAG = 'Account Types API';
 

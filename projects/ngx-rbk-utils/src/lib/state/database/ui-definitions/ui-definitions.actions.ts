@@ -4,8 +4,6 @@ export namespace UiDefinitionsDbActions {
     export class LoadAll {
         public static readonly type = `[${TAG}] Load All`;
 
-        constructor(public data: any[]) {
-            console.log('actpm');
-         }
+        constructor(public data: []) {}
     }
 }

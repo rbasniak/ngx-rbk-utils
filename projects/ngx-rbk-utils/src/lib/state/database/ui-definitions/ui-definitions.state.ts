@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { AccountDetails } from 'src/app/core/models/accounts';
-import { AccountsService } from 'src/app/core/api/accounts.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { AccountsManagerActions } from '../../features/accounts-manager/accounts-manager.actions';
 import { UiDefinitionsDbActions } from './ui-definitions.actions';
-import { UiDefinitionsService } from 'src/app/core/api/ui-defintions.service';
+import { UiDefinitionsService } from './ui-definitions.service';
 
 export interface UiDefinitionsDbStateModel {
     lastUpdated: Date;

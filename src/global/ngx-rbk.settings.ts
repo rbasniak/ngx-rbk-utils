@@ -8,7 +8,7 @@ import { AccountTypesDbActions } from 'src/app/core/state/database/account-types
 import { TrasactionsDbState } from 'src/app/core/state/database/transactions/transactions.state';
 import { AccountTypesDbState } from 'src/app/core/state/database/account-types/account-types.state';
 import { getInitialState as getTransactionsInitialState } from 'src/app/core/state/database/transactions/transactions.state';
-import { getInitialState as getuiDefinitionsInitialState } from 'src/app/core/state/database/ui-definitions/ui-definitions.state';
+import { getInitialState as getuiDefinitionsInitialState } from 'ngx-rbk-utils';
 import { getInitialState as getCategoriesInitialState } from 'src/app/core/state/database/categories/categories.state';
 import { getInitialState as getAccountsInitialState } from 'src/app/core/state/database/accounts/accounts.state';
 import { getInitialState as getAccountTypesInitialState } from 'src/app/core/state/database/account-types/account-types.state';
@@ -16,8 +16,8 @@ import { getInitialState as getAccountsManagerInitialState } from 'src/app/core/
 import { getInitialState as getCategoriesManagerInitialState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
 import { AccountsManagerState } from 'src/app/core/state/features/accounts-manager/accounts-manager.state';
 import { CategoriesManagerState } from 'src/app/core/state/features/categories-manager/categories-manager.state';
-import { UiDefinitionsDbState } from 'src/app/core/state/database/ui-definitions/ui-definitions.state';
-import { UiDefinitionsDbActions } from 'src/app/core/state/database/ui-definitions/ui-definitions.actions';
+import { UiDefinitionsDbState } from 'ngx-rbk-utils';
+import { UiDefinitionsDbActions } from 'ngx-rbk-utils';
 
 export const rbkConfig: NgxRbkUtilsConfig = {
     debugMode: false,
@@ -31,10 +31,18 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     diagnostics: {
         url: null
     },
+    uiDefinitions: {
+        url: 'https://localhost:44376/api/ui-definitions',
+        httpBehavior: {
+            compression: true,
+            authentication: false,
+            needToRefreshToken: false,
+        }
+    },
     authentication: {
         login: {
             url: `https://dev.meuencartedigital.com.br/auth/login`,
-            errorHandlingType: 'toast',
+            errorHandlingType: 'dialog',
             responsePropertyName: 'token',
             loadingBehavior: 'none',
         },

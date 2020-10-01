@@ -1,5 +1,5 @@
 import { Selector } from '@ngxs/store';
-import { SimpleNamedEntity } from 'ngx-smz';
+import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 import { AccountTypesDbStateModel, AccountTypesDbState } from './account-types.state';
 
 export class AccountTypesDbSelectors {

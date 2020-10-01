@@ -7,6 +7,10 @@ export class NgxRbkUtilsConfig {
     public diagnostics: {
         url: string;
     };
+    public uiDefinitions: {
+        url: string;
+        httpBehavior: Partial<HttpBehaviorParameters>
+    };
     public state: {
         database: {[name: string]: DatabaseStateParameters},
         feature: {[name: string]: DatabaseStateParameters}

@@ -2,23 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Store } from '@ngxs/store';
-import { ToastActions } from 'ngx-rbk-utils';
+import { convertFormFeature } from 'ngx-rbk-utils';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { CategoriesDbSelectors } from './core/state/database/categories/categories.selectors';
 import { TransactionsDbSelectors } from './core/state/database/transactions/transactions.selectors';
 import { AccountsDbSelectors } from './core/state/database/accounts/accounts.selectors';
 import { AccountTypesDbSelectors } from './core/state/database/account-types/account-types.selectors';
-import { UiDefinitionsDbSelectors } from './core/state/database/ui-definitions/ui-definitions.selectors';
+import { UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
+import { SmzDialogsService } from 'ngx-smz-dialogs';
 
 @Component({
-    selector: 'app-dialogs-component',
-    templateUrl: './dialogs.component.html'
+    selector: 'demo-dialogs-component',
+    templateUrl: './dialogs.component.html',
+    styleUrls: ['./dialogs.component.scss']
 })
 
 @UntilDestroy()
 export class DialogsComponent implements OnInit {
-    public dialogs = [];
-    constructor(private store: Store) {
+    public dialogsConfig = [];
+    constructor(private store: Store, private dialogs: SmzDialogsService) {
     }
 
     ngOnInit() { }
@@ -31,14 +33,23 @@ export class DialogsComponent implements OnInit {
             const update = this.store.selectSnapshot(UiDefinitionsDbSelectors.single(key, 'update'));
 
             if (create.length > 0) {
-                this.dialogs.push({name: key + '-create', data: create});
+                this.dialogsConfig.push({name: key + '-create', data: create});
             }
 
             if (update.length > 0) {
-                this.dialogs.push({name: key + '-update', data: update});
+                this.dialogsConfig.push({name: key + '-update', data: update});
             }
         }
+    }
 
-        console.log(this.dialogs);
+    openDialog(config: any) {
+        const data = convertFormFeature(config.data, this.store);
+
+        this.dialogs.open({
+            title: config.name,
+            features: [
+                data
+            ],
+        });
     }
 }

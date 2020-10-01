@@ -31,9 +31,12 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/ngx-smz-dialogs/scss/smz-theme.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/stacktrace-js/dist/stacktrace.js"
+            ]
           },
           "configurations": {
             "production": {

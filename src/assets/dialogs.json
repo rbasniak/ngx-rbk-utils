@@ -1,855 +1,855 @@
 {
     "libraAttachment": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 3,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "File",
-                            "id": "6"
-                        },
-                        "propertyName": "filename",
-                        "name": "Arquivo",
-                        "required": true
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 3,
+              "maxLength": 15
+            },
+            {
+              "controlType": {
+                "name": "File",
+                "id": "6"
+              },
+              "propertyName": "filename",
+              "name": "Arquivo",
+              "required": true
             }
-        ],
-        "update": []
+          ]
+        }
+      ],
+      "update": []
     },
     "libraBlock": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Nome",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Nome",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
             }
-        ],
-        "update": [
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Nome",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "TextArea",
-                            "id": "13"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "textAreaRows": 5,
-                        "required": false,
-                        "minLength": 5,
-                        "maxLength": 200
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "registrationNumber",
-                        "name": "Número do Registro",
-                        "required": true
-                    },
-                    {
-                        "controlType": {
-                            "name": "TextArea",
-                            "id": "13"
-                        },
-                        "propertyName": "initialConsiderations",
-                        "name": "Considerações Iniciais",
-                        "textAreaRows": 5,
-                        "required": false,
-                        "minLength": 5,
-                        "maxLength": 500
-                    },
-                    {
-                        "controlType": {
-                            "name": "TextArea",
-                            "id": "13"
-                        },
-                        "propertyName": "attentionPoints",
-                        "name": "Pontos de Atenção",
-                        "textAreaRows": 5,
-                        "required": false,
-                        "minLength": 5,
-                        "maxLength": 500
-                    },
-                    {
-                        "controlType": {
-                            "name": "TextArea",
-                            "id": "13"
-                        },
-                        "propertyName": "objective",
-                        "name": "Objetivo",
-                        "textAreaRows": 5,
-                        "required": false,
-                        "minLength": 5,
-                        "maxLength": 500
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "whenToExecute",
-                        "name": "Quando executar",
-                        "required": false,
-                        "minLength": 5,
-                        "maxLength": 100
-                    },
-                    {
-                        "controlType": {
-                            "name": "TextArea",
-                            "id": "13"
-                        },
-                        "propertyName": "observations",
-                        "name": "Observações",
-                        "textAreaRows": 5,
-                        "required": false,
-                        "minLength": 5,
-                        "maxLength": 500
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "duration",
-                        "name": "Duração",
-                        "required": false
-                    },
-                    {
-                        "controlType": {
-                            "name": "DropDown",
-                            "id": "5"
-                        },
-                        "propertyName": "durationUnit",
-                        "name": "Unidade",
-                        "showFilter": false,
-                        "required": false,
-                        "data": [
-                            {
-                                "name": "Hours",
-                                "id": "0"
-                            },
-                            {
-                                "name": "Days",
-                                "id": "1"
-                            },
-                            {
-                                "name": "Months",
-                                "id": "2"
-                            }
-                        ]
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "needsRegisterSummary",
-                        "name": "Necessita de Índice de Registro",
-                        "required": false
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Nome",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
+            {
+              "controlType": {
+                "name": "TextArea",
+                "id": "13"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "textAreaRows": 5,
+              "required": false,
+              "minLength": 5,
+              "maxLength": 200
+            },
+            {
+              "controlType": {
+                "name": "Number",
+                "id": "8"
+              },
+              "propertyName": "registrationNumber",
+              "name": "Número do Registro",
+              "required": true
+            },
+            {
+              "controlType": {
+                "name": "TextArea",
+                "id": "13"
+              },
+              "propertyName": "initialConsiderations",
+              "name": "Considerações Iniciais",
+              "textAreaRows": 5,
+              "required": false,
+              "minLength": 5,
+              "maxLength": 500
+            },
+            {
+              "controlType": {
+                "name": "TextArea",
+                "id": "13"
+              },
+              "propertyName": "attentionPoints",
+              "name": "Pontos de Atenção",
+              "textAreaRows": 5,
+              "required": false,
+              "minLength": 5,
+              "maxLength": 500
+            },
+            {
+              "controlType": {
+                "name": "TextArea",
+                "id": "13"
+              },
+              "propertyName": "objective",
+              "name": "Objetivo",
+              "textAreaRows": 5,
+              "required": false,
+              "minLength": 5,
+              "maxLength": 500
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "whenToExecute",
+              "name": "Quando executar",
+              "required": false,
+              "minLength": 5,
+              "maxLength": 100
+            },
+            {
+              "controlType": {
+                "name": "TextArea",
+                "id": "13"
+              },
+              "propertyName": "observations",
+              "name": "Observações",
+              "textAreaRows": 5,
+              "required": false,
+              "minLength": 5,
+              "maxLength": 500
+            },
+            {
+              "controlType": {
+                "name": "Number",
+                "id": "8"
+              },
+              "propertyName": "duration",
+              "name": "Duração",
+              "required": false
+            },
+            {
+              "controlType": {
+                "name": "DropDown",
+                "id": "5"
+              },
+              "propertyName": "durationUnit",
+              "name": "Unidade",
+              "showFilter": false,
+              "required": false,
+              "data": [
+                {
+                  "name": "Hours",
+                  "id": "0"
+                },
+                {
+                  "name": "Days",
+                  "id": "1"
+                },
+                {
+                  "name": "Months",
+                  "id": "2"
+                }
+              ]
+            },
+            {
+              "controlType": {
+                "name": "CheckBox",
+                "id": "1"
+              },
+              "propertyName": "needsRegisterSummary",
+              "name": "Necessita de Índice de Registro",
+              "required": false
             }
-        ]
+          ]
+        }
+      ]
     },
     "campaign": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Nome",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    }
-                ]
-            }
-        ],
-        "update": [
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Nome",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Nome",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
             }
-        ]
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Nome",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            }
+          ]
+        }
+      ]
     },
     "libraEquipment": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "tag",
-                        "name": "Tag",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "tagLupa",
-                        "name": "Tag no Sistema Lupa",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    }
-                ]
-            }
-        ],
-        "update": [
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "tag",
+              "name": "Tag",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "tag",
-                        "name": "Tag",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "tagLupa",
-                        "name": "Tag no Sistema Lupa",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "tagLupa",
+              "name": "Tag no Sistema Lupa",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
             }
-        ]
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "tag",
+              "name": "Tag",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "tagLupa",
+              "name": "Tag no Sistema Lupa",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            }
+          ]
+        }
+      ]
     },
     "libraEntity": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "title",
-                        "name": "Título",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "revision",
-                        "name": "Revisão",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    }
-                ]
-            }
-        ],
-        "update": [
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "title",
+              "name": "Título",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "title",
-                        "name": "Título",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 15
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "revision",
-                        "name": "Revisão",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "revision",
+              "name": "Revisão",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
             }
-        ]
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "title",
+              "name": "Título",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 15
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "revision",
+              "name": "Revisão",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            }
+          ]
+        }
+      ]
     },
     "libraManeuver": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "DropDown",
-                            "id": "5"
-                        },
-                        "propertyName": "type",
-                        "name": "Tipo",
-                        "showFilter": false,
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50,
-                        "data": [
-                            {
-                                "name": "Normal",
-                                "id": "0"
-                            },
-                            {
-                                "name": "Reversible",
-                                "id": "1"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "update": [
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "observation",
-                        "name": "Observação",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "DropDown",
-                            "id": "5"
-                        },
-                        "propertyName": "type",
-                        "name": "Tipo",
-                        "showFilter": false,
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50,
-                        "data": [
-                            {
-                                "name": "Normal",
-                                "id": "0"
-                            },
-                            {
-                                "name": "Reversible",
-                                "id": "1"
-                            }
-                        ]
-                    }
-                ]
+              "controlType": {
+                "name": "DropDown",
+                "id": "5"
+              },
+              "propertyName": "type",
+              "name": "Tipo",
+              "showFilter": false,
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50,
+              "data": [
+                {
+                  "name": "Normal",
+                  "id": "0"
+                },
+                {
+                  "name": "Reversible",
+                  "id": "1"
+                }
+              ]
             }
-        ]
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "observation",
+              "name": "Observação",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
+            {
+              "controlType": {
+                "name": "DropDown",
+                "id": "5"
+              },
+              "propertyName": "type",
+              "name": "Tipo",
+              "showFilter": false,
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50,
+              "data": [
+                {
+                  "name": "Normal",
+                  "id": "0"
+                },
+                {
+                  "name": "Reversible",
+                  "id": "1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     "libraManeuverGroup": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Name",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Name",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
             }
-        ],
-        "update": [
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Name",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "TextArea",
-                            "id": "13"
-                        },
-                        "propertyName": "observations",
-                        "name": "Observações",
-                        "textAreaRows": 5,
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 500
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "duration",
-                        "name": "Duração",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50
-                    },
-                    {
-                        "controlType": {
-                            "name": "DropDown",
-                            "id": "5"
-                        },
-                        "propertyName": "durationUnit",
-                        "name": "Unidade",
-                        "showFilter": false,
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 50,
-                        "data": [
-                            {
-                                "name": "Hours",
-                                "id": "0"
-                            },
-                            {
-                                "name": "Days",
-                                "id": "1"
-                            },
-                            {
-                                "name": "Months",
-                                "id": "2"
-                            }
-                        ]
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Name",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
+            {
+              "controlType": {
+                "name": "TextArea",
+                "id": "13"
+              },
+              "propertyName": "observations",
+              "name": "Observações",
+              "textAreaRows": 5,
+              "required": true,
+              "minLength": 5,
+              "maxLength": 500
+            },
+            {
+              "controlType": {
+                "name": "Number",
+                "id": "8"
+              },
+              "propertyName": "duration",
+              "name": "Duração",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50
+            },
+            {
+              "controlType": {
+                "name": "DropDown",
+                "id": "5"
+              },
+              "propertyName": "durationUnit",
+              "name": "Unidade",
+              "showFilter": false,
+              "required": true,
+              "minLength": 5,
+              "maxLength": 50,
+              "data": [
+                {
+                  "name": "Hours",
+                  "id": "0"
+                },
+                {
+                  "name": "Days",
+                  "id": "1"
+                },
+                {
+                  "name": "Months",
+                  "id": "2"
+                }
+              ]
             }
-        ]
+          ]
+        }
+      ]
     },
     "libraHumanResource": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ],
-        "update": [
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ]
+          ]
+        }
+      ]
     },
     "libraMaterialResource": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "DropDown",
-                            "id": "5"
-                        },
-                        "propertyName": "units",
-                        "name": "Unidade de Medida",
-                        "showFilter": false,
-                        "required": false,
-                        "data": [
-                            {
-                                "name": "Unidades",
-                                "id": "1"
-                            },
-                            {
-                                "name": "Comprimento",
-                                "id": "2"
-                            },
-                            {
-                                "name": "Área",
-                                "id": "3"
-                            },
-                            {
-                                "name": "Volume",
-                                "id": "4"
-                            }
-                        ]
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "sapNumber",
-                        "name": "Número no SAP",
-                        "required": false
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "isReusable",
-                        "name": "Recurso reutilizável?",
-                        "required": false
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
-            }
-        ],
-        "update": [
+              "controlType": {
+                "name": "DropDown",
+                "id": "5"
+              },
+              "propertyName": "units",
+              "name": "Unidade de Medida",
+              "showFilter": false,
+              "required": false,
+              "data": [
+                {
+                  "name": "Unidades",
+                  "id": "1"
+                },
+                {
+                  "name": "Comprimento",
+                  "id": "2"
+                },
+                {
+                  "name": "Área",
+                  "id": "3"
+                },
+                {
+                  "name": "Volume",
+                  "id": "4"
+                }
+              ]
+            },
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "DropDown",
-                            "id": "5"
-                        },
-                        "propertyName": "units",
-                        "name": "Unidade de Medida",
-                        "showFilter": false,
-                        "required": false,
-                        "data": [
-                            {
-                                "name": "Unidades",
-                                "id": "1"
-                            },
-                            {
-                                "name": "Comprimento",
-                                "id": "2"
-                            },
-                            {
-                                "name": "Área",
-                                "id": "3"
-                            },
-                            {
-                                "name": "Volume",
-                                "id": "4"
-                            }
-                        ]
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "sapNumber",
-                        "name": "Número no SAP",
-                        "required": false
-                    },
-                    {
-                        "controlType": {
-                            "name": "Number",
-                            "id": "8"
-                        },
-                        "propertyName": "isReusable",
-                        "name": "Recurso reutilizável?",
-                        "required": false
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Number",
+                "id": "8"
+              },
+              "propertyName": "sapNumber",
+              "name": "Número no SAP",
+              "required": false
+            },
+            {
+              "controlType": {
+                "name": "CheckBox",
+                "id": "1"
+              },
+              "propertyName": "isReusable",
+              "name": "Recurso reutilizável?",
+              "required": false
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ]
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
+            {
+              "controlType": {
+                "name": "DropDown",
+                "id": "5"
+              },
+              "propertyName": "units",
+              "name": "Unidade de Medida",
+              "showFilter": false,
+              "required": false,
+              "data": [
+                {
+                  "name": "Unidades",
+                  "id": "1"
+                },
+                {
+                  "name": "Comprimento",
+                  "id": "2"
+                },
+                {
+                  "name": "Área",
+                  "id": "3"
+                },
+                {
+                  "name": "Volume",
+                  "id": "4"
+                }
+              ]
+            },
+            {
+              "controlType": {
+                "name": "Number",
+                "id": "8"
+              },
+              "propertyName": "sapNumber",
+              "name": "Número no SAP",
+              "required": false
+            },
+            {
+              "controlType": {
+                "name": "CheckBox",
+                "id": "1"
+              },
+              "propertyName": "isReusable",
+              "name": "Recurso reutilizável?",
+              "required": false
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
+            }
+          ]
+        }
+      ]
     },
     "libraResource": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ],
-        "update": [
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ]
+          ]
+        }
+      ]
     },
     "libraScaffoldingResource": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ],
-        "update": [
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "description",
-                        "name": "Descrição",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "description",
+              "name": "Descrição",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ]
+          ]
+        }
+      ]
     },
     "libraUrlAttachment": {
-        "create": [
+      "create": [
+        {
+          "controls": [
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Nome",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "url",
-                        "name": "Url",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
-            }
-        ],
-        "update": [
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Nome",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
+            },
             {
-                "controls": [
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "name",
-                        "name": "Nome",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    },
-                    {
-                        "controlType": {
-                            "name": "Text",
-                            "id": "12"
-                        },
-                        "propertyName": "url",
-                        "name": "Url",
-                        "required": true,
-                        "minLength": 5,
-                        "maxLength": 25
-                    }
-                ]
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "url",
+              "name": "Url",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
             }
-        ]
+          ]
+        }
+      ],
+      "update": [
+        {
+          "controls": [
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "name",
+              "name": "Nome",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
+            },
+            {
+              "controlType": {
+                "name": "Text",
+                "id": "12"
+              },
+              "propertyName": "url",
+              "name": "Url",
+              "required": true,
+              "minLength": 5,
+              "maxLength": 25
+            }
+          ]
+        }
+      ]
     }
-}
+  }

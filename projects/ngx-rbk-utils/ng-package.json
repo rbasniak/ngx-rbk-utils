@@ -9,7 +9,9 @@
       "primeng/api": "api",
       "@ngxs/router-plugin": "routerPlugin",
       "@auth0/angular-jwt": "angularJwt",
-      "ngx-smz": "ngxSmz"
+      "ngx-smz-dialogs": "ngxSmzDialogs",
+      "stacktrace-js": "stacktraceJs",
+      "ngx-device-detector": "ngxDeviceDetector"
     }
   }
 }

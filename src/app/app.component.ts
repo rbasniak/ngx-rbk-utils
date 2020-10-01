@@ -142,4 +142,7 @@ export class AppComponent {
   goToDialogs(): void {
     this.store.dispatch(new Navigate(['/dialogs']));
   }
+
+  showMessage():void {
+  }
 }

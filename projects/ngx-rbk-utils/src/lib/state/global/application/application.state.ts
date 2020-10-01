@@ -5,9 +5,9 @@ import { ApplicationActions } from './application.actions';
 import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
-import { DynamicDialogsService } from 'ngx-smz';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpErrorHandler } from '../../../error-handler/error.handler';
+import { SmzDialog, SmzDialogsService } from 'ngx-smz-dialogs';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;
@@ -24,27 +24,27 @@ export interface LogInfo {
 
 // Initial application state, to be used ONLY when the application is starting
 export const getInitialApplicationState = (): ApplicationStateModel => ({
-        globalIsLoading: false,
-        isNgRxInitializedOnClient: false,
-        localIsLoading: [],
-        logInfo: {
-            applicationArea: '',
-            applicationLayer: '',
-            applicationVersion: ''
-        }
+    globalIsLoading: false,
+    isNgRxInitializedOnClient: false,
+    localIsLoading: [],
+    logInfo: {
+        applicationArea: '',
+        applicationLayer: '',
+        applicationVersion: ''
+    }
 });
 
 // Application state for when the user cleared the state while the application is running,
 // NGXS will be already initialized, and all non initialized stores will be reset.
 export const getCleanApplicationState = (): ApplicationStateModel => ({
-        globalIsLoading: false,
-        isNgRxInitializedOnClient: true,
-        localIsLoading: [],
-        logInfo: {
-            applicationArea: '',
-            applicationLayer: '',
-            applicationVersion: ''
-        }
+    globalIsLoading: false,
+    isNgRxInitializedOnClient: true,
+    localIsLoading: [],
+    logInfo: {
+        applicationArea: '',
+        applicationLayer: '',
+        applicationVersion: ''
+    }
 });
 
 // Do not remove the @dynamic flag, it's not a comment, it an Angular flag!
@@ -55,7 +55,7 @@ export const getCleanApplicationState = (): ApplicationStateModel => ({
 })
 @Injectable()
 export class ApplicationState {
-    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig, private dialogs: DynamicDialogsService) { }
+    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig, private dialogs: SmzDialogsService) { }
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
     public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
@@ -76,23 +76,64 @@ export class ApplicationState {
             visible: true
         };
 
-        if (action.error.status >= 400 && action.error.status < 500 ) {
-            this.dialogs.showMessage({ title: this.rbkConfig.dialogsConfig.errorDialogTitle,
-                messages: error.messages,
-                closable: false,
-                buttons: [{...confirm, style: 'warning' }]
-            });
+
+        if (action.error.status >= 400 && action.error.status < 500) {
+            const dialog: SmzDialog<any> = {
+                title: this.rbkConfig.dialogsConfig.warningDialogTitle,
+                features: [
+                    { type: 'message', data: error.messages },
+                ],
+                behaviors: {
+                    showCancelButton: false,
+                    useAdvancedResponse: false,
+                    showConfirmButton: false,
+                    closeOnEscape: true,
+                    showCloseButton: false,
+                    showFooter: true,
+                    showHeader: true,
+                    showOkButton: true,
+                },
+                functions: {
+                    onOk: () => {}
+                },
+                builtInButtons: {
+                    confirmDependsOnValidation: false,
+                    okName: 'OK'
+                },
+            };
+
+            this.dialogs.open(dialog);
         }
         else {
-            this.dialogs.showMessage({ title: this.rbkConfig.dialogsConfig.warningDialogTitle,
-                messages: error.messages,
-                closable: false,
-                buttons: [{...confirm, style: 'danger' }]
-            });
+            const dialog: SmzDialog<any> = {
+                title: this.rbkConfig.dialogsConfig.errorDialogTitle,
+                features: [
+                    { type: 'message', data: error.messages },
+                ],
+                behaviors: {
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    useAdvancedResponse: false,
+                    closeOnEscape: true,
+                    showCloseButton: false,
+                    showFooter: true,
+                    showHeader: true,
+                    showOkButton: true,
+                },
+                functions: {
+                    onOk: () => {}
+                },
+                builtInButtons: {
+                    confirmDependsOnValidation: false,
+                    okName: 'OK'
+                },
+            };
+
+            this.dialogs.open(dialog);
         }
 
         if (error.redirectTo != null) {
-          ctx.dispatch(new Navigate([error.redirectTo]));
+            ctx.dispatch(new Navigate([error.redirectTo]));
         }
     }
 
@@ -103,7 +144,7 @@ export class ApplicationState {
         const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
 
         for (const message of error.messages) {
-            if (action.error.status >= 400 && action.error.status < 500 ) {
+            if (action.error.status >= 400 && action.error.status < 500) {
                 ctx.dispatch(new ToastActions.Warning(message));
             }
             else {
@@ -112,7 +153,7 @@ export class ApplicationState {
         }
 
         if (error.redirectTo != null) {
-          ctx.dispatch(new Navigate([error.redirectTo]));
+            ctx.dispatch(new Navigate([error.redirectTo]));
         }
     }
 
@@ -129,7 +170,7 @@ export class ApplicationState {
     @Action(ApplicationActions.PushLocalLoading)
     public pushLocalLoading$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.PushLocalLoading): void {
         if (ctx.getState().localIsLoading.findIndex(x => x.toLowerCase() !== action.tag.toLowerCase()) === -1) {
-            ctx.patchState({ localIsLoading: [action.tag, ...ctx.getState().localIsLoading ] });
+            ctx.patchState({ localIsLoading: [action.tag, ...ctx.getState().localIsLoading] });
         }
         else {
             // TODO: throw error if the user tries to push the same tag again?
@@ -223,7 +264,7 @@ export class ApplicationState {
     @Action(ApplicationActions.SetApplicatinArea)
     public setArea(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetApplicatinArea): void {
         ctx.patchState({
-            logInfo: {...ctx.getState().logInfo, applicationArea: action.area}
+            logInfo: { ...ctx.getState().logInfo, applicationArea: action.area }
         });
     }
 }
