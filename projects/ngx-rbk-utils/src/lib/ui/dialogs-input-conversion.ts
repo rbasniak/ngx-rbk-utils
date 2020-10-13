@@ -5,7 +5,7 @@ import { SimpleNamedEntity, SmzCalendarControl, SmzCheckBoxControl, SmzColorPick
 import { fixDate, isEmpty } from '../utils/utils';
 import { Store } from '@ngxs/store';
 
-export function convertFormFeature(groups: FormGroupConfig[], store: Store): SmzDialogFeature {
+export function convertFormFeature(groups: FormGroupConfig[], store: Store, entity: {[key: string]: any} = null, options: InputConversionOptions = null): SmzDialogFeature {
     const form: SmzForm<any> = {
         groups: [],
         behaviors: {}
@@ -22,6 +22,63 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store): Smz
             showName: !isEmpty(groupConfig.controls[0].group),
             children: convertInputs(groupConfig.controls, store)
         };
+
+        if (options != null) {
+            if (options.fieldsToIgnore != null) {
+                for (const input of options.fieldsToIgnore) {
+                    group.children = group.children.filter(x => x.propertyName === input);
+                }
+            }
+
+            if (options.fieldsToConvert != null) {
+                for (const tuple of options.fieldsToConvert) {
+                    const index = group.children.findIndex(x => x.propertyName === tuple.originalName);
+                    if (index !== -1) {
+                        group.children[index] = { ...group.children[index], propertyName: tuple.newName }
+                    }
+                }
+            }
+        }
+
+        if (entity != null) {
+            for (const input of group.children) {
+                if (input.propertyName.endsWith('Id')) {
+                    if (entity[input.propertyName.substring(0, input.propertyName.length - 2)]?.id !== undefined) {
+                        input.defaultValue = entity[input.propertyName.substring(0, input.propertyName.length - 2)].id;
+                    }
+                    else {
+                        // Check if the name wasn't replaced
+                        if (options != null && options.fieldsToConvert != null) {
+                            const replaceIndex = options.fieldsToConvert.findIndex(x => x.newName === input.propertyName);
+                            if (replaceIndex !== -1) {
+                                input.defaultValue = entity[options.fieldsToConvert[replaceIndex].originalName];
+                            }
+                            else {
+                                input.defaultValue = entity[input.propertyName];
+                            }
+                        }
+                        else {
+                            input.defaultValue = entity[input.propertyName];
+                        }
+                    }
+                }
+                else if (entity[input.propertyName] !== undefined) {
+                    // Check if the name wasn't replaced
+                    if (options != null && options.fieldsToConvert != null) {
+                        const replaceIndex = options.fieldsToConvert.findIndex(x => x.newName === input.propertyName);
+                        if (replaceIndex !== -1) {
+                            input.defaultValue = entity[options.fieldsToConvert[replaceIndex].originalName];
+                        }
+                        else {
+                            input.defaultValue = entity[input.propertyName];
+                        }
+                    }
+                    else {
+                        input.defaultValue = entity[input.propertyName];
+                    }
+                }
+            }
+        }
 
         form.groups.push(group);
     }
@@ -182,7 +239,21 @@ function setInputOptions(config: InputConfig, store: Store): any[] {
     }
 
     if (config.dataSource.id === '1') {
-        return store.selectSnapshot(x => x.database[config.sourceName].items);
+        const stateData = store.selectSnapshot(x => x.database[config.sourceName]?.items);
+
+        if (stateData !== undefined) {
+            if (stateData !== null) {
+                if (!isEmpty(config.entityLabelPropertyName)) {
+                    return stateData.map(x => ({ id: x.id, name: x[config.entityLabelPropertyName] }));
+                }
+                else {
+                    return stateData;
+                }
+            }
+        }
+        else {
+            throw new Error('Could not read data from the database state');
+        }
     }
 
     return [];
@@ -206,8 +277,8 @@ function convertBaseControl(config: InputConfig): SmzFormsBaseControl {
 }
 
 export interface FormDefinitionData {
-    create: FormGroupConfig,
-    update: FormGroupConfig,
+    create: FormGroupConfig[],
+    update: FormGroupConfig[],
 }
 
 export interface FormGroupConfig {
@@ -216,30 +287,37 @@ export interface FormGroupConfig {
 
 export interface InputConfig {
     controlType: SimpleNamedEntity;
-    dataSource: SimpleNamedEntity;
+    dataSource?: SimpleNamedEntity;
     propertyName: string;
-    sourceName: string;
+    sourceName?: string;
     name: string;
-    defaultValue: any;
-    group: string;
+    defaultValue?: any;
+    group?: string;
 
-    dependsOn: string;
+    dependsOn?: string;
 
-    textAreaRows: number;
+    textAreaRows?: number;
 
-    mask: string;
-    unmask: boolean;
-    characterPattern: string;
+    mask?: string;
+    unmask?: boolean;
+    characterPattern?: string;
 
-    fileAccept: string;
+    fileAccept?: string;
 
-    showFilter: boolean;
-    filterMatchMode: string;
+    showFilter?: boolean;
+    filterMatchMode?: string;
 
     required: boolean;
-    minLength: number;
-    maxLength: number;
-    data: SimpleNamedEntity[];
+    minLength?: number;
+    maxLength?: number;
+    data?: SimpleNamedEntity[];
     isVisible: boolean;
-    excludeFromResponse: boolean;
+    excludeFromResponse?: boolean;
+
+    entityLabelPropertyName?: string;
+}
+
+export interface InputConversionOptions {
+    fieldsToIgnore?: string[],
+    fieldsToConvert?: { originalName: string, newName: string }[]
 }

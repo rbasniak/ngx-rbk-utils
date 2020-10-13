@@ -8,6 +8,7 @@ export * from './lib/ngx-rbk-utils.module';
 export * from './lib/ngx-rbk-utils.config';
 
 export * from './lib/utils/utils';
+export * from './lib/utils/dialogs';
 export * from './lib/utils/operators';
 export * from './lib/utils/state/state.guard';
 

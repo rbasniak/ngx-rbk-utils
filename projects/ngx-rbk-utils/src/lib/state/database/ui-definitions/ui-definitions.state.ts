@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
 import { UiDefinitionsDbActions } from './ui-definitions.actions';
 import { UiDefinitionsService } from './ui-definitions.service';
+import { FormDefinitionData } from '../../../ui/dialogs-input-conversion';
+import { Observable } from 'rxjs';
 
 export interface UiDefinitionsDbStateModel {
     lastUpdated: Date;
-    data: any;
+    data: {[key: string]: FormDefinitionData};
 }
 
 export const getInitialState = (): UiDefinitionsDbStateModel => ({
@@ -15,6 +16,7 @@ export const getInitialState = (): UiDefinitionsDbStateModel => ({
         data: null
     });
 
+// @dynamic
 @State<UiDefinitionsDbStateModel>({
     name: 'uiDefinitions',
     defaults: getInitialState()

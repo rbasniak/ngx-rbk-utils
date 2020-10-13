@@ -93,9 +93,6 @@ export class ApplicationState {
                     showHeader: true,
                     showOkButton: true,
                 },
-                functions: {
-                    onOk: () => {}
-                },
                 builtInButtons: {
                     confirmDependsOnValidation: false,
                     okName: 'OK'
@@ -119,9 +116,6 @@ export class ApplicationState {
                     showFooter: true,
                     showHeader: true,
                     showOkButton: true,
-                },
-                functions: {
-                    onOk: () => {}
                 },
                 builtInButtons: {
                     confirmDependsOnValidation: false,

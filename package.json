@@ -1,6 +1,6 @@
 {
   "name": "ngx-rbk-demo",
-  "version": "1.1.0",
+"version": "1.1.20",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -35,7 +35,7 @@
     "@ngxs/store": "3.7.0",
     "ngx-device-detector": "2.0.0",
     "ngx-rbk-utils": "file:projects/dist/ngx-rbk-utils",
-    "ngx-smz-dialogs": "^1.0.41-beta",
+    "ngx-smz-dialogs": "^1.0.63-beta",
     "primeicons": "4.0.0",
     "primeng": "9.1.0",
     "rxjs": "6.6.3",

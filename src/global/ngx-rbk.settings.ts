@@ -68,12 +68,6 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     state: {
         database: {
-            uiDefinitions: {
-                state: UiDefinitionsDbState,
-                loadAction: UiDefinitionsDbActions.LoadAll,
-                clearFunction: getuiDefinitionsInitialState,
-                cacheTimeout: 999
-            },
             transactions: {
                 state: TrasactionsDbState,
                 loadAction: TransactionsDbActions.LoadAll,

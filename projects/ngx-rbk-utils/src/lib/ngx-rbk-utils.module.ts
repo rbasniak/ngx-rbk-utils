@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders, Injector, ErrorHandler } from '@angular/core';
-import { NgxRbkUtilsConfig } from './ngx-rbk-utils.config';
+import { DatabaseStateParameters, NgxRbkUtilsConfig } from './ngx-rbk-utils.config';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TitleService } from './misc/title.service';
@@ -12,6 +12,9 @@ import { HttpErrorInterceptor } from './error-handler/error.interceptor';
 import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
 import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
 import { GlobalErrorHandler } from './error-handler/globar-error-interceptor';
+import { isEmpty } from './utils/utils';
+import { getInitialState, UiDefinitionsDbState } from './state/database/ui-definitions/ui-definitions.state';
+import { UiDefinitionsDbActions } from './state/database/ui-definitions/ui-definitions.actions';
 
 @NgModule({
     imports: [
@@ -71,6 +74,18 @@ export class NgxRbkUtilsModule {
         }
 
         if (DATABASE_STATES.length === 0) {
+
+            if (!isEmpty(configuration.uiDefinitions?.url)) {
+                const uiDefinitionsState: DatabaseStateParameters = {
+                    state: UiDefinitionsDbState,
+                    loadAction: UiDefinitionsDbActions.LoadAll,
+                    clearFunction: getInitialState,
+                    cacheTimeout: 999
+                };
+
+                configuration.state.database['uiDefinitions'] = uiDefinitionsState;
+            }
+
             const states = [];
             const requiredActions = [];
             for (const stateName of Object.keys(configuration.state.database)) {

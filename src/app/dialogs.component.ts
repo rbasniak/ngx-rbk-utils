@@ -29,8 +29,8 @@ export class DialogsComponent implements OnInit {
         const teste = this.store.selectSnapshot(x => x.database.uiDefinitions.data);
 
         for (const key of Object.keys(teste)) {
-            const create = this.store.selectSnapshot(UiDefinitionsDbSelectors.single(key, 'create'));
-            const update = this.store.selectSnapshot(UiDefinitionsDbSelectors.single(key, 'update'));
+            const create = this.store.selectSnapshot(UiDefinitionsDbSelectors.single(key, 'create')) as any;
+            const update = this.store.selectSnapshot(UiDefinitionsDbSelectors.single(key, 'update')) as any;
 
             if (create.length > 0) {
                 this.dialogsConfig.push({name: key + '-create', data: create});
