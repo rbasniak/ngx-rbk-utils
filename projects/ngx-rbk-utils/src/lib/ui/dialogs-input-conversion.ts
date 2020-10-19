@@ -26,7 +26,7 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store, enti
         if (options != null) {
             if (options.fieldsToIgnore != null) {
                 for (const input of options.fieldsToIgnore) {
-                    group.children = group.children.filter(x => x.propertyName === input);
+                    group.children = group.children.filter(x => x.propertyName !== input);
                 }
             }
 
@@ -54,11 +54,11 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store, enti
                                 input.defaultValue = entity[options.fieldsToConvert[replaceIndex].originalName];
                             }
                             else {
-                                input.defaultValue = entity[input.propertyName];
+                                input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
                             }
                         }
                         else {
-                            input.defaultValue = entity[input.propertyName];
+                            input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
                         }
                     }
                 }
@@ -70,11 +70,11 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store, enti
                             input.defaultValue = entity[options.fieldsToConvert[replaceIndex].originalName];
                         }
                         else {
-                            input.defaultValue = entity[input.propertyName];
+                            input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
                         }
                     }
                     else {
-                        input.defaultValue = entity[input.propertyName];
+                        input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
                     }
                 }
             }
@@ -136,13 +136,14 @@ function convertInputs(inputs: InputConfig[], store: Store): SmzControlTypes[] {
         }
 
         else if (config.controlType.id === `${SmzControlType.DROPDOWN}`) {
+            const options = getInputOptions(config, store);
             const input: SmzDropDownControl<any> = {
                 ...convertBaseControl(config),
-                defaultValue: config.defaultValue,
+                defaultValue: config.required ? options[0].id : config.defaultValue,
                 type: SmzControlType.DROPDOWN,
                 filterMatchMode: config.filterMatchMode,
                 showFilter: config.showFilter,
-                options: setInputOptions(config, store)
+                options: options
             };
             results.push(input);
         }
@@ -165,7 +166,7 @@ function convertInputs(inputs: InputConfig[], store: Store): SmzControlTypes[] {
                 defaultLabel: '',
                 filterMatchMode: config.filterMatchMode,
                 showFilter: config.showFilter,
-                options: setInputOptions(config, store)
+                options: getInputOptions(config, store)
             };
             results.push(input);
         }
@@ -193,7 +194,7 @@ function convertInputs(inputs: InputConfig[], store: Store): SmzControlTypes[] {
                 ...convertBaseControl(config),
                 defaultValue: config.defaultValue,
                 type: SmzControlType.RADIO,
-                options: setInputOptions(config, store)
+                options: getInputOptions(config, store)
             };
             results.push(input);
         }
@@ -233,7 +234,7 @@ function convertInputs(inputs: InputConfig[], store: Store): SmzControlTypes[] {
     return results;
 }
 
-function setInputOptions(config: InputConfig, store: Store): any[] {
+function getInputOptions(config: InputConfig, store: Store): any[] {
     if (config.data != null) {
         return config.data;
     }
@@ -261,7 +262,7 @@ function setInputOptions(config: InputConfig, store: Store): any[] {
 
 function convertBaseControl(config: InputConfig): SmzFormsBaseControl {
     return {
-        name: config.name,
+        name: config.required ? config.name + ' *': config.name,
         propertyName: config.propertyName,
         isVisible: config.isVisible,
         advancedSettings: {
