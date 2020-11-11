@@ -42,6 +42,19 @@ export function showConfirmation(title: string, message: string, confirmCallback
     }));
 }
 
+export function showMessage(title: string, message: string, confirmCallback: () => void): void {
+
+  const dialogsService = GlobalInjector.instance.get(SmzDialogsService);
+  dialogsService.open(({
+      presetId: SmzPresets.Message,
+      title: title,
+      features: [{ type: 'message', data: message }],
+      callbacks: {
+          onConfirm: confirmCallback
+      }
+  }));
+}
+
 export function getValidatorsForInput(entityName: string, propertyName: string): ValidatorFn {
   const store = GlobalInjector.instance.get(Store);
   const dialogsService = GlobalInjector.instance.get(SmzDialogsService);

@@ -114,6 +114,8 @@ function fixEpochDate(epochData: number): Date {
 }
 
 export function fixDate(date: FormGroupConfig): Date {
+    if (date == null) return null;
+
     if (typeof date === 'string') {
         return fixStringDate(date);
     }

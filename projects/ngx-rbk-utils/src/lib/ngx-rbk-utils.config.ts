@@ -16,6 +16,7 @@ export class NgxRbkUtilsConfig {
         feature: {[name: string]: DatabaseStateParameters}
     };
     public authentication: {
+        localStoragePrefix: string;
         login: {
             url: string,
             loadingBehavior: 'global' | 'local' | 'none',

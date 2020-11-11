@@ -39,8 +39,8 @@ export class AuthenticationState {
     @Action(AuthenticationActions.LocalLogin)
     public localLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLogin): void {
         if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling LocalLogin`);
-        const accessToken = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
+        const accessToken = localStorage.getItem(this.rbkConfig.authentication.localStoragePrefix + '_access_token');
+        const refreshToken = localStorage.getItem(this.rbkConfig.authentication.localStoragePrefix + '_refresh_token');
 
         if (isEmpty(accessToken)) {
             ctx.dispatch(new AuthenticationActions.LocalLoginFailure());
@@ -73,8 +73,8 @@ export class AuthenticationState {
     public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>,
         action: AuthenticationActions.RemoteLoginSuccess | AuthenticationActions.RefreshTokenSuccess): void {
         if (this.rbkConfig.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess/RefreshTokenSuccess`);
-        localStorage.setItem('access_token', action.accessToken);
-        localStorage.setItem('refresh_token', action.refreshToken);
+        localStorage.setItem(this.rbkConfig.authentication.localStoragePrefix + '_access_token', action.accessToken);
+        localStorage.setItem(this.rbkConfig.authentication.localStoragePrefix + '_refresh_token', action.refreshToken);
 
         ctx.patchState({
             userdata: generateUserData(action.accessToken, this.rbkConfig),
@@ -90,8 +90,8 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.Logout)
     public logout(ctx: StateContext<AuthenticationStateModel>): void {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        localStorage.removeItem(this.rbkConfig.authentication.localStoragePrefix + '_access_token');
+        localStorage.removeItem(this.rbkConfig.authentication.localStoragePrefix + '_refresh_token');
 
         ctx.dispatch(new GlobalActions.Restore());
         ctx.dispatch(new DatabaseActions.Restore());

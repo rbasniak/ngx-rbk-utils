@@ -18,7 +18,7 @@ export class AuthHandler {
     public getToken(): Observable<string | null> {
         const token = this.store.selectSnapshot(AuthenticationSelectors.accessToken);
 
-        const isTokenExpired = this.decoder.isTokenExpired(token);
+        const isTokenExpired = this.decoder.isTokenExpired(token, 30);
 
         if (!isTokenExpired) {
             return of(token);
