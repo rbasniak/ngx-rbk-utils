@@ -11,10 +11,12 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { HttpErrorInterceptor } from './error-handler/error.interceptor';
 import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
 import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
-import { GlobalErrorHandler } from './error-handler/globar-error-interceptor';
 import { isEmpty } from './utils/utils';
 import { getInitialState, UiDefinitionsDbState } from './state/database/ui-definitions/ui-definitions.state';
 import { UiDefinitionsDbActions } from './state/database/ui-definitions/ui-definitions.actions';
+import { RouteReuseStrategy } from '@angular/router';
+import { CachedRouteReuseStrategy } from './utils/reusable-route';
+import { GlobalErrorHandler } from './error-handler/global-error.interceptor';
 
 @NgModule({
     imports: [
@@ -26,6 +28,10 @@ import { UiDefinitionsDbActions } from './state/database/ui-definitions/ui-defin
         AuthService,
         TitleService,
         MessageService,
+        {
+          provide: RouteReuseStrategy,
+          useClass: CachedRouteReuseStrategy,
+        },
         {
             provide: ErrorHandler,
             useClass: GlobalErrorHandler

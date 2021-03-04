@@ -7,6 +7,7 @@ import { AuthHandler } from './auth.handler';
 import { AUTHENTICATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER } from '../http/base-api.service';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
+import { isEmpty } from '../utils/utils';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -36,12 +37,13 @@ export class AuthInterceptor implements HttpInterceptor {
             switchMap((newToken: string) => {
                 // unset request inflight
                 this.inflightAuthRequest = null;
-
-                // use the newly returned token
-                const authReq = req.clone({
-                    headers: req.headers.set(AUTHENTICATION_HEADER, newToken ? `Bearer ${newToken}` : null)
-                });
-
+                let authReq = req;
+                if (!isEmpty(newToken)) {
+                  // use the newly returned token
+                  authReq = req.clone({
+                      headers: req.headers.set(AUTHENTICATION_HEADER, `Bearer ${newToken}`)
+                  });
+                }
                 return next.handle(authReq);
             }),
             catchError((error: HttpErrorResponse) => {
@@ -49,7 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                     // check if the response is from the token refresh end point
                     const isFromRefreshTokenEndpoint = error.url === this.rbkConfig.authentication.refreshToken.url;
-
                     if (isFromRefreshTokenEndpoint) {
                         console.error('Problem while trying to automatically refresh the token, redirecting to login');
 
@@ -74,10 +75,14 @@ export class AuthInterceptor implements HttpInterceptor {
                         switchMap((newToken: string) => {
                             this.inflightAuthRequest = null;
 
-                            // clone the original request
-                            const authReqRepeat = req.clone({
+                            let authReqRepeat = req;
+
+                            if (!isEmpty(newToken)) {
+                              // use the newly returned token
+                              authReqRepeat = req.clone({
                                 headers: req.headers.set(AUTHENTICATION_HEADER, `Bearer ${newToken}`)
-                            });
+                              });
+                            }
 
                             return next.handle(authReqRepeat);
                         })

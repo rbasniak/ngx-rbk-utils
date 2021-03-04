@@ -20,6 +20,7 @@ export interface LogInfo {
     applicationArea: string;
     applicationLayer: string;
     applicationVersion: string;
+    extraData: string;
 }
 
 // Initial application state, to be used ONLY when the application is starting
@@ -30,7 +31,8 @@ export const getInitialApplicationState = (): ApplicationStateModel => ({
     logInfo: {
         applicationArea: '',
         applicationLayer: '',
-        applicationVersion: ''
+        applicationVersion: '',
+        extraData: ''
     }
 });
 
@@ -43,7 +45,8 @@ export const getCleanApplicationState = (): ApplicationStateModel => ({
     logInfo: {
         applicationArea: '',
         applicationLayer: '',
-        applicationVersion: ''
+        applicationVersion: '',
+        extraData: ''
     }
 });
 
@@ -255,10 +258,24 @@ export class ApplicationState {
         });
     }
 
-    @Action(ApplicationActions.SetApplicatinArea)
-    public setArea(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetApplicatinArea): void {
+    @Action(ApplicationActions.SetLogApplicatinArea)
+    public setArea(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetLogApplicatinArea): void {
         ctx.patchState({
             logInfo: { ...ctx.getState().logInfo, applicationArea: action.area }
+        });
+    }
+
+    @Action(ApplicationActions.SetLogExtraData)
+    public setExtraData(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetLogExtraData): void {
+        ctx.patchState({
+          logInfo: { ...ctx.getState().logInfo, applicationArea: action.data }
+        });
+    }
+
+    @Action(ApplicationActions.SetLogApplicationAreaAndExtraData)
+    public setApplicationAreaAndExtraData(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.SetLogApplicationAreaAndExtraData): void {
+        ctx.patchState({
+          logInfo: { ...ctx.getState().logInfo, applicationArea: action.area, extraData: action.data }
         });
     }
 }

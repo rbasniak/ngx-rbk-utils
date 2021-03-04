@@ -14,4 +14,5 @@ export interface DiagnosticsData {
     clientOperatingSystem: string;
     clientOperatingSystemVersion: string;
     clientDevice: string;
+    extraData: string;
 }

@@ -42,9 +42,19 @@ export namespace ApplicationActions {
         constructor(public info: LogInfo) {}
     }
 
-    export class SetApplicatinArea {
-        public static readonly type = '[Application] Set application Area';
+    export class SetLogApplicatinArea {
+        public static readonly type = '[Application] Set Log Application Area';
         constructor(public area: string) {}
+    }
+
+    export class SetLogExtraData {
+      public static readonly type = '[Application] Set Log Extra Data';
+      constructor(public data: string) {}
+    }
+
+    export class SetLogApplicationAreaAndExtraData {
+      public static readonly type = '[Application] Set Application Area and Log Extra Data';
+      constructor(public area: string, public data: string) {}
     }
 }
 

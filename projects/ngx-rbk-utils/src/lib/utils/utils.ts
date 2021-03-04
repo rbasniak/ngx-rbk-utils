@@ -86,6 +86,12 @@ export function fixDateProperties(data: { [key: string]: any }) {
                 if (key.startsWith('date') || key.endsWith('Date')) {
                     data[key] = fixStringDate(data[key]);
                 }
+                else if (key === 'lastUpdate') {
+                  data[key] = fixStringDate(data[key]);
+                }
+                else if (key === 'lastUpdated') {
+                  data[key] = fixStringDate(data[key]);
+                }
             }
             else if (typeof data[key] === 'number') {
                 if (key.startsWith('date') || key.endsWith('Date')) {

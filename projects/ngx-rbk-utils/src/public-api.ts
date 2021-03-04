@@ -10,6 +10,7 @@ export * from './lib/ngx-rbk-utils.config';
 export * from './lib/utils/utils';
 export * from './lib/utils/dialogs';
 export * from './lib/utils/operators';
+export * from './lib/utils/reusable-route';
 export * from './lib/utils/state/state.guard';
 
 export * from './lib/auth/auth.guard';
@@ -63,3 +64,6 @@ export * from './lib/ui/input-clear-extension.directive';
 export * from './lib/ui/table-clear-extension.directive';
 export * from './lib/ui/table-clear-extions.module';
 export * from './lib/ui/dialogs-input-conversion';
+
+export * from './lib/pipes/rbk-safe-html.pipe';
+export * from './lib/pipes/rbk-pipes.module';
