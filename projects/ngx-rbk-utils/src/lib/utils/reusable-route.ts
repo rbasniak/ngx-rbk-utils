@@ -16,13 +16,41 @@ export class CachedRouteReuseStrategy implements RouteReuseStrategy {
   }
 
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
+    // console.log('store');
     const id = this.createIdentifier(route);
     if (route.data?.cacheStrategy?.isReusable) {
-      this.handlers[id] = handle;
+      if (handle != null)
+      {
+        this.handlers[id] = handle;
+      }
+
+      try {
+        // console.log('handle', handle);
+        // console.log('this.handlers', this.handlers);
+        const instance = (this.handlers[id] as any).componentRef.instance;
+
+        if (handle != null) {
+          // console.log('-----onLeaving');
+          if (instance.onLeaving != null) {
+            instance.onLeaving();
+          }
+        }
+        else
+        {
+          // console.log('-----onArriving');
+          if (instance.onArriving != null) {
+            instance.onArriving();
+          }
+        }
+
+      } catch (error) {
+        console.warn('CachedRouteReuseStrategy didnt found the Handler');
+      }
     }
   }
 
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
+    // console.log('shouldAttach');
     // console.log('------');
 
     if (this.lastRoute != null) {
@@ -60,17 +88,22 @@ export class CachedRouteReuseStrategy implements RouteReuseStrategy {
     const handle = this.handlers[id];
     const canAttach = !!route.routeConfig && !!handle;
 
+    // console.log('handlers', this.handlers);
+    // console.log('handle', handle);
+
     this.lastRoute = route;
     return canAttach;
   }
 
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
+    // console.log('retrieve');
     const id = this.createIdentifier(route);
     if (!route.routeConfig || !this.handlers[id]) return null;
     return this.handlers[id];
   }
 
   shouldReuseRoute(before: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+    // console.log('shouldReuseRoute');
     return before.routeConfig === curr.routeConfig;
   }
 
@@ -84,6 +117,7 @@ export class CachedRouteReuseStrategy implements RouteReuseStrategy {
   }
 
   private destroyAll(): void {
+    // console.log('destroyAll');
     // console.log('this.handlers', this.handlers);
 
     const keys = Object.keys(this.handlers);

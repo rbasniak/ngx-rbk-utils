@@ -40,6 +40,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         }
     },
     authentication: {
+        localStoragePrefix: 'demo',
         login: {
             url: `https://dev.meuencartedigital.com.br/auth/login`,
             errorHandlingType: 'dialog',

@@ -16,6 +16,7 @@ import { AccountTypesDbSelectors } from './core/state/database/account-types/acc
 
 @UntilDestroy()
 export class SecretRouteComponent implements OnInit {
+
     constructor(private route: ActivatedRoute, private store: Store) {
         // if for demonstration purposes only, in practice, this observable will only emit
         // when the stores are completely initialized

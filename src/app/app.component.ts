@@ -27,11 +27,11 @@ export class AppComponent {
     private messageService: MessageService, private jsonPlaceholderService: PlaceholderJsonService, private http: HttpClient) {
     this.boilerplateService.init();
 
-    this.http.get('assets/data.json').pipe(
-      fixDates(),
-    ).subscribe(x => this.data = x);
+    // this.http.get('assets/data.json').pipe(
+    //   fixDates(),
+    // ).subscribe(x => this.data = x);
 
-    this.store.dispatch(new ApplicationActions.SetApplicatinArea('Home'));
+    this.store.dispatch(new ApplicationActions.SetLogApplicatinArea('Home'));
   }
 
   public remoteLoginSuccess(): void {
@@ -141,6 +141,10 @@ export class AppComponent {
 
   goToDialogs(): void {
     this.store.dispatch(new Navigate(['/dialogs']));
+  }
+
+  goToNotSecret(): void {
+    this.store.dispatch(new Navigate(['/not-secret']));
   }
 
   showMessage():void {

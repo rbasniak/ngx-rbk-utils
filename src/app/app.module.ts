@@ -17,6 +17,7 @@ import { NgxRbkUtilsConfig } from 'projects/ngx-rbk-utils/src/public-api';
 import { NgxSmzDialogsModule, SmzControlType, SmzDialogsConfig, SmzFormsPresets } from 'ngx-smz-dialogs';
 import { CommonModule } from '@angular/common';
 import { DialogsComponent } from './dialogs.component';
+import { NotSecretRouteComponent } from './not-secret-route.component';
 
 const compactPreset: SmzFormsPresets = {
   formTemplates: {
@@ -99,7 +100,8 @@ const smzDialogsConfig: SmzDialogsConfig = {
     AppComponent,
     SecretRouteComponent,
     SuperSecretRouteComponent,
-    DialogsComponent
+    DialogsComponent,
+    NotSecretRouteComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +126,8 @@ export class AppModule {
     this.store.dispatch(new ApplicationActions.SetLogInfo({
       applicationArea: '',
       applicationLayer: 'Angular Client',
-      applicationVersion: '15.33.245'
+      applicationVersion: '15.33.245',
+      extraData: ''
     }));
   }
 }
