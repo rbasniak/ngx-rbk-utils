@@ -3,7 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ERROR_HANDLING_TYPE_HEADER, RESTORE_STATE_ON_ERROR_HEADER } from '../http/base-api.service';
+import { ERROR_HANDLING_TYPE_HEADER, RESTORE_STATE_ON_ERROR_HEADER, IGNORE_ERROR_HANDLING } from '../http/base-api.service';
 import { ApplicationActions } from '../state/global/application/application.actions';
 import { tap } from 'rxjs/operators';
 import { DatabaseActions } from '../state/database/database.actions';
@@ -31,6 +31,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             return next.handle(request).pipe(
                 tap({
                     error: (err: any) => {
+                        if (request.headers.get(IGNORE_ERROR_HANDLING) === 'true'){
+                            return;
+                        }
+
                         let handled = false;
 
                         if (err instanceof HttpErrorResponse) {

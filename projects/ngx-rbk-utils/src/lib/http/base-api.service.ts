@@ -10,6 +10,7 @@ export const AUTHENTICATION_HEADER = 'Authorization';
 export const CONTENT_ENCODING_HEADER = 'Content-Encoding';
 export const LOCAL_LOADING_TAG_HEADER = 'Local-Loading-Tag';
 export const RESTORE_STATE_ON_ERROR_HEADER = 'Restore-State-On-Error';
+export const IGNORE_ERROR_HANDLING = 'Ignore-Error-Handling'
 
 export class BaseApiService {
     constructor() { }
@@ -50,6 +51,8 @@ export class BaseApiService {
 
         headers = headers.set(ERROR_HANDLING_TYPE_HEADER, finalParameters.errorHandlingType);
 
+        headers = headers.set(IGNORE_ERROR_HANDLING, finalParameters.ignoreErrorHandling);
+
         return { headers };
     }
 }
@@ -62,4 +65,5 @@ export interface HttpBehaviorParameters {
     errorHandlingType: 'toast' | 'dialog' | 'none';
     localLoadingTag: string;
     restoreStateOnError: boolean;
+    ignoreErrorHandling: boolean;
 }
