@@ -51,7 +51,9 @@ export class BaseApiService {
 
         headers = headers.set(ERROR_HANDLING_TYPE_HEADER, finalParameters.errorHandlingType);
 
-        headers = headers.set(IGNORE_ERROR_HANDLING, finalParameters.ignoreErrorHandling);
+        if (finalParameters.ignoreErrorHandling === true) {
+          headers = headers.set(IGNORE_ERROR_HANDLING, 'true');
+        }
 
         return { headers };
     }

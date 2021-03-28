@@ -58,6 +58,10 @@ export function generateUserData(token: string, config: NgxRbkUtilsConfig): any 
         user.username = '';
     }
 
+    if (user.avatar === undefined) {
+      user.avatar = '';
+    }
+
     if (user.roles === undefined) {
         user.roles = [];
     }
