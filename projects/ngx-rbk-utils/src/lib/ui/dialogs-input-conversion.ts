@@ -2,12 +2,22 @@ import {
   SimpleNamedEntity, SmzCalendarControl, SmzCheckBoxControl, SmzColorPickerControl,
   SmzControlType, SmzControlTypes, SmzCurrencyControl, SmzDialogFeature, SmzDropDownControl,
   SmzFileControl, SmzForm, SmzFormsBaseControl, SmzFormGroup, SmzMaskControl, SmzMultiSelectControl,
-  SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTextAreaControl, SmzTextControl, SmzTemplate
+  SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTextAreaControl, SmzTextControl, SmzTemplate, SmzListControl, SmzLinkedDropDownControl
 } from 'ngx-smz-dialogs';
 import { fixDate, isEmpty } from '../utils/utils';
+import { UiDefinitionsDbSelectors } from '../state/database/ui-definitions/ui-definitions.selectors';
 import { Store } from '@ngxs/store';
 
-export function convertFormFeature(groups: FormGroupConfig[], store: Store, entity: { [key: string]: any } = null, options: InputConversionOptions = null): SmzDialogFeature {
+export function convertFormFeature(
+  entityName: string,
+  store: Store,
+  entity: { [key: string]: any } = null,
+  options: InputConversionOptions = null
+): SmzDialogFeature {
+
+  const groups = store.selectSnapshot(UiDefinitionsDbSelectors.single(entityName, entity != null ? 'update' : 'create'));
+  if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
+
   const form: SmzForm<any> = {
     groups: [],
     behaviors: {}
@@ -20,7 +30,7 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store, enti
 
   // Reorder fileds if the options are available
   if (options != null && options.fieldsToOverwriteOrder) {
-    const  controls = [];
+    const controls = [];
 
     let groupIndex = 0;
     if (groups.length === 1) {
@@ -69,39 +79,32 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store, enti
 
     if (entity != null) {
       for (const input of group.children) {
-        if (input.propertyName.endsWith('Id')) {
-          if (entity[input.propertyName.substring(0, input.propertyName.length - 2)]?.id !== undefined) {
-            input.defaultValue = entity[input.propertyName.substring(0, input.propertyName.length - 2)].id;
-          }
-          else {
+        if (input.propertyName.endsWith('Id') && entity[input.propertyName.substring(0, input.propertyName.length - 2)]?.id !== undefined) {
+          input.defaultValue = entity[input.propertyName.substring(0, input.propertyName.length - 2)].id;
+        }
+        else
+        {
+          if (entity[input.propertyName] !== undefined) {
+            let propertyName = input.propertyName;
+
             // Check if the name wasn't replaced
             if (options != null && options.fieldsToConvert != null) {
               const replaceIndex = options.fieldsToConvert.findIndex(x => x.newName === input.propertyName);
               if (replaceIndex !== -1) {
-                input.defaultValue = entity[options.fieldsToConvert[replaceIndex].originalName];
-              }
-              else {
-                input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
+                propertyName = options.fieldsToConvert[replaceIndex].originalName;
               }
             }
-            else {
-              input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
+
+            // LinkedDropdown is supported only in this else scenario
+            if (input.type === SmzControlType.LINKED_DROPDOWN && (input as any).dependsOn != null)
+            {
+              const dependsOn = (input as any).dependsOn.propertyName;
+
+              const parent = group.children.find(x => x.propertyName === dependsOn);
+              parent.defaultValue = entity[dependsOn]?.id !== undefined ? entity[dependsOn].id : entity[dependsOn];
             }
-          }
-        }
-        else if (entity[input.propertyName] !== undefined) {
-          // Check if the name wasn't replaced
-          if (options != null && options.fieldsToConvert != null) {
-            const replaceIndex = options.fieldsToConvert.findIndex(x => x.newName === input.propertyName);
-            if (replaceIndex !== -1) {
-              input.defaultValue = entity[options.fieldsToConvert[replaceIndex].originalName];
-            }
-            else {
-              input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
-            }
-          }
-          else {
-            input.defaultValue = entity[input.propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
+
+            input.defaultValue = entity[propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
           }
         }
       }
@@ -137,6 +140,8 @@ export function convertFormFeature(groups: FormGroupConfig[], store: Store, enti
 
 function convertInputs(inputs: InputConfig[], store: Store, options: InputConversionOptions): SmzControlTypes[] {
   const results = [];
+
+  if (inputs == null) throw new Error('Inputs could not be null');
 
   for (const config of inputs) {
     if (config.controlType.id === `${SmzControlType.TEXT}`) {
@@ -192,7 +197,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         type: SmzControlType.DROPDOWN,
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
-        options: list
+        options: list,
       };
       results.push(input);
     }
@@ -278,6 +283,52 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
       };
       results.push(input);
     }
+
+    else if (config.controlType.id === `${SmzControlType.LIST}`) {
+      const input: SmzListControl = {
+        ...convertBaseControl(config),
+        defaultValue: [],
+        type: SmzControlType.LIST,
+        askBeforeRemoveItem: false,
+        editMode: 'inline',
+        showAddButton: true,
+        showClearButton: true,
+        showFilter: false,
+        showEditButton: true,
+        showMoveButton: true,
+        showRemoveButton: true,
+        showSortButton: false,
+      };
+      results.push(input);
+    }
+
+    else if (config.controlType.id === `${SmzControlType.LINKED_DROPDOWN}`) {
+      const data = getLinkedDropdownOptions(config, store, options);
+      const childConfig: InputConfig = config;
+      const parentConfig: InputConfig = { ...config, name: childConfig.linkedDisplayName, propertyName: childConfig.linkedPropertyName };
+
+      const parentInput: SmzDropDownControl<any> = {
+        ...convertBaseParentControl(parentConfig, childConfig),
+        defaultValue: config.required ? data.parentData[0].id : null,
+        type: SmzControlType.DROPDOWN,
+        filterMatchMode: config.filterMatchMode,
+        showFilter: config.showFilter,
+        options: data.parentData
+      };
+
+      const childInput: SmzLinkedDropDownControl<any> = {
+        ...convertBaseControl(childConfig),
+        defaultValue: config.required ? data.childrenData.find(x => x.parentId === data.parentData[0].id).data[0].id : null,
+        type: SmzControlType.LINKED_DROPDOWN,
+        filterMatchMode: config.filterMatchMode,
+        showFilter: config.showFilter,
+        dependsOn: { propertyName: childConfig.linkedPropertyName },
+        options: data.childrenData
+      };
+
+      results.push(parentInput);
+      results.push(childInput);
+    }
   }
 
   return results;
@@ -288,35 +339,73 @@ function getInputOptions(config: InputConfig, store: Store, options: InputConver
     return config.data;
   }
 
-  if (config.dataSource.id === '1') {
-    let stateData = undefined;
+  if (config.dataSource.id !== '1') {
+    throw new Error('Unsuported data source type');
+  }
 
-    if (options != null && options.fieldsToUseSelectors != null && options.fieldsToUseSelectors.find(x => x.propertyName === config.propertyName) != null) {
-      const selectorData = options.fieldsToUseSelectors.find(x => x.propertyName === config.propertyName);
+  let stateData = getDataFromStore(config, store, options);
 
-      stateData = store.selectSnapshot(selectorData.selector);
-    }
-    else if (!isEmpty(config.sourceName)) {
-      stateData = store.selectSnapshot(x => x.database[config.sourceName]?.items);
-    }
-    else {
-      throw new Error(`The field ${config.propertyName} data is set to come from a store, but the store name wasn't specified. Either specify it in the backend or specify a selector in the conversion options`);
+  if (!isEmpty(config.entityLabelPropertyName)) {
+    return stateData.map(x => ({ id: x.id, name: x[config.entityLabelPropertyName] }));
+  }
+  else {
+    return stateData;
+  }
+}
+
+function getLinkedDropdownOptions(config: InputConfig, store: Store, options: InputConversionOptions): { parentData: any[], childrenData: any[] } {
+  if (config.dataSource.id !== '1') {
+    throw new Error('Unsuported data source type');
+  }
+
+  let storeData = getDataFromStore(config, store, options);
+
+  const parentData: SimpleNamedEntity[] = [];
+  const childrenData: { parentId: string, data: SimpleNamedEntity[] }[] = [];
+
+  // Prepare the data for linked dropdowns
+  for (const item of storeData) {
+    if (item == null) {
+      throw new Error('One of the items in the array is null');
     }
 
-    if (stateData !== undefined) {
-      if (stateData !== null) {
-        if (!isEmpty(config.entityLabelPropertyName)) {
-          return stateData.map(x => ({ id: x.id, name: x[config.entityLabelPropertyName] }));
-        }
-        else {
-          return stateData;
-        }
-      }
+    if (item['children'] == null || item['children'].length === 0) {
+      throw new Error('For Linked Dropdowns the data from the store must have a children property that is not null or empty');
     }
-    else {
-      throw new Error('Could not read data from the database state');
+
+    parentData.push({ id: item.id, name: item.name });
+
+    for (const child of item['children']) {
+      childrenData.push({ parentId: item.id, data: item['children'].map(x => ({ id: x.id, name: x.name })) });
     }
   }
+
+  return { childrenData: childrenData, parentData: parentData };
+}
+
+function getDataFromStore(config: InputConfig, store: Store, options: InputConversionOptions) {
+  let storeData = null;
+  if (options != null && options.fieldsToUseSelectors != null && options.fieldsToUseSelectors.find(x => x.propertyName === config.propertyName) != null) {
+    const selectorData = options.fieldsToUseSelectors.find(x => x.propertyName === config.propertyName);
+
+    storeData = store.selectSnapshot(selectorData.selector);
+  }
+  else if (!isEmpty(config.sourceName)) {
+    storeData = store.selectSnapshot(x => x.database[config.sourceName]?.items);
+  }
+  else {
+    throw new Error(`The field ${config.propertyName} data is set to come from a store, but the store name wasn't specified. Either specify it in the backend or specify a selector in the conversion options`);
+  }
+
+  if (storeData === undefined) {
+    throw new Error('Could not read data from the database state');
+  }
+
+  if (storeData === null) {
+    throw new Error('The data was loaded from the store, but it seems to be null. Please check that your store is populated or that your selector is not returning null');
+  }
+
+  return storeData;
 }
 
 function convertBaseControl(config: InputConfig): SmzFormsBaseControl {
@@ -332,6 +421,20 @@ function convertBaseControl(config: InputConfig): SmzFormsBaseControl {
       isRequired: config.required,
       minLength: config.minLength,
       maxLength: config.maxLength,
+    },
+  };
+}
+
+function convertBaseParentControl(parentConfig: InputConfig, childConfig: InputConfig): SmzFormsBaseControl {
+  return {
+    name: childConfig.required ? parentConfig.name + ' *' : parentConfig.name,
+    propertyName: parentConfig.propertyName,
+    isVisible: childConfig.isVisible,
+    advancedSettings: {
+      excludeFromResponse: childConfig.excludeFromResponse,
+    },
+    validatorsPreset: {
+      isRequired: childConfig.required,
     },
   };
 }
@@ -375,6 +478,9 @@ export interface InputConfig {
   excludeFromResponse?: boolean;
 
   entityLabelPropertyName?: string;
+
+  linkedPropertyName?: string;
+  linkedDisplayName?: string;
 }
 
 export interface InputConversionOptions {
