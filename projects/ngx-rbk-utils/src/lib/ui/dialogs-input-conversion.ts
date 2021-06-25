@@ -84,17 +84,17 @@ export function convertFormFeature(
         }
         else
         {
-          if (entity[input.propertyName] !== undefined) {
-            let propertyName = input.propertyName;
-
-            // Check if the name wasn't replaced
-            if (options != null && options.fieldsToConvert != null) {
-              const replaceIndex = options.fieldsToConvert.findIndex(x => x.newName === input.propertyName);
-              if (replaceIndex !== -1) {
-                propertyName = options.fieldsToConvert[replaceIndex].originalName;
-              }
+          let propertyName = input.propertyName;
+          // Check if the name wasn't replaced
+          if (options != null && options.fieldsToConvert != null) {
+            const replaceIndex = options.fieldsToConvert.findIndex(x => x.newName === input.propertyName);
+            if (replaceIndex !== -1) {
+              propertyName = options.fieldsToConvert[replaceIndex].originalName;
             }
+          }
 
+          if (entity[propertyName] !== undefined) {
+            
             // LinkedDropdown is supported only in this else scenario
             if (input.type === SmzControlType.LINKED_DROPDOWN && (input as any).dependsOn != null)
             {
@@ -104,7 +104,7 @@ export function convertFormFeature(
               parent.defaultValue = entity[dependsOn]?.id !== undefined ? entity[dependsOn].id : entity[dependsOn];
             }
 
-            input.defaultValue = entity[propertyName]?.id !== undefined ? entity[input.propertyName].id : entity[input.propertyName];
+            input.defaultValue = entity[propertyName]?.id !== undefined ? entity[propertyName].id : entity[propertyName];
           }
         }
       }
