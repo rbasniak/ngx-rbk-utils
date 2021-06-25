@@ -32,14 +32,12 @@ export function isWithinTime(date: Date, interval: number): boolean {
 export function orderArrayByProperty(array: any[], property: string): any[] {
     return array.sort((a, b) => (a[property] as string).toLowerCase() > (b[property] as string).toLowerCase() ? 1 : -1);
 }
-
 /*
     Deep clone any dummy object
 */
 export function deepClone<T>(object: T): T {
-    return JSON.parse(JSON.stringify(object));
+  return JSON.parse(JSON.stringify(object));
 }
-
 /*
     Checks if a string is null, undefined or empty
 */
@@ -83,10 +81,13 @@ export function fixDateProperties(data: { [key: string]: any }) {
     if (data != null) {
         for (const key of Object.keys(data)) {
             if (typeof data[key] === 'string') {
-                if (key.startsWith('date') || key.endsWith('Date')) {
+                if (key.startsWith('date') || key.endsWith('Date') || key ==='birthdate') {
                     data[key] = fixStringDate(data[key]);
                 }
                 else if (key === 'lastUpdate') {
+                  data[key] = fixStringDate(data[key]);
+                }
+                else if (key === 'timestamp') {
                   data[key] = fixStringDate(data[key]);
                 }
                 else if (key === 'lastUpdated') {

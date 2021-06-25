@@ -12,7 +12,7 @@ import { HttpErrorInterceptor } from './error-handler/error.interceptor';
 import { GlobalPendingInterceptorService } from './http/global.pending.interceptor';
 import { LocalPendingInterceptorService } from './http/local.pending.interceptor';
 import { isEmpty } from './utils/utils';
-import { getInitialState, UiDefinitionsDbState } from './state/database/ui-definitions/ui-definitions.state';
+import { getInitialState, UiDefinitionsDbState, UI_DEFINITIONS_STATE_NAME } from './state/database/ui-definitions/ui-definitions.state';
 import { UiDefinitionsDbActions } from './state/database/ui-definitions/ui-definitions.actions';
 import { RouteReuseStrategy } from '@angular/router';
 import { CachedRouteReuseStrategy } from './utils/reusable-route';
@@ -89,7 +89,7 @@ export class NgxRbkUtilsModule {
                     cacheTimeout: 999
                 };
 
-                configuration.state.database['uiDefinitions'] = uiDefinitionsState;
+                configuration.state.database[UI_DEFINITIONS_STATE_NAME] = uiDefinitionsState;
             }
 
             const states = [];

@@ -534,8 +534,6 @@ The `BreadcrumService` is already injected by the library.
 
 * `orderArrayByProperty:`: sort an array of objects by a given property.
 
-* `deepClone:`: make a deep clone of a javascript object (only serializable properties are supported)
-
 * `isEmpty:`: checks wheter a string is `null`, `undefined` or `''`.
 
 * `clearArray:`: removes all elements of an array.

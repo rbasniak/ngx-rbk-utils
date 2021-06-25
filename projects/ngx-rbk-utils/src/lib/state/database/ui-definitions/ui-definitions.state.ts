@@ -6,6 +6,8 @@ import { UiDefinitionsService } from './ui-definitions.service';
 import { FormDefinitionData } from '../../../ui/dialogs-input-conversion';
 import { Observable } from 'rxjs';
 
+export const UI_DEFINITIONS_STATE_NAME = 'uiDefinitions';
+
 export interface UiDefinitionsDbStateModel {
     lastUpdated: Date;
     data: {[key: string]: FormDefinitionData};
@@ -18,7 +20,7 @@ export const getInitialState = (): UiDefinitionsDbStateModel => ({
 
 // @dynamic
 @State<UiDefinitionsDbStateModel>({
-    name: 'uiDefinitions',
+    name: UI_DEFINITIONS_STATE_NAME,
     defaults: getInitialState()
 })
 @Injectable()
