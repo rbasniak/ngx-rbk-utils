@@ -14,7 +14,9 @@ export class GlobalErrorHandler implements ErrorHandler {
   public handleError(error): void {
     const config = this.injector.get(NgxRbkUtilsConfig);
 
-    if (config.diagnostics.url != null) {
+    console.log('ERROR INTERCEPTOR', error);
+
+    if (config.diagnostics.url != null && error.status != 400) {
         const loggingService = this.injector.get(DiagnosticsService);
         const deviceService = this.injector.get(DeviceDetectorService);
         const store = this.injector.get(Store);

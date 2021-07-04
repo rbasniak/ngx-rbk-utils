@@ -67,3 +67,5 @@ export * from './lib/ui/dialogs-input-conversion';
 
 export * from './lib/pipes/rbk-safe-html.pipe';
 export * from './lib/pipes/rbk-pipes.module';
+
+export { CanAccess } from './lib/utils/can-access';
