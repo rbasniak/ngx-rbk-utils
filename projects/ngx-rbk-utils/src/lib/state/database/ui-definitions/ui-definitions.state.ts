@@ -3,8 +3,8 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { UiDefinitionsDbActions } from './ui-definitions.actions';
 import { UiDefinitionsService } from './ui-definitions.service';
-import { FormDefinitionData } from '../../../ui/dialogs-input-conversion';
 import { Observable } from 'rxjs';
+import { FormDefinitionData } from 'ngx-smz-dialogs';
 
 export const UI_DEFINITIONS_STATE_NAME = 'uiDefinitions';
 
