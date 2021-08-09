@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { BaseApiService } from '../../../http/base-api.service';
 import { Observable } from 'rxjs';
-import { FormDefinitionData } from '../../../ui/dialogs-input-conversion';
+import { FormDefinitionData } from 'ngx-smz-dialogs';
 
 @Injectable({providedIn: 'root'})
 export class UiDefinitionsService extends BaseApiService {

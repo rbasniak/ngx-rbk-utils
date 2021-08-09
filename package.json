@@ -1,6 +1,6 @@
 {
   "name": "ngx-rbk-demo",
-"version": "1.4.4",
+  "version": "1.4.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -33,11 +33,12 @@
     "@ngxs/devtools-plugin": "^3.7.1",
     "@ngxs/router-plugin": "^3.7.1",
     "@ngxs/store": "^3.7.1",
+    "angular2-uuid": "^1.1.1",
     "lodash-es": "^4.17.21",
     "ngx-device-detector": "^2.0.6",
     "ngx-pipes": "^2.7.5",
     "ngx-rbk-utils": "file:projects/dist/ngx-rbk-utils",
-    "ngx-smz-dialogs": "^1.1.8",
+    "ngx-smz-dialogs": "^1.5.0",
     "primeicons": "^4.1.0",
     "primeng": "^11.3.2",
     "rxjs": "^6.6.6",
