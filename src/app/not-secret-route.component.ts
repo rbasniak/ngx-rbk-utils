@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
@@ -10,17 +10,29 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 export class NotSecretRouteComponent implements OnInit {
     public count = 1;
     public text = '';
-    constructor() {
+    public config: { visible: boolean } = { visible: false }
+    constructor(private cdr: ChangeDetectorRef) {
 
     }
 
     ngOnInit() { }
 
+    public show(): void
+    {
+        this.config.visible = true;
+    }
+
+    public hide(): void
+    {
+        this.config.visible = false;
+    }
+
     public onLeaving(): void
     {
         console.log('onLeaving from component');
-
+        this.config.visible = false;
         this.count = 500;
+        this.cdr.detectChanges();
     }
 
     public onArriving(): void
@@ -32,5 +44,8 @@ export class NotSecretRouteComponent implements OnInit {
             this.count = 1;
             this.text = '';
         }, 3000);
+
+        // this.config.visible = true;
     }
+
 }

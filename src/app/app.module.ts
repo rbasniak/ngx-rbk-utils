@@ -18,6 +18,8 @@ import { NgxSmzDialogsModule, SmzControlType, SmzDialogsConfig, SmzFormsPresets 
 import { CommonModule } from '@angular/common';
 import { DialogsComponent } from './dialogs.component';
 import { NotSecretRouteComponent } from './not-secret-route.component';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
 
 const compactPreset: SmzFormsPresets = {
   formTemplates: {
@@ -114,6 +116,8 @@ const smzDialogsConfig: SmzDialogsConfig = {
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production}),
     ToastModule,
+    SidebarModule,
+    ButtonModule
   ],
   providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig },
 ],
